@@ -1,0 +1,12 @@
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.exe.config
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.exe
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.pdb
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csprojAssemblyReference.cache
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Main.resources
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Properties.Resources.resources
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.GenerateResource.cache
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.CoreCompileInputs.cache
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.exe
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.pdb
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.SettingsForm.resources
+C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.Home.resources
