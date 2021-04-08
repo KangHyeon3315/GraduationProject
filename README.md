@@ -6,6 +6,7 @@
 
 3. Anaconda 32비트 (키움 API가 64bit를 지원 안합니다)
   pyqt5, pandas, dart_fss, pykrx, pymysql, sqlalchemy 패키지를 먼저 설치해야합니다.
+  
 ################### 사용법 ###################
 
 1. C# 프로젝트 실행
