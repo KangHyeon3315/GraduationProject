@@ -52,6 +52,10 @@ namespace AutoTraderGUI.Library
                         {
                             Send(string.Format("RequestsDartKey;{0}", settings.info.DartAPI));
                         }
+                        else if (data[1] == "DBInfo")
+                        {
+                            Send(string.Format("DBInfo;{0};{1};{2};{3}", settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW));
+                        }
                         logInterface.WriteLog(data[0], "Financial Statement", Company, data[1]);
                         break;
                     case "log":

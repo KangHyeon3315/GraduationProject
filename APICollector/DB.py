@@ -4,9 +4,9 @@ import pymysql
 import datetime
 
 class DataBase:
-    def __init__(self):
-        self.conn = pymysql.connect(host="127.0.0.1", port=3306, user="bot", password="kanghyeon#3315", charset='utf8', cursorclass=pymysql.cursors.DictCursor)
-        self.engine_conn = create_engine('mysql+pymysql://{}:{}@{}'.format("bot", "kanghyeon#3315", "127.0.0.1"))
+    def __init__(self, IP, Port, ID, PW):
+        self.conn = pymysql.connect(host=IP, port=Port, user=ID, password=PW, charset='utf8', cursorclass=pymysql.cursors.DictCursor)
+        self.engine_conn = create_engine('mysql+pymysql://{}:{}@{}'.format(ID, PW, IP))
 
     def IsTableExists(self, schema, table):
         cursor = self.conn.cursor(pymysql.cursors.DictCursor)

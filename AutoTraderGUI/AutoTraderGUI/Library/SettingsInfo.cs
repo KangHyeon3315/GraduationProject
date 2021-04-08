@@ -15,6 +15,10 @@ namespace AutoTraderGUI.Library
         public int MaxRequestsCount;
         public float RequestsInterval;
         public string DartAPI;
+        public string DBIP;
+        public int DBPort;
+        public string DBID;
+        public string DBPW;
 
     }
 }

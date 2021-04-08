@@ -24,7 +24,30 @@ class Collector:
     def __init__(self):
         self.net = Network("APICollector")
         self.api = OpenApi(self.net)
-        self.DB = DataBase()
+
+        self.net.Requests("DBInfo")
+        repeat = 0
+        while True:
+            repeat += 1
+            if repeat >= 20:
+                self.net.Requests("DBInfo")
+                repeat = 0
+
+            if len(self.net.receiveQueue) > 0:
+                if self.net.receiveQueue[0].split(";")[0] == "DBInfo":
+                    DBIP = self.net.receiveQueue[0].split(";")[1]
+                    DBPort = int(self.net.receiveQueue[0].split(";")[2])
+                    DBID = self.net.receiveQueue[0].split(";")[3]
+                    DBPW = self.net.receiveQueue[0].split(";")[4]
+                    self.net.receiveQueue = self.net.receiveQueue[1:]
+                    break
+                else:
+                    self.net.receiveQueue.append(self.net.receiveQueue[0])
+                    self.net.receiveQueue = self.net.receiveQueue[1:]
+            time.sleep(0.1)
+        self.net.Log("Settings DB info")
+
+        self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
         self.open_time = "0840"
         self.close_time = "1535"
@@ -55,7 +78,13 @@ class Collector:
         # th.start()
 
         self.net.Requests("RequestsInterval")
+        repeat = 0
         while True:
+            repeat += 1
+            if repeat >= 20:
+                self.net.Requests("RequestsInterval")
+                repeat = 0
+
             if len(self.net.receiveQueue) > 0:
                 if self.net.receiveQueue[0].split(";")[0] == "RequestsInterval":
                     self.api.TR_REQ_TIME_INTERVAL = float(self.net.receiveQueue[0].split(";")[1])
@@ -63,6 +92,8 @@ class Collector:
                 else:
                     self.net.receiveQueue.append(self.net.receiveQueue[0])
                     self.net.receiveQueue = self.net.receiveQueue[1:]
+            time.sleep(0.1)
+
         self.net.Log("Settings Requests Interval : {}".format(self.api.TR_REQ_TIME_INTERVAL))
 
         try:

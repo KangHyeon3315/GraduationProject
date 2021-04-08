@@ -16,13 +16,41 @@ class Statement:
 
         self.today = datetime.datetime.today().strftime("%Y%m%d")
 
-        self.DB = DataBase()
+        self.net.Requests("DBInfo")
+        repeat = 0
+        while True:
+            repeat += 1
+            if repeat >= 20:
+                self.net.Requests("DBInfo")
+                repeat = 0
+
+            if len(self.net.receiveQueue) > 0:
+                if self.net.receiveQueue[0].split(";")[0] == "DBInfo":
+                    DBIP = self.net.receiveQueue[0].split(";")[1]
+                    DBPort = int(self.net.receiveQueue[0].split(";")[2])
+                    DBID = self.net.receiveQueue[0].split(";")[3]
+                    DBPW = self.net.receiveQueue[0].split(";")[4]
+                    self.net.receiveQueue = self.net.receiveQueue[1:]
+                    break
+                else:
+                    self.net.receiveQueue.append(self.net.receiveQueue[0])
+                    self.net.receiveQueue = self.net.receiveQueue[1:]
+            time.sleep(0.1)
+        self.net.Log("Settings DB info")
+
+        self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
+
         self.corp_info = self.DB.GetCompanyInfoTotalTable()
 
         self.net.Log("Collect Start Financial Statement")
         self.net.Requests("RequestsDartKey")
-        self.net.Requests("RequestsDartKey")
+        repeat = 0
         while True:
+            repeat += 1
+            if repeat >= 20:
+                self.net.Requests("RequestsDartKey")
+                repeat = 0
+
             if len(self.net.receiveQueue) > 0:
                 if self.net.receiveQueue[0].split(";")[0] == "RequestsDartKey":
                     API_Key = self.net.receiveQueue[0].split(";")[1]
@@ -30,7 +58,7 @@ class Statement:
                 else:
                     self.net.receiveQueue.append(self.net.receiveQueue[0])
                     self.net.receiveQueue = self.net.receiveQueue[1:]
-                time.sleep(0.1)
+            time.sleep(0.1)
         self.net.receiveQueue.clear()
         self.net.Log("Settings Requests Dart API Key")
 

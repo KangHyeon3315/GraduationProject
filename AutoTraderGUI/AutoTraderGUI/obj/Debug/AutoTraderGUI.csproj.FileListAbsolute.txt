@@ -10,3 +10,15 @@ C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.e
 C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.pdb
 C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.SettingsForm.resources
 C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.Home.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.exe.config
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.exe
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.pdb
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csprojAssemblyReference.cache
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.Home.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.SettingsForm.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Main.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Properties.Resources.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.GenerateResource.cache
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.CoreCompileInputs.cache
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.exe
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.pdb

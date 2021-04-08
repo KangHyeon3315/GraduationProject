@@ -54,11 +54,14 @@ namespace AutoTraderGUI.Library
                         progressInterface.CompleteCount = int.Parse(data[1]);
                         progressInterface.Progress = (int)(float.Parse(data[1]) / (float)(progressInterface.CompanyCount) * 100);
                         break;
-
                     case "Requests":
                         if (data[1] == "RequestsInterval")
                         {
                             Send(string.Format("RequestsInterval;{0}", settings.info.RequestsInterval));
+                        }
+                        else if(data[1] == "DBInfo")
+                        {
+                            Send(string.Format("DBInfo;{0};{1};{2};{3}", settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW));                            
                         }
                         logInterface.WriteLog(data[0], progressInterface.Task, progressInterface.Company, data[1]);
                         break;
