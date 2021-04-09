@@ -25,6 +25,26 @@ class Network:
             self.sock = None
 
     def Requests(self, msg):
+        self.RequestsData(msg)
+
+        repeat = 0
+        while True:
+            repeat += 1
+            if repeat >= 20:
+                self.RequestsData(msg)
+                repeat = 0
+
+            if len(self.receiveQueue) > 0:
+                if self.receiveQueue[0].split(";")[0] == msg:
+                    data = self.receiveQueue[0]
+                    self.receiveQueue = self.receiveQueue[1:]
+                    return data
+                else:
+                    self.receiveQueue.append(self.receiveQueue[0])
+                    self.receiveQueue = self.receiveQueue[1:]
+            time.sleep(0.2)
+
+    def RequestsData(self, msg):
         send_msg = "Requests;{}".format(msg)
 
         try:
@@ -130,7 +150,7 @@ class Network:
                 if length == 0:
                     continue
 
-                data = self.sock.recv(length)
+                data = self.sock.recv(length + 1)
 
                 msg = data.decode()
 

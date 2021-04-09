@@ -25,27 +25,14 @@ class Collector:
         self.net = Network("APICollector")
         self.api = OpenApi(self.net)
 
-        self.net.Requests("DBInfo")
-        repeat = 0
-        while True:
-            repeat += 1
-            if repeat >= 20:
-                self.net.Requests("DBInfo")
-                repeat = 0
-
-            if len(self.net.receiveQueue) > 0:
-                if self.net.receiveQueue[0].split(";")[0] == "DBInfo":
-                    DBIP = self.net.receiveQueue[0].split(";")[1]
-                    DBPort = int(self.net.receiveQueue[0].split(";")[2])
-                    DBID = self.net.receiveQueue[0].split(";")[3]
-                    DBPW = self.net.receiveQueue[0].split(";")[4]
-                    self.net.receiveQueue = self.net.receiveQueue[1:]
-                    break
-                else:
-                    self.net.receiveQueue.append(self.net.receiveQueue[0])
-                    self.net.receiveQueue = self.net.receiveQueue[1:]
-            time.sleep(0.1)
+        DBInfo = self.net.Requests("DBInfo").split(";")
+        self.net.receiveQueue.clear()
         self.net.Log("Settings DB info")
+
+        DBIP = DBInfo[1]
+        DBPort = int(DBInfo[2])
+        DBID = DBInfo[3]
+        DBPW = DBInfo[4]
 
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
@@ -77,23 +64,8 @@ class Collector:
         # th = threading.Thread(target=self.CheckRqCount)
         # th.start()
 
-        self.net.Requests("RequestsInterval")
-        repeat = 0
-        while True:
-            repeat += 1
-            if repeat >= 20:
-                self.net.Requests("RequestsInterval")
-                repeat = 0
-
-            if len(self.net.receiveQueue) > 0:
-                if self.net.receiveQueue[0].split(";")[0] == "RequestsInterval":
-                    self.api.TR_REQ_TIME_INTERVAL = float(self.net.receiveQueue[0].split(";")[1])
-                    break
-                else:
-                    self.net.receiveQueue.append(self.net.receiveQueue[0])
-                    self.net.receiveQueue = self.net.receiveQueue[1:]
-            time.sleep(0.1)
-
+        interval = float(self.net.Requests("RequestsInterval").split(';')[1])
+        self.api.TR_REQ_TIME_INTERVAL = interval
         self.net.Log("Settings Requests Interval : {}".format(self.api.TR_REQ_TIME_INTERVAL))
 
         try:

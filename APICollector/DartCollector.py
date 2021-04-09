@@ -16,54 +16,27 @@ class Statement:
 
         self.today = datetime.datetime.today().strftime("%Y%m%d")
 
-        self.net.Requests("DBInfo")
-        repeat = 0
-        while True:
-            repeat += 1
-            if repeat >= 20:
-                self.net.Requests("DBInfo")
-                repeat = 0
-
-            if len(self.net.receiveQueue) > 0:
-                if self.net.receiveQueue[0].split(";")[0] == "DBInfo":
-                    DBIP = self.net.receiveQueue[0].split(";")[1]
-                    DBPort = int(self.net.receiveQueue[0].split(";")[2])
-                    DBID = self.net.receiveQueue[0].split(";")[3]
-                    DBPW = self.net.receiveQueue[0].split(";")[4]
-                    self.net.receiveQueue = self.net.receiveQueue[1:]
-                    break
-                else:
-                    self.net.receiveQueue.append(self.net.receiveQueue[0])
-                    self.net.receiveQueue = self.net.receiveQueue[1:]
-            time.sleep(0.1)
+        DBInfo = self.net.Requests("DBInfo").split(";")
+        self.net.receiveQueue.clear()
         self.net.Log("Settings DB info")
+
+        DBIP = DBInfo[1]
+        DBPort = int(DBInfo[2])
+        DBID = DBInfo[3]
+        DBPW = DBInfo[4]
 
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
         self.corp_info = self.DB.GetCompanyInfoTotalTable()
 
-        self.net.Log("Collect Start Financial Statement")
-        self.net.Requests("RequestsDartKey")
-        repeat = 0
-        while True:
-            repeat += 1
-            if repeat >= 20:
-                self.net.Requests("RequestsDartKey")
-                repeat = 0
+        API_Key = self.net.Requests("RequestsDartKey").split(';')[1]
 
-            if len(self.net.receiveQueue) > 0:
-                if self.net.receiveQueue[0].split(";")[0] == "RequestsDartKey":
-                    API_Key = self.net.receiveQueue[0].split(";")[1]
-                    break
-                else:
-                    self.net.receiveQueue.append(self.net.receiveQueue[0])
-                    self.net.receiveQueue = self.net.receiveQueue[1:]
-            time.sleep(0.1)
         self.net.receiveQueue.clear()
         self.net.Log("Settings Requests Dart API Key")
 
         dart.set_api_key(API_Key)
 
+        self.net.Log("Collect Start Financial Statement")
         self.corp_list = dart.get_corp_list()
 
         self.get_financial_statement()
@@ -86,7 +59,7 @@ class Statement:
             if self.corp_info.loc[idx, "financial_statement"] == "0":
                 year_range = range(2015, datetime.date.today().year)
             else:
-                year_range = datetime.date.today().year - 1
+                year_range = [datetime.date.today().year - 1]
 
             result = None
             for year in year_range:
