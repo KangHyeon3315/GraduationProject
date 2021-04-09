@@ -15,11 +15,6 @@ import pandas as pd
 
 from PyQt5.QtWidgets import *
 
-pd.set_option('display.max_columns', 100)                       # 출력할 열의 최대개수
-pd.set_option('display.max_colwidth', 1000)                      # 출력할 열의 너비
-pd.set_option('display.unicode.east_asian_width', True)        # 유니코드 사용 너비 조정
-
-
 class Collector:
     def __init__(self):
         self.net = Network("APICollector")
