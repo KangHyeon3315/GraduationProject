@@ -27,6 +27,13 @@ namespace AutoTraderGUI.Library
 
             LogTh = new Thread(new ThreadStart(LogManaging));
             LogTh.Start();
+
+        }
+
+        public void Close()
+        {
+            LogTh.Abort();
+            ReceiveTh.Abort();
         }
 
         void LogManaging()

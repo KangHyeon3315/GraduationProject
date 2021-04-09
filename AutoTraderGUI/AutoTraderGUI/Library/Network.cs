@@ -75,5 +75,6 @@ namespace AutoTraderGUI.Library
                 logInterface.WriteLog("exception", "RunServer", "None", ex.Message);
             }
         }
+
     }
 }

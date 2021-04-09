@@ -43,8 +43,8 @@ namespace AutoTraderGUI
 
         private void MainFormClosing(object sender, FormClosingEventArgs e)
         {
+            CloseDartCollector();
             CloseAPICollector();
-
             System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
@@ -86,10 +86,11 @@ namespace AutoTraderGUI
         {
             if (APICollecotrPro != null && !APICollecotrPro.HasExited)
             {
+                net.apiCollector.Close();
                 logInterface.WriteLog("log", "None", "None", "Close API Collector");
                 APICollecotrPro.Kill();
             }
-                
+
         }
 
         private void SettingsClick(object sender, EventArgs e)
@@ -145,6 +146,7 @@ namespace AutoTraderGUI
         {
             if (DartCollecotrPro != null && !DartCollecotrPro.HasExited)
             {
+                net.dartCollector.Close();
                 logInterface.WriteLog("log", "None", "None", "Close Dart Collector");
                 DartCollecotrPro.Kill();
             }
