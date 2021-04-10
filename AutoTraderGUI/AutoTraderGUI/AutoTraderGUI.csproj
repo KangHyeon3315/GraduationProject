@@ -60,11 +60,13 @@
     </Compile>
     <Compile Include="Library\APICollector.cs" />
     <Compile Include="Library\Client.cs" />
+    <Compile Include="Library\CodeFile1.cs" />
     <Compile Include="Library\Common.cs" />
     <Compile Include="Library\DartCollector.cs" />
     <Compile Include="Library\Network.cs" />
     <Compile Include="Library\Settings.cs" />
     <Compile Include="Library\SettingsInfo.cs" />
+    <Compile Include="Library\Test.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
