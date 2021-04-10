@@ -82,7 +82,7 @@ namespace AutoTraderGUI
                 APICollectorPri.Arguments = settings.info.APICollectorPath;
 
                 APICollectorPri.UseShellExecute = false;
-                APICollectorPri.CreateNoWindow = false;
+                APICollectorPri.CreateNoWindow = true;
                 APICollectorPri.RedirectStandardOutput = false;
                 APICollectorPri.RedirectStandardError = false;
 
@@ -149,7 +149,7 @@ namespace AutoTraderGUI
                 DartCollectorPri.Arguments = settings.info.DartCollectorPath;
 
                 DartCollectorPri.UseShellExecute = false;
-                DartCollectorPri.CreateNoWindow = false;
+                DartCollectorPri.CreateNoWindow = true;
                 DartCollectorPri.RedirectStandardOutput = false;
                 DartCollectorPri.RedirectStandardError = false;
 
@@ -198,6 +198,8 @@ namespace AutoTraderGUI
             {
                 CloseAPICollector();
                 home.RqCount = 0;
+                home.Company = "None";
+                ExecuteAPICollector();
             }
             
             if (net.dartCollector != null && net.dartCollector.Complete)

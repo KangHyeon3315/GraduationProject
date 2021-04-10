@@ -24,6 +24,7 @@ namespace AutoTraderGUI.Library
 
             LogTh = new Thread(new ThreadStart(LogManaging));
             LogTh.Start();
+
         }
 
         public void Close()
@@ -36,7 +37,7 @@ namespace AutoTraderGUI.Library
 
         void LogManaging()
         {
-            while (true)
+            while (sock.Connected)
             {
                 string ReceiveMsg = ReceiveQueue.Get();
 

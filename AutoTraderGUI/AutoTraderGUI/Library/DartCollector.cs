@@ -40,7 +40,7 @@ namespace AutoTraderGUI.Library
 
         void LogManaging()
         {
-            while (true)
+            while (sock.Connected)
             {
                 string ReceiveMsg = ReceiveQueue.Get();
 

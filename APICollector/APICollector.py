@@ -13,11 +13,17 @@ import traceback
 import numpy as np
 import pandas as pd
 
+from pykrx import stock
 from PyQt5.QtWidgets import *
 
 class Collector:
     def __init__(self):
         self.net = Network("APICollector")
+
+        self.net.Company("None")
+        self.net.CompleteCount(0)
+        self.net.CompanyCount(0)
+
         self.api = OpenApi(self.net)
 
         DBInfo = self.net.Requests("DBInfo").split(";")
@@ -133,8 +139,8 @@ class Collector:
         self.net.Log("Daily Collecting Start")
         self.net.CompanyCount(len(self.df_code))
 
-        if not self.DB.IsSchemaExists("daily_chart_data"):
-            self.DB.CreateSchema("daily_chart_data")
+        if not self.DB.IsSchemaExists("daily_chart"):
+            self.DB.CreateSchema("daily_chart")
 
         count = 0
         for i in range(len(self.df_code)):
@@ -150,8 +156,8 @@ class Collector:
             self.net.CompleteCount(count)
 
             # DB의 최신 데이터 가져오기기
-            if self.DB.IsTableExists("daily_chart_data", name):
-                LatestData = self.DB.GetLatestData("daily_chart_data", name)
+            if self.DB.IsTableExists("daily_chart", name):
+                LatestData = self.DB.GetLatestData("daily_chart", name)
 
                 date = LatestData["date"]
             else:
@@ -161,13 +167,35 @@ class Collector:
             self.net.Log("chart Collecting")
             chart_data = self.api.GetDailyData(code=code, date=date)
 
-            self.net.Log("투자자 매수 수량")
+            # start_date = chart_data.loc[0, "date"]
+            # end_date = chart_data.loc[len(chart_data) - 1, "date"]
+
+            # self.net.Log("일자별 DIV/BPS/PER/EPS 조회")
+            # data = stock.get_market_fundamental_by_date(start_date, end_date, code).reset_index()
+            # data = data.rename(columns={"날짜": "date"})
+
+            # if not data.empty:
+            #    self.net.Log("data is empty")
+            #    data["date"] = data["date"].astype(str).str.replace("-", "")
+            # else:
+            #    data = pd.DataFrame(columns=data.columns, index=range(len(chart_data))).fillna(0)
+            #    data["date"] = chart_data["date"]
+            # result = pd.merge(chart_data, data)
+            result = chart_data
+
+            self.net.Log("투자자 매수 수량 조회")
             investor_infomation_buy_volume = self.api.GetInvestorBuyVolume(code=code, date=date)
 
-            self.net.Log("투자자 매도 수량")
+            for column in investor_infomation_buy_volume.columns[1:]:
+                investor_infomation_buy_volume[column] = investor_infomation_buy_volume[column].astype(int).abs()
+
+            self.net.Log("투자자 매도 수량 조회")
             investor_infomation_sell_volume = self.api.GetInvestorSellVolume(code=code, date=date)
 
-            result = pd.merge(chart_data, investor_infomation_buy_volume)
+            for column in investor_infomation_sell_volume.columns[1:]:
+                investor_infomation_sell_volume[column] = investor_infomation_sell_volume[column].astype(int).abs()
+
+            result = pd.merge(result, investor_infomation_buy_volume)
             result = pd.merge(result, investor_infomation_sell_volume)
 
             # 무결성 체크
@@ -179,19 +207,81 @@ class Collector:
 
                 self.net.Log("chart Collecting")
                 chart_data = self.api.GetDailyData(code=code, date="0")
-                self.net.Log("투자자 매수 수량")
+
+                # start_date = chart_data.loc[0, "date"]
+                # end_date = chart_data.loc[len(chart_data) - 1, "date"]
+
+                # self.net.Log("일자별 DIV/BPS/PER/EPS 조회")
+                # data = stock.get_market_fundamental_by_date(start_date, end_date, code).reset_index()
+
+                # data = data.rename(columns={"날짜": "date"})
+
+                # if not data.empty:
+                #     self.net.Log("data is empty")
+                #     data["date"] = data["date"].astype(str).str.replace("-", "")
+                # else:
+                #     data = pd.DataFrame(columns=data.columns, index=range(len(chart_data))).fillna(0)
+                #     data["date"] = chart_data["date"]
+
+                # result = pd.merge(chart_data, data)
+                result = chart_data
+
+                self.net.Log("투자자 매수 수량 조회")
                 investor_infomation_buy_volume = self.api.GetInvestorBuyVolume(code=code, date="0")
-                self.net.Log("투자자 매도 수량")
+
+                for column in investor_infomation_buy_volume.columns[1:]:
+                    investor_infomation_buy_volume[column] = investor_infomation_buy_volume[column].astype(int).abs()
+
+                self.net.Log("투자자 매도 수량 조회")
                 investor_infomation_sell_volume = self.api.GetInvestorSellVolume(code=code, date="0")
 
-                result = pd.merge(chart_data, investor_infomation_buy_volume)
+                for column in investor_infomation_sell_volume.columns[1:]:
+                    investor_infomation_sell_volume[column] = investor_infomation_sell_volume[column].astype(int).abs()
+
+                result = pd.merge(result, investor_infomation_buy_volume)
                 result = pd.merge(result, investor_infomation_sell_volume)
+
+            start_date = result.loc[0, "date"]
+            end_date = result.loc[len(result) - 1, "date"]
+
+            self.net.Log("기관별 순매수 금액 조회")
+            data = stock.get_market_trading_value_by_date(start_date, end_date, code, detail=True).reset_index()
+            data = data.iloc[:, :-1]
+            data = data.rename(columns={"날짜": "date"})
+            data["date"] = data["date"].astype(str).str.replace("-", "")
+            for column in data.columns[1:]:
+                data = data.rename(columns={column: "{}_순매수금액".format(column)})
+
+            result = pd.merge(result, data)
+            time.sleep(2)
+
+            self.net.Log("기관별 매수 금액 조회")
+            data = stock.get_market_trading_value_by_date(start_date, end_date, code, on="매수", detail=True).reset_index()
+            data = data.iloc[:, :-1]
+            data = data.rename(columns={"날짜": "date"})
+            data["date"] = data["date"].astype(str).str.replace("-", "")
+            for column in data.columns[1:]:
+                data = data.rename(columns={column: "{}_매수금액".format(column)})
+
+            result = pd.merge(result, data)
+            time.sleep(2)
+
+            self.net.Log("기관별 매도 금액 조회")
+            data = stock.get_market_trading_value_by_date(start_date, end_date, code, on="매도", detail=True).reset_index()
+            data = data.iloc[:, :-1]
+            data = data.rename(columns={"날짜": "date"})
+            data["date"] = data["date"].astype(str).str.replace("-", "")
+            for column in data.columns[1:]:
+                data = data.rename(columns={column: "{}_매도금액".format(column)})
+
+            result = pd.merge(result, data)
 
             result = result.loc[result["date"] != date]
             result = result.loc[result["date"] <= self.today]
+            result = result.reset_index(drop=True)
 
             # DB 업로드
-            self.DB.UpdateTable("daily_chart_data", name, result)
+            self.DB.UpdateTable("daily_chart", name, result)
             self.DB.SetScheduleInfo(code, "daily_collecting", self.today)
             self.net.Log("Complete {}".format(name))
             # break
@@ -203,8 +293,8 @@ class Collector:
         self.net.Log("Min Collecting Start")
         self.net.CompanyCount(len(self.df_code))
 
-        if not self.DB.IsSchemaExists("min_chart_data"):
-            self.DB.CreateSchema("min_chart_data")
+        if not self.DB.IsSchemaExists("min_chart"):
+            self.DB.CreateSchema("min_chart")
 
         count = 0
 
@@ -221,8 +311,8 @@ class Collector:
             self.net.CompleteCount(count)
 
             # DB의 최신 데이터 가져오기기
-            if self.DB.IsTableExists("min_chart_data", name):
-                LatestData = self.DB.GetLatestData("min_chart_data", name)
+            if self.DB.IsTableExists("min_chart", name):
+                LatestData = self.DB.GetLatestData("min_chart", name)
 
                 date = LatestData["date"]
             else:
@@ -230,32 +320,31 @@ class Collector:
                 date = "0"
 
             self.net.Log("chart collecting")
-            chart_data = self.api.GetDailyData(code=code, date=date)
-            self.net.Log("투자자 매수 수량")
-            investor_infomation_buy_volume = self.api.GetInvestorBuyVolume(code=code, date=date)
-            self.net.Log("투자자 매도 수량")
-            investor_infomation_sell_volume = self.api.GetInvestorSellVolume(code=code, date=date)
-
-            result = pd.merge(chart_data, investor_infomation_buy_volume)
-            result = pd.merge(result, investor_infomation_sell_volume)
+            result = self.api.GetMinData(code=code, date=date)
 
             # 무결성 체크
             if LatestData is not None and result.loc[result["date"] == date, "close"].iloc[0] != LatestData["close"]:
+
                 self.net.Log("Data is Not Equal")
-                # 데이터 삭제
-                self.DB.DropTable("daily_chart_data", name)
 
-                chart_data = self.api.GetDailyData(code=code, date="0")
-                investor_infomation_buy_volume = self.api.GetInvestorBuyVolume(code=code, date="0")
-                investor_infomation_sell_volume = self.api.GetInvestorSellVolume(code=code, date="0")
+                adjust_ratio = result.loc[result["date"] == date, "close"].iloc[0] / LatestData["close"]
+                volume_ratio = result.loc[result["date"] == date, "volume"].iloc[0] / LatestData["volume"]
 
-                result = pd.merge(chart_data, investor_infomation_buy_volume)
-                result = pd.merge(result, investor_infomation_sell_volume)
+                data = self.DB.GetTotalTable(schema="min_chart", table=name)
+                data["open"] = (data["open"] * adjust_ratio).astype(int)
+                data["high"] = (data["high"] * adjust_ratio).astype(int)
+                data["low"] = (data["low"] * adjust_ratio).astype(int)
+                data["close"] = (data["close"] * adjust_ratio).astype(int)
+                data["volume"] = (data["volume"] * volume_ratio).astype(int)
+                self.DB.DropTable(schema="min_chart", table=name)
+                self.DB.UpdateTable("min_chart", name, data)
+
+                result = self.api.GetDailyData(code=code, date="0")
 
             result = result.loc[result["date"] != date]
 
             # DB 업로드
-            self.DB.UpdateTable("min_chart_data", name, result)
+            self.DB.UpdateTable("min_chart", name, result)
             self.DB.SetScheduleInfo(code, "min_collecting", self.today)
             self.net.Log("Complete {}".format(name))
             # break
