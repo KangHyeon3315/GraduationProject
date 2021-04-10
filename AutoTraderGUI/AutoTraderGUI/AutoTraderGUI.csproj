@@ -66,7 +66,6 @@
     <Compile Include="Library\Network.cs" />
     <Compile Include="Library\Settings.cs" />
     <Compile Include="Library\SettingsInfo.cs" />
-    <Compile Include="Library\Test.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
