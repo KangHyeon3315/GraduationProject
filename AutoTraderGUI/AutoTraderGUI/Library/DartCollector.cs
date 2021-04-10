@@ -32,8 +32,10 @@ namespace AutoTraderGUI.Library
 
         public void Close()
         {
-            LogTh.Abort();
-            ReceiveTh.Abort();
+            if(LogTh.IsAlive)
+                LogTh.Abort();
+            if(ReceiveTh.IsAlive)
+                ReceiveTh.Abort();
         }
 
         void LogManaging()

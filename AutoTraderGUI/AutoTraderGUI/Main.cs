@@ -39,6 +39,8 @@ namespace AutoTraderGUI
 
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(home);
+
+            timer1.Start();
         }
 
         private void MainFormClosing(object sender, FormClosingEventArgs e)
@@ -56,8 +58,18 @@ namespace AutoTraderGUI
                 return;
             }
 
-            APICollectorTh = new Thread(new ThreadStart(ExecuteAPICollector));
-            APICollectorTh.Start();
+
+            if (APICollecotrPro != null && !APICollecotrPro.HasExited)
+            {
+                CloseAPICollector();
+            }
+            else
+            {
+                APICollectorTh = new Thread(new ThreadStart(ExecuteAPICollector));
+                APICollectorTh.Start();
+            }
+
+            
 
         }
 
@@ -117,8 +129,15 @@ namespace AutoTraderGUI
                 return;
             }
 
-            DartCollectorTh = new Thread(new ThreadStart(ExecuteDartCollector));
-            DartCollectorTh.Start();
+            if (DartCollecotrPro != null && !DartCollecotrPro.HasExited)
+            {
+                CloseDartCollector();
+            }
+            else
+            {
+                DartCollectorTh = new Thread(new ThreadStart(ExecuteDartCollector));
+                DartCollectorTh.Start();
+            }
         }
 
         void ExecuteDartCollector()
@@ -155,12 +174,33 @@ namespace AutoTraderGUI
 
         private void CheckSystem(object sender, EventArgs e)
         {
-            if(home.RqCount == settings.info.MaxRequestsCount - 10)
+            
+            if (APICollecotrPro != null && !APICollecotrPro.HasExited)
+            {
+                aPICollectorToolStripMenuItem.Text = "API Collector 종료";
+            }
+            else
+            {
+                aPICollectorToolStripMenuItem.Text = "API Collector 시작";
+            }
+            
+            
+            if (DartCollecotrPro != null && !DartCollecotrPro.HasExited)
+            {
+                dartCollectorToolStripMenuItem.Text = "Dart Collector 종료";
+            }
+            else
+            {
+                dartCollectorToolStripMenuItem.Text = "Dart Collector 시작";
+            }
+
+            if (home.RqCount == settings.info.MaxRequestsCount - 10)
             {
                 CloseAPICollector();
                 home.RqCount = 0;
             }
-            if (net.dartCollector.Complete)
+            
+            if (net.dartCollector != null && net.dartCollector.Complete)
             {
                 CloseDartCollector();
             }
