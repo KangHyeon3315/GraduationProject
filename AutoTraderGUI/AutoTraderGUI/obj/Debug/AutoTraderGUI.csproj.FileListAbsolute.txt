@@ -22,3 +22,7 @@ F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.CoreCompileInputs.cache
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.exe
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.pdb
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.CollectorProgressControl.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.EmptyControl.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.LogViewerControl.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.AlgorithmInfoControl.resources

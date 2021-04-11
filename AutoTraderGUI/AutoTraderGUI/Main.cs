@@ -194,11 +194,11 @@ namespace AutoTraderGUI
                 dartCollectorToolStripMenuItem.Text = "Dart Collector 시작";
             }
 
-            if (home.RqCount == settings.info.MaxRequestsCount - 10)
+            if (progressInterface.RqCount == settings.info.MaxRequestsCount - 10)
             {
                 CloseAPICollector();
-                home.RqCount = 0;
-                home.Company = "None";
+                progressInterface.RqCount = 0;
+                progressInterface.Company = "None";
                 ExecuteAPICollector();
             }
             
@@ -206,6 +206,12 @@ namespace AutoTraderGUI
             {
                 CloseDartCollector();
             }
+        }
+
+        private void ClickHome(object sender, EventArgs e)
+        {
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(home);
         }
     }
 }

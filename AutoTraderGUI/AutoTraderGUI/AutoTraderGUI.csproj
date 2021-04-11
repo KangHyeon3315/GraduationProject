@@ -46,11 +46,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AlgorithmInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\AlgorithmInfoControl.Designer.cs">
+      <DependentUpon>AlgorithmInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CollectorProgressControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\CollectorProgressControl.Designer.cs">
+      <DependentUpon>CollectorProgressControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmptyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\EmptyControl.Designer.cs">
+      <DependentUpon>EmptyControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Home.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LogViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\LogViewerControl.Designer.cs">
+      <DependentUpon>LogViewerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
@@ -75,8 +99,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AlgorithmInfoControl.resx">
+      <DependentUpon>AlgorithmInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CollectorProgressControl.resx">
+      <DependentUpon>CollectorProgressControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmptyControl.resx">
+      <DependentUpon>EmptyControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LogViewerControl.resx">
+      <DependentUpon>LogViewerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

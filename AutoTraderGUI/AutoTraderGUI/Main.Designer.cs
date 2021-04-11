@@ -40,6 +40,7 @@ namespace AutoTraderGUI
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.IconList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -67,14 +68,14 @@ namespace AutoTraderGUI
             // aPICollectorToolStripMenuItem
             // 
             this.aPICollectorToolStripMenuItem.Name = "aPICollectorToolStripMenuItem";
-            this.aPICollectorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aPICollectorToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.aPICollectorToolStripMenuItem.Text = "API Collector";
             this.aPICollectorToolStripMenuItem.Click += new System.EventHandler(this.APICollectorToolStripMenuItem_Click);
             // 
             // dartCollectorToolStripMenuItem
             // 
             this.dartCollectorToolStripMenuItem.Name = "dartCollectorToolStripMenuItem";
-            this.dartCollectorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dartCollectorToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.dartCollectorToolStripMenuItem.Text = "Dart Collector";
             this.dartCollectorToolStripMenuItem.Click += new System.EventHandler(this.DartCollectorToolStripMenuItem_Click);
             // 
@@ -103,6 +104,7 @@ namespace AutoTraderGUI
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.ClickHome);
             // 
             // MainPanel
             // 
@@ -118,6 +120,12 @@ namespace AutoTraderGUI
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.CheckSystem);
+            // 
+            // IconList
+            // 
+            this.IconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("IconList.ImageStream")));
+            this.IconList.TransparentColor = System.Drawing.Color.Transparent;
+            this.IconList.Images.SetKeyName(0, "home-512.png");
             // 
             // Main
             // 
@@ -152,6 +160,7 @@ namespace AutoTraderGUI
         private System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.ToolStripMenuItem dartCollectorToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ImageList IconList;
     }
 }
 
