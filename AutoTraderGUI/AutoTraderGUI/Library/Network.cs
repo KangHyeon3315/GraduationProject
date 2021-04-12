@@ -31,6 +31,15 @@ namespace AutoTraderGUI.Library
             serverTh.Start();
         }
 
+        public void RebootServer()
+        {
+            server.Close();
+            serverTh.Abort();
+
+            serverTh = new Thread(new ThreadStart(RunServer));
+            serverTh.Start();
+        }
+
         void RunServer()
         {
             IPEndPoint ipep = new IPEndPoint(IPAddress.Any, 7000);
@@ -39,35 +48,35 @@ namespace AutoTraderGUI.Library
 
             server.Bind(ipep);
 
-            server.Listen(3);
+            server.Listen(10);
 
-            logInterface.WriteLog("Log", "None", "None", "Run Server Thread");
+            logInterface.WriteLog("Debug", "None", "None", "Run Server Thread");
 
             try
             {
                 while (true)
                 {
-                    logInterface.WriteLog("Log", "None", "None", "Wait Accept Client");
+                    logInterface.WriteLog("Debug", "None", "None", "Wait Accept Client");
                     Socket sock = server.Accept();
                     Library.Client client = new Library.Client(sock, logInterface);
 
                     if(client.role == Role.APICollector)
                     {
-                        logInterface.WriteLog("Log", "None", "None", "Allocate API Collector");
+                        logInterface.WriteLog("Debug", "None", "None", "Allocate API Collector");
                         apiCollector = new APICollector(sock, logInterface, progressInterface, settings);
                         apiCollector.ReceiveQueue = client.ReceiveQueue;
                         client.ReceiveTh.Abort();
                     }
                     else if(client.role == Role.DartCollector)
                     {
-                        logInterface.WriteLog("Log", "None", "None", "Allocate Dart Collector");
+                        logInterface.WriteLog("Debug", "None", "None", "Allocate Dart Collector");
                         dartCollector = new DartCollector(sock, logInterface, settings);
                         dartCollector.ReceiveQueue = client.ReceiveQueue;
                         client.ReceiveTh.Abort();
                     }
                     else
                     {
-                        logInterface.WriteLog("Log", "None", "None", "UnKnown Role's Process : " + client.role.ToString());
+                        logInterface.WriteLog("Debug", "None", "None", "UnKnown Role's Process : " + client.role.ToString());
                     }
                     
                 }

@@ -26,15 +26,19 @@ class Collector:
 
         self.api = OpenApi(self.net)
 
-        DBInfo = self.net.Requests("DBInfo").split(";")
-        self.net.receiveQueue.clear()
-        self.net.Log("Settings DB info")
+        # DBInfo = self.net.Requests("DBInfo").split(";")
+        # self.net.receiveQueue.clear()
+        # self.net.Log("Settings DB info")
 
-        DBIP = DBInfo[1]
-        DBPort = int(DBInfo[2])
-        DBID = DBInfo[3]
-        DBPW = DBInfo[4]
+        # DBIP = DBInfo[1]
+        # DBPort = int(DBInfo[2])
+        # DBID = DBInfo[3]
+        # DBPW = DBInfo[4]
 
+        DBIP = sys.argv[2]
+        DBPort = int(sys.argv[3])
+        DBID = sys.argv[4]
+        DBPW = sys.argv[5]
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
         self.open_time = "0840"
@@ -65,7 +69,8 @@ class Collector:
         # th = threading.Thread(target=self.CheckRqCount)
         # th.start()
 
-        interval = float(self.net.Requests("RequestsInterval").split(';')[1])
+        # interval = float(self.net.Requests("RequestsInterval").split(';')[1])
+        interval = float(sys.argv[1])
         self.api.TR_REQ_TIME_INTERVAL = interval
         self.net.Log("Settings Requests Interval : {}".format(self.api.TR_REQ_TIME_INTERVAL))
 
@@ -244,41 +249,46 @@ class Collector:
             start_date = result.loc[0, "date"]
             end_date = result.loc[len(result) - 1, "date"]
 
-            self.net.Log("기관별 순매수 금액 조회")
-            data = stock.get_market_trading_value_by_date(start_date, end_date, code, detail=True).reset_index()
-            data = data.iloc[:, :-1]
-            data = data.rename(columns={"날짜": "date"})
-            data["date"] = data["date"].astype(str).str.replace("-", "")
-            for column in data.columns[1:]:
-                data = data.rename(columns={column: "{}_순매수금액".format(column)})
+            try:
+                self.net.Log("기관별 순매수 금액 조회")
+                data = stock.get_market_trading_value_by_date(start_date, end_date, code, detail=True).reset_index()
+                data = data.iloc[:, :-1]
+                data = data.rename(columns={"날짜": "date"})
+                data["date"] = data["date"].astype(str).str.replace("-", "")
+                for column in data.columns[1:]:
+                    data = data.rename(columns={column: "{}_순매수금액".format(column)})
 
-            result = pd.merge(result, data)
-            time.sleep(2)
+                result = pd.merge(result, data)
+                time.sleep(1)
 
-            self.net.Log("기관별 매수 금액 조회")
-            data = stock.get_market_trading_value_by_date(start_date, end_date, code, on="매수", detail=True).reset_index()
-            data = data.iloc[:, :-1]
-            data = data.rename(columns={"날짜": "date"})
-            data["date"] = data["date"].astype(str).str.replace("-", "")
-            for column in data.columns[1:]:
-                data = data.rename(columns={column: "{}_매수금액".format(column)})
+                self.net.Log("기관별 매수 금액 조회")
+                data = stock.get_market_trading_value_by_date(start_date, end_date, code, on="매수", detail=True).reset_index()
+                data = data.iloc[:, :-1]
+                data = data.rename(columns={"날짜": "date"})
+                data["date"] = data["date"].astype(str).str.replace("-", "")
+                for column in data.columns[1:]:
+                    data = data.rename(columns={column: "{}_매수금액".format(column)})
 
-            result = pd.merge(result, data)
-            time.sleep(2)
+                result = pd.merge(result, data)
+                time.sleep(1)
 
-            self.net.Log("기관별 매도 금액 조회")
-            data = stock.get_market_trading_value_by_date(start_date, end_date, code, on="매도", detail=True).reset_index()
-            data = data.iloc[:, :-1]
-            data = data.rename(columns={"날짜": "date"})
-            data["date"] = data["date"].astype(str).str.replace("-", "")
-            for column in data.columns[1:]:
-                data = data.rename(columns={column: "{}_매도금액".format(column)})
+                self.net.Log("기관별 매도 금액 조회")
+                data = stock.get_market_trading_value_by_date(start_date, end_date, code, on="매도", detail=True).reset_index()
+                data = data.iloc[:, :-1]
+                data = data.rename(columns={"날짜": "date"})
+                data["date"] = data["date"].astype(str).str.replace("-", "")
+                for column in data.columns[1:]:
+                    data = data.rename(columns={column: "{}_매도금액".format(column)})
 
-            result = pd.merge(result, data)
+                result = pd.merge(result, data)
 
-            result = result.loc[result["date"] != date]
-            result = result.loc[result["date"] <= self.today]
-            result = result.reset_index(drop=True)
+                result = result.loc[result["date"] != date]
+                result = result.loc[result["date"] <= self.today]
+                result = result.reset_index(drop=True)
+
+            except Exception as ex:
+                self.net.Exception(ex)
+                continue
 
             # DB 업로드
             self.DB.UpdateTable("daily_chart", name, result)

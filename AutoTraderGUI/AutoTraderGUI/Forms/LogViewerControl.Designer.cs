@@ -29,12 +29,17 @@ namespace AutoTraderGUI.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.LogViewer = new System.Windows.Forms.ListView();
             this.InfoHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TimeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TaskHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CompanyHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LogTextHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.scrollToEndToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewDebugInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // LogViewer
@@ -45,6 +50,7 @@ namespace AutoTraderGUI.Forms
             this.TaskHeader,
             this.CompanyHeader,
             this.LogTextHeader});
+            this.LogViewer.ContextMenuStrip = this.contextMenuStrip1;
             this.LogViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LogViewer.HideSelection = false;
             this.LogViewer.Location = new System.Drawing.Point(0, 0);
@@ -83,6 +89,28 @@ namespace AutoTraderGUI.Forms
             this.LogTextHeader.Text = "Log";
             this.LogTextHeader.Width = 360;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scrollToEndToolStripMenuItem,
+            this.viewDebugInfoToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            // 
+            // scrollToEndToolStripMenuItem
+            // 
+            this.scrollToEndToolStripMenuItem.Name = "scrollToEndToolStripMenuItem";
+            this.scrollToEndToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scrollToEndToolStripMenuItem.Text = "ScrollToEnd";
+            this.scrollToEndToolStripMenuItem.Click += new System.EventHandler(this.ScrollToEndEvent);
+            // 
+            // viewDebugInfoToolStripMenuItem
+            // 
+            this.viewDebugInfoToolStripMenuItem.Name = "viewDebugInfoToolStripMenuItem";
+            this.viewDebugInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewDebugInfoToolStripMenuItem.Text = "ViewDebugInfo";
+            this.viewDebugInfoToolStripMenuItem.Click += new System.EventHandler(this.DebugInfoEvent);
+            // 
             // LogViewerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -90,6 +118,7 @@ namespace AutoTraderGUI.Forms
             this.Controls.Add(this.LogViewer);
             this.Name = "LogViewerControl";
             this.Size = new System.Drawing.Size(872, 273);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -102,5 +131,8 @@ namespace AutoTraderGUI.Forms
         private System.Windows.Forms.ColumnHeader TaskHeader;
         private System.Windows.Forms.ColumnHeader CompanyHeader;
         private System.Windows.Forms.ColumnHeader LogTextHeader;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem scrollToEndToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewDebugInfoToolStripMenuItem;
     }
 }

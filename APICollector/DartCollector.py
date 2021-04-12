@@ -1,3 +1,4 @@
+import sys
 import time
 import numpy as np
 import datetime
@@ -18,14 +19,19 @@ class Statement:
         self.today = datetime.datetime.today().strftime("%Y%m%d")
         self.month = datetime.datetime.today().strftime("%Y%m")
 
-        DBInfo = self.net.Requests("DBInfo").split(";")
-        self.net.receiveQueue.clear()
-        self.net.Log("Settings DB info")
+        # DBInfo = self.net.Requests("DBInfo").split(";")
+        # self.net.receiveQueue.clear()
+        # self.net.Log("Settings DB info")
 
-        DBIP = DBInfo[1]
-        DBPort = int(DBInfo[2])
-        DBID = DBInfo[3]
-        DBPW = DBInfo[4]
+        # DBIP = DBInfo[1]
+        # DBPort = int(DBInfo[2])
+        # DBID = DBInfo[3]
+        # DBPW = DBInfo[4]
+
+        DBIP = sys.argv[2]
+        DBPort = int(sys.argv[3])
+        DBID = sys.argv[4]
+        DBPW = sys.argv[5]
 
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
@@ -35,7 +41,9 @@ class Statement:
         if self.corp_info.loc[self.corp_info["financial_statement"] < self.month].empty:
             return
 
-        API_Key = self.net.Requests("RequestsDartKey").split(';')[1]
+        # API_Key = self.net.Requests("RequestsDartKey").split(';')[1]
+
+        API_Key = sys.argv[1]
 
         self.net.receiveQueue.clear()
         self.net.Log("Settings Requests Dart API Key")

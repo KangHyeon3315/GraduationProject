@@ -81,7 +81,7 @@ namespace AutoTraderGUI
             {
                 APICollectorPri = new System.Diagnostics.ProcessStartInfo();
                 APICollectorPri.FileName = settings.info.InterpreterPath;
-                APICollectorPri.Arguments = settings.info.APICollectorPath;
+                APICollectorPri.Arguments = settings.info.APICollectorPath + string.Format(" {0} {1} {2} {3} {4}", settings.info.RequestsInterval, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
 
                 APICollectorPri.UseShellExecute = false;
                 APICollectorPri.CreateNoWindow = true;
@@ -105,16 +105,18 @@ namespace AutoTraderGUI
                 APICollecotrPro.Kill();
                 progressInterface.Company = "None";
                 progressInterface.RqCount = 0;
+                net.RebootServer();
             }
-
         }
+
+
 
         private void SettingsClick(object sender, EventArgs e)
         {
             settingsForm.ShowDialog();
 
             settings.info.APICollectorPath = settingsForm.APICollectorPath.Text;
-            settings.info.DartCollectorPath = settingsForm.DartCollectorPath.Text;
+            settings.info.DartCollectorPath = settingsForm.DartCollectorPath.Text + string.Format(" {0} {1} {2} {3} {4}", settings.info.DartAPI, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
             settings.info.InterpreterPath = settingsForm.InterpreterPath.Text;
             settings.info.MaxRequestsCount = int.Parse(settingsForm.MaxRequestsCount.Text);
             settings.info.RequestsInterval = float.Parse(settingsForm.RequestsInterval.Text);
@@ -171,6 +173,7 @@ namespace AutoTraderGUI
                 net.dartCollector.Close();
                 logInterface.WriteLog("Log", "None", "None", "Close Dart Collector");
                 DartCollecotrPro.Kill();
+                net.RebootServer();
             }
 
         }

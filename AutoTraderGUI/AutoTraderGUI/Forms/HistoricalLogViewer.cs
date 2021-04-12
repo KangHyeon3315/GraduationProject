@@ -50,6 +50,8 @@ namespace AutoTraderGUI.Forms
         private void Search(object sender, EventArgs e)
         {
             if(File.Exists(string.Format("Log\\{0}.xml", DateList.Text))){
+                LogViewer.Items.Clear();
+
                 DataTable data = new DataTable("logs");
                 data.Columns.Add(new DataColumn("Info", typeof(System.String)));
                 data.Columns.Add(new DataColumn("Time", typeof(System.String)));
@@ -61,6 +63,14 @@ namespace AutoTraderGUI.Forms
 
                 int idx = 0;
                 foreach (DataRow dr in data.Rows) {
+                    if (!DebugCheck.Checked)
+                    {
+                        if (dr[0].ToString() == "Debug")
+                        {
+                            continue;
+                        }
+                    }
+
                     idx++;
                     ListViewItem item = new ListViewItem();
                     item.Text = idx.ToString();
@@ -75,7 +85,11 @@ namespace AutoTraderGUI.Forms
                         case "Requests":
                             item.BackColor = Color.PowderBlue;
                             break;
+                        case "Debug":
+                            item.BackColor = Color.Silver;
+                            break;
                     }
+
                     LogViewer.Items.Add(item); 
                 }
 

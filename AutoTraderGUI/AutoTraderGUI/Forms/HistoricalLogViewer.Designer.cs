@@ -41,6 +41,7 @@ namespace AutoTraderGUI.Forms
             this.TaskColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CompanyColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LogColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DebugCheck = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -62,18 +63,20 @@ namespace AutoTraderGUI.Forms
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 161F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 189F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 98F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.DateList, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button1, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.DebugCheck, 3, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(336, 34);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(451, 34);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -82,7 +85,7 @@ namespace AutoTraderGUI.Forms
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 34);
+            this.label1.Size = new System.Drawing.Size(84, 34);
             this.label1.TabIndex = 0;
             this.label1.Text = "날짜";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -91,18 +94,18 @@ namespace AutoTraderGUI.Forms
             // 
             this.DateList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DateList.FormattingEnabled = true;
-            this.DateList.Location = new System.Drawing.Point(77, 7);
+            this.DateList.Location = new System.Drawing.Point(93, 7);
             this.DateList.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
             this.DateList.Name = "DateList";
-            this.DateList.Size = new System.Drawing.Size(155, 20);
+            this.DateList.Size = new System.Drawing.Size(183, 20);
             this.DateList.TabIndex = 1;
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(238, 3);
+            this.button1.Location = new System.Drawing.Point(282, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 28);
+            this.button1.Size = new System.Drawing.Size(68, 28);
             this.button1.TabIndex = 2;
             this.button1.Text = "검색";
             this.button1.UseVisualStyleBackColor = true;
@@ -155,6 +158,18 @@ namespace AutoTraderGUI.Forms
             this.LogColumn.Text = "Log";
             this.LogColumn.Width = 360;
             // 
+            // DebugCheck
+            // 
+            this.DebugCheck.AutoSize = true;
+            this.DebugCheck.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DebugCheck.Location = new System.Drawing.Point(373, 3);
+            this.DebugCheck.Margin = new System.Windows.Forms.Padding(20, 3, 3, 3);
+            this.DebugCheck.Name = "DebugCheck";
+            this.DebugCheck.Size = new System.Drawing.Size(75, 28);
+            this.DebugCheck.TabIndex = 3;
+            this.DebugCheck.Text = "Debug";
+            this.DebugCheck.UseVisualStyleBackColor = true;
+            // 
             // HistoricalLogViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -186,5 +201,6 @@ namespace AutoTraderGUI.Forms
         private System.Windows.Forms.ColumnHeader CompanyColumn;
         private System.Windows.Forms.ColumnHeader LogColumn;
         private System.Windows.Forms.ColumnHeader IndexColumn;
+        private System.Windows.Forms.CheckBox DebugCheck;
     }
 }

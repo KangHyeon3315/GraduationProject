@@ -52,6 +52,7 @@ namespace AutoTraderGUI.Library
                     sock.Send(BitConverter.GetBytes(data.Length));
                     // 데이터를 전송한다.
                     sock.Send(data, data.Length, SocketFlags.None);
+                    logInterface.WriteLog("Debug", "Send", "None", msg);
                 }
             }
             catch (Exception ex)
@@ -65,7 +66,7 @@ namespace AutoTraderGUI.Library
 
             while (sock != null && sock.Connected)
             {
-                string msg = ReceiveData();
+                string msg = ReceiveData().Trim();
 
                 if (msg == "")
                 {
@@ -81,6 +82,8 @@ namespace AutoTraderGUI.Library
                     tmp.Remove(tmp.Length - 1);
                     tmp.Remove(tmp.Length - 1);
 
+                    logInterface.WriteLog("Debug", "Role", "None", tmp);
+
                     if (tmp == "APICollector")
                     {
                         role = Role.APICollector;
@@ -93,7 +96,7 @@ namespace AutoTraderGUI.Library
                     }
                     else
                     {
-                        logInterface.WriteLog("Log", "None", "None", "Unknown Role's process : " + tmp);
+                        logInterface.WriteLog("Debug", "None", "None", "Unknown Role's process : " + tmp);
                     }
 
                 }
@@ -103,6 +106,7 @@ namespace AutoTraderGUI.Library
                 }
 
             }
+            logInterface.WriteLog("Debug", "None", "None", "Socket Is Closed");
 
         }
 

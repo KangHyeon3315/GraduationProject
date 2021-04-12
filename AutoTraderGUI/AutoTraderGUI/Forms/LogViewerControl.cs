@@ -13,6 +13,7 @@ namespace AutoTraderGUI.Forms
     public partial class LogViewerControl : UserControl, LogInterface
     {
         bool scrollToEnd;
+        bool Debug;
         readonly object thisLock = new object();
         Library.Log logs;
 
@@ -28,6 +29,7 @@ namespace AutoTraderGUI.Forms
         {
             InitializeComponent();
             scrollToEnd = true;
+            Debug = false;
             Dock = DockStyle.Fill;
 
             logs = new Library.Log();
@@ -41,20 +43,29 @@ namespace AutoTraderGUI.Forms
                     LogViewer.Items.RemoveAt(0);
                 }
 
-                string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                ListViewItem item = new ListViewItem(info);
-                item.SubItems.Add(time);
-                item.SubItems.Add(task);
-                item.SubItems.Add(company);
-                item.SubItems.Add(log);
-                LogViewer.Items.Add(item);
-
-                if (scrollToEnd)
+                if (!Debug && info == "Debug")
                 {
-                    LogViewer.Items[LogViewer.Items.Count - 1].EnsureVisible();
+                    string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    logs.WriteLog(info, time, task, company, log);
+                }
+                else
+                {
+                    string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    ListViewItem item = new ListViewItem(info);
+                    item.SubItems.Add(time);
+                    item.SubItems.Add(task);
+                    item.SubItems.Add(company);
+                    item.SubItems.Add(log);
+                    LogViewer.Items.Add(item);
+
+                    if (scrollToEnd)
+                    {
+                        LogViewer.Items[LogViewer.Items.Count - 1].EnsureVisible();
+                    }
+
+                    logs.WriteLog(info, time, task, company, log);
                 }
 
-                logs.WriteLog(info, time, task, company, log);
             }
         }
 
@@ -77,6 +88,16 @@ namespace AutoTraderGUI.Forms
             restWidth -= LogViewer.Columns[3].Width;
 
             LogViewer.Columns[4].Width = restWidth;     // Log
+        }
+
+        private void ScrollToEndEvent (object sender, EventArgs e)
+        {
+            scrollToEnd = !scrollToEnd;
+        }
+
+        private void DebugInfoEvent(object sender, EventArgs e)
+        {
+            Debug = !Debug;
         }
     }
 }
