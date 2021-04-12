@@ -41,38 +41,40 @@ namespace AutoTraderGUI.Library
 
             server.Listen(3);
 
-            logInterface.WriteLog("log", "None", "None", "Run Server Thread");
+            logInterface.WriteLog("Log", "None", "None", "Run Server Thread");
 
             try
             {
                 while (true)
                 {
-                    logInterface.WriteLog("log", "None", "None", "Wait Accept Client");
+                    logInterface.WriteLog("Log", "None", "None", "Wait Accept Client");
                     Socket sock = server.Accept();
                     Library.Client client = new Library.Client(sock, logInterface);
 
                     if(client.role == Role.APICollector)
                     {
+                        logInterface.WriteLog("Log", "None", "None", "Allocate API Collector");
                         apiCollector = new APICollector(sock, logInterface, progressInterface, settings);
                         apiCollector.ReceiveQueue = client.ReceiveQueue;
                         client.ReceiveTh.Abort();
                     }
                     else if(client.role == Role.DartCollector)
                     {
+                        logInterface.WriteLog("Log", "None", "None", "Allocate Dart Collector");
                         dartCollector = new DartCollector(sock, logInterface, settings);
                         dartCollector.ReceiveQueue = client.ReceiveQueue;
                         client.ReceiveTh.Abort();
                     }
                     else
                     {
-                        logInterface.WriteLog("log", "None", "None", "UnKnown Role's Process : " + client.role.ToString());
+                        logInterface.WriteLog("Log", "None", "None", "UnKnown Role's Process : " + client.role.ToString());
                     }
                     
                 }
             }
             catch (Exception ex)
             {
-                logInterface.WriteLog("exception", "RunServer", "None", ex.Message);
+                logInterface.WriteLog("Exception", "RunServer", "None", ex.Message);
             }
         }
 

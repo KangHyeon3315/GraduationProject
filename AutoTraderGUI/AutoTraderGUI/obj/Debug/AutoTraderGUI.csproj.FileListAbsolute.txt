@@ -26,3 +26,4 @@ F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.C
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.EmptyControl.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.LogViewerControl.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.AlgorithmInfoControl.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.HistoricalLogViewer.resources

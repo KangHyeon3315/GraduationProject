@@ -56,7 +56,7 @@ namespace AutoTraderGUI.Library
             }
             catch (Exception ex)
             {
-                logInterface.WriteLog("exception", "Send", "None", ex.Message);
+                logInterface.WriteLog("Exception", "Send", "None", ex.Message);
             }
         }
 
@@ -84,14 +84,16 @@ namespace AutoTraderGUI.Library
                     if (tmp == "APICollector")
                     {
                         role = Role.APICollector;
+                        Send("Role;OK");
                     }
                     else if(tmp == "DartCollector")
                     {
                         role = Role.DartCollector;
+                        Send("Role;OK");
                     }
                     else
                     {
-                        logInterface.WriteLog("log", "None", "None", "Unknown Role's process : " + tmp);
+                        logInterface.WriteLog("Log", "None", "None", "Unknown Role's process : " + tmp);
                     }
 
                 }
@@ -140,7 +142,7 @@ namespace AutoTraderGUI.Library
             }
             catch (Exception ex)
             {
-                logInterface.WriteLog("exception", "ReceiveData", "None", ex.Message);
+                logInterface.WriteLog("Exception", "ReceiveData", "None", ex.Message);
                 return "";
             }
         }

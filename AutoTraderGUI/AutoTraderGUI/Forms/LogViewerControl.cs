@@ -13,7 +13,8 @@ namespace AutoTraderGUI.Forms
     public partial class LogViewerControl : UserControl, LogInterface
     {
         bool scrollToEnd;
-        private readonly object thisLock = new object();
+        readonly object thisLock = new object();
+        Library.Log logs;
 
         public LogInterface logInterface
         {
@@ -28,11 +29,18 @@ namespace AutoTraderGUI.Forms
             InitializeComponent();
             scrollToEnd = true;
             Dock = DockStyle.Fill;
+
+            logs = new Library.Log();
         }
         public void WriteLog(string info, string task, string company, string log)
         {
             lock (thisLock)
             {
+                if(LogViewer.Items.Count > 1000)
+                {
+                    LogViewer.Items.RemoveAt(0);
+                }
+
                 string time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 ListViewItem item = new ListViewItem(info);
                 item.SubItems.Add(time);
@@ -46,8 +54,7 @@ namespace AutoTraderGUI.Forms
                     LogViewer.Items[LogViewer.Items.Count - 1].EnsureVisible();
                 }
 
-                // 나중에 로그 개수가 n개 이상 넘어가면 넘어간 양만큼 삭제
-                // Log 저장 Stream 만들기
+                logs.WriteLog(info, time, task, company, log);
             }
         }
 

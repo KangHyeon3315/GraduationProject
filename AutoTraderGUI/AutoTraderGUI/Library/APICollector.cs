@@ -29,6 +29,7 @@ namespace AutoTraderGUI.Library
 
         public void Close()
         {
+            sock.Close();
             if (LogTh.IsAlive)
                 LogTh.Abort();
             if (ReceiveTh.IsAlive)
@@ -74,7 +75,7 @@ namespace AutoTraderGUI.Library
                         }
                         logInterface.WriteLog(data[0], progressInterface.Task, progressInterface.Company, data[1]);
                         break;
-                    case "log":
+                    case "Log":
                     case "Exception":
                         logInterface.WriteLog(data[0], progressInterface.Task, progressInterface.Company, data[1]);
                         break;

@@ -12,17 +12,32 @@ class Network:
 
         self.receiveQueue = []
 
-        try:
-            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.sock.connect(self.addr)
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-            self.Send("Role;{}".format(Task))
+        try:
+            self.sock.connect(self.addr)
 
             th = threading.Thread(target=self.Receive)
             th.start()
 
         except:
-            self.sock = None
+            self.sock.close()
+
+        repeat = 0
+        self.Send("Role;{}".format(Task))
+        while True:
+            repeat += 1
+            if repeat >= 20:
+                self.Send("Role;{}".format(Task))
+
+            if len(self.receiveQueue) > 0:
+                if self.receiveQueue[0].split(";")[0] == "Role":
+                    break
+                else:
+                    self.receiveQueue.append(self.receiveQueue[0])
+                    self.receiveQueue = self.receiveQueue[1:]
+            time.sleep(0.2)
+        self.receiveQueue.clear()
 
     def Requests(self, msg):
         self.RequestsData(msg)
@@ -55,7 +70,7 @@ class Network:
             pass
 
     def Log(self, msg):
-        send_msg = "log;{}".format(msg)
+        send_msg = "Log;{}".format(msg)
 
         try:
             if self.sock is not None:

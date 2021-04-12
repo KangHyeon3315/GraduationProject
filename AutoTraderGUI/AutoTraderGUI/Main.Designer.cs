@@ -36,6 +36,8 @@ namespace AutoTraderGUI
             this.aPICollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dartCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.정보입력ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.과거로그보기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.MainPanel = new System.Windows.Forms.Panel();
@@ -81,10 +83,26 @@ namespace AutoTraderGUI
             // 
             // 설정ToolStripMenuItem
             // 
+            this.설정ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.정보입력ToolStripMenuItem,
+            this.과거로그보기ToolStripMenuItem});
             this.설정ToolStripMenuItem.Name = "설정ToolStripMenuItem";
             this.설정ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.설정ToolStripMenuItem.Text = "설정";
-            this.설정ToolStripMenuItem.Click += new System.EventHandler(this.SettingsClick);
+            this.설정ToolStripMenuItem.Text = "도구";
+            // 
+            // 정보입력ToolStripMenuItem
+            // 
+            this.정보입력ToolStripMenuItem.Name = "정보입력ToolStripMenuItem";
+            this.정보입력ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.정보입력ToolStripMenuItem.Text = "정보입력";
+            this.정보입력ToolStripMenuItem.Click += new System.EventHandler(this.SettingsClick);
+            // 
+            // 과거로그보기ToolStripMenuItem
+            // 
+            this.과거로그보기ToolStripMenuItem.Name = "과거로그보기ToolStripMenuItem";
+            this.과거로그보기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.과거로그보기ToolStripMenuItem.Text = "과거 로그보기";
+            this.과거로그보기ToolStripMenuItem.Click += new System.EventHandler(this.HistoricalLogClick);
             // 
             // toolStrip1
             // 
@@ -161,6 +179,8 @@ namespace AutoTraderGUI
         private System.Windows.Forms.ToolStripMenuItem dartCollectorToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ImageList IconList;
+        private System.Windows.Forms.ToolStripMenuItem 정보입력ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 과거로그보기ToolStripMenuItem;
     }
 }
 

@@ -24,6 +24,8 @@ namespace AutoTraderGUI
         ProgressInterface progressInterface = null;
         Library.Network net;
 
+        Forms.HistoricalLogViewer historicalLogViewer;
+
         public Main()
         {
             InitializeComponent();
@@ -86,12 +88,12 @@ namespace AutoTraderGUI
                 APICollectorPri.RedirectStandardOutput = false;
                 APICollectorPri.RedirectStandardError = false;
 
-                logInterface.WriteLog("log", "None", "None", "Execute API Collector");
+                logInterface.WriteLog("Log", "None", "None", "Execute API Collector");
                 APICollecotrPro = System.Diagnostics.Process.Start(APICollectorPri);
             }
             catch (Exception ex)
             {
-                logInterface.WriteLog("exception", "ExecuteAPICollector", "None", ex.Message);
+                logInterface.WriteLog("Exception", "ExecuteAPICollector", "None", ex.Message);
             }
         }
         void CloseAPICollector()
@@ -99,8 +101,10 @@ namespace AutoTraderGUI
             if (APICollecotrPro != null && !APICollecotrPro.HasExited)
             {
                 net.apiCollector.Close();
-                logInterface.WriteLog("log", "None", "None", "Close API Collector");
+                logInterface.WriteLog("Log", "None", "None", "Close API Collector");
                 APICollecotrPro.Kill();
+                progressInterface.Company = "None";
+                progressInterface.RqCount = 0;
             }
 
         }
@@ -117,8 +121,7 @@ namespace AutoTraderGUI
             settings.info.DartAPI = settingsForm.DartAPI.Text;
             settings.SaveSettings();
 
-            // Net 클래스에 Requests 정보들 저장
-            logInterface.WriteLog("log", "None", "None", "Saved Settings");
+            logInterface.WriteLog("Log", "None", "None", "Saved Settings");
         }
 
         private void DartCollectorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -153,12 +156,12 @@ namespace AutoTraderGUI
                 DartCollectorPri.RedirectStandardOutput = false;
                 DartCollectorPri.RedirectStandardError = false;
 
-                logInterface.WriteLog("log", "None", "None", "Execute Dart Collector");
+                logInterface.WriteLog("Log", "None", "None", "Execute Dart Collector");
                 DartCollecotrPro = System.Diagnostics.Process.Start(DartCollectorPri);
             }
             catch (Exception ex)
             {
-                logInterface.WriteLog("exception", "ExecuteDartCollector", "None", ex.Message);
+                logInterface.WriteLog("Exception", "ExecuteDartCollector", "None", ex.Message);
             }
         }
         void CloseDartCollector()
@@ -166,7 +169,7 @@ namespace AutoTraderGUI
             if (DartCollecotrPro != null && !DartCollecotrPro.HasExited)
             {
                 net.dartCollector.Close();
-                logInterface.WriteLog("log", "None", "None", "Close Dart Collector");
+                logInterface.WriteLog("Log", "None", "None", "Close Dart Collector");
                 DartCollecotrPro.Kill();
             }
 
@@ -212,6 +215,12 @@ namespace AutoTraderGUI
         {
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(home);
+        }
+
+        private void HistoricalLogClick(object sender, EventArgs e)
+        {
+            historicalLogViewer = new Forms.HistoricalLogViewer();
+            historicalLogViewer.Show();
         }
     }
 }

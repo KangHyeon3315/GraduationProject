@@ -32,6 +32,7 @@ namespace AutoTraderGUI.Library
 
         public void Close()
         {
+            sock.Close();
             if(LogTh.IsAlive)
                 LogTh.Abort();
             if(ReceiveTh.IsAlive)
