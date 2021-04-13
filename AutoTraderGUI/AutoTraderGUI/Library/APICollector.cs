@@ -75,6 +75,7 @@ namespace AutoTraderGUI.Library
                         }
                         logInterface.WriteLog(data[0], progressInterface.Task, progressInterface.Company, data[1]);
                         break;
+                    case "Debug":
                     case "Log":
                     case "Exception":
                         logInterface.WriteLog(data[0], progressInterface.Task, progressInterface.Company, data[1]);

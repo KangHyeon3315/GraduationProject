@@ -32,7 +32,8 @@ namespace AutoTraderGUI.Forms
         ProgressInterface progInterface = null;
         CollectorProgressControl collectorProgress;
         AlgorithmInfoControl algorithmInfo;
-        LogViewerControl logViewer;
+        public LogViewerControl logViewer;
+
         public Home()
         {
             InitializeComponent();

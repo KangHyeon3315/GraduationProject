@@ -116,7 +116,7 @@ namespace AutoTraderGUI
             settingsForm.ShowDialog();
 
             settings.info.APICollectorPath = settingsForm.APICollectorPath.Text;
-            settings.info.DartCollectorPath = settingsForm.DartCollectorPath.Text + string.Format(" {0} {1} {2} {3} {4}", settings.info.DartAPI, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
+            settings.info.DartCollectorPath = settingsForm.DartCollectorPath.Text;
             settings.info.InterpreterPath = settingsForm.InterpreterPath.Text;
             settings.info.MaxRequestsCount = int.Parse(settingsForm.MaxRequestsCount.Text);
             settings.info.RequestsInterval = float.Parse(settingsForm.RequestsInterval.Text);
@@ -151,7 +151,7 @@ namespace AutoTraderGUI
             {
                 DartCollectorPri = new System.Diagnostics.ProcessStartInfo();
                 DartCollectorPri.FileName = settings.info.InterpreterPath;
-                DartCollectorPri.Arguments = settings.info.DartCollectorPath;
+                DartCollectorPri.Arguments = settings.info.DartCollectorPath + string.Format(" {0} {1} {2} {3} {4}", settings.info.DartAPI, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
 
                 DartCollectorPri.UseShellExecute = false;
                 DartCollectorPri.CreateNoWindow = true;
@@ -211,6 +211,21 @@ namespace AutoTraderGUI
             if (net.dartCollector != null && net.dartCollector.Complete)
             {
                 CloseDartCollector();
+            }
+
+            // 10분 이상 API Collector가 응답이 없으면 재실행
+            if(APICollecotrPro != null && !APICollecotrPro.HasExited && home.logViewer.LogCount > 0)
+            {
+                TimeSpan term = DateTime.Now - DateTime.Parse(home.logViewer.LastLogTime);
+
+                if(term.TotalMinutes > 10)
+                {
+                    logInterface.WriteLog("Log", "None", "None", "API Collector가 응답이 없음. 재실행")
+                    CloseAPICollector();
+                    progressInterface.RqCount = 0;
+                    progressInterface.Company = "None";
+                    ExecuteAPICollector();
+                }
             }
         }
 

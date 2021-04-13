@@ -72,7 +72,7 @@ class Collector:
         # interval = float(self.net.Requests("RequestsInterval").split(';')[1])
         interval = float(sys.argv[1])
         self.api.TR_REQ_TIME_INTERVAL = interval
-        self.net.Log("Settings Requests Interval : {}".format(self.api.TR_REQ_TIME_INTERVAL))
+        self.net.Debug("Settings Requests Interval : {}".format(self.api.TR_REQ_TIME_INTERVAL))
 
         try:
             self.DailyChartCollecting()
@@ -169,7 +169,7 @@ class Collector:
                 LatestData = None
                 date = "0"
 
-            self.net.Log("chart Collecting")
+            self.net.Log("일봉 차트 조회")
             chart_data = self.api.GetDailyData(code=code, date=date)
 
             # start_date = chart_data.loc[0, "date"]
@@ -293,7 +293,7 @@ class Collector:
             # DB 업로드
             self.DB.UpdateTable("daily_chart", name, result)
             self.DB.SetScheduleInfo(code, "daily_collecting", self.today)
-            self.net.Log("Complete {}".format(name))
+            self.net.Log("{} 수집 완료".format(name))
             # break
 
     def MinChartCollecting(self):

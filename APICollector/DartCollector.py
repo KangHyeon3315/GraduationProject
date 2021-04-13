@@ -46,11 +46,11 @@ class Statement:
         API_Key = sys.argv[1]
 
         self.net.receiveQueue.clear()
-        self.net.Log("Settings Requests Dart API Key")
+        self.net.Debug("Settings Dart API Key")
 
         dart.set_api_key(API_Key)
 
-        self.net.Log("Collect Start Financial Statement")
+        self.net.Log("재무제표 데이터 수집 시작")
         self.corp_list = dart.get_corp_list()
 
         self.get_financial_statement()
@@ -64,7 +64,7 @@ class Statement:
             if info:
                 corp_code = info.to_dict()['corp_code']
             else:
-                self.net.Log("corp_class data not queried")
+                self.net.Debug("corp_class data not queried")
                 continue
 
             if self.corp_info.loc[idx, "financial_statement"] == "0":
@@ -75,7 +75,7 @@ class Statement:
                 year_range = [datetime.date.today().year - 1]
 
             self.net.Company(name)
-            self.net.Log("Parsing Financial Statement Data [{}/{}]".format(idx + 1, len(self.corp_info)))
+            self.net.Log("재무제표 데이터 요청 [{}/{}]".format(idx + 1, len(self.corp_info)))
 
             result = None
             for year in year_range:
@@ -97,7 +97,7 @@ class Statement:
                         res = dart.api.finance.get_single_corp(corp_code, str(year), reprt_code)
 
                     except NoDataReceived as e:
-                        self.net.Log("[{}] {} year data not queried".format(reprt_type, year))
+                        self.net.Debug("[{}] {} year data not queried".format(reprt_type, year))
                         continue
 
                     df = pd.DataFrame(res['list'])
@@ -130,7 +130,7 @@ class Statement:
         self.net.Send("Complete")
 
     def processing(self, data):
-        self.net.Log("Processing Table Data")
+        self.net.Debug("Processing Table Data")
         result = {'report_date': [], 'report_type': [], 'type': [], 'start_date': [], 'end_date': [], 'name': [],
                   'code': [], '유동자산': [], '비유동자산': [], '자산총계': [],
                   '유동부채': [], '비유동부채': [], '부채총계': [], '이익잉여금': [], '자본총계': [], '매출액': [], '영업이익': [], '법인세차감전순이익': [],

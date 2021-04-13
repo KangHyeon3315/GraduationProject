@@ -70,7 +70,7 @@ class OpenApi(QAxWidget):
         # 접속 성공여부 확인
         try:
             if err_code == 0:
-                self.net.Log("API connected")
+                self.net.Debug("API connected")
             else:
                 self.net.Exception(f"disconnected. err_code : {err_code}")
                 sys.exit()

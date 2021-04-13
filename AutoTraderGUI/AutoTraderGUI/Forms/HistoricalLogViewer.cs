@@ -8,11 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace AutoTraderGUI.Forms
 {
     public partial class HistoricalLogViewer : Form
     {
+        int start_idx = 0;
+
+        DataTable data;
         public HistoricalLogViewer()
         {
             InitializeComponent();
@@ -22,6 +26,7 @@ namespace AutoTraderGUI.Forms
             {
                 DateList.Items.Add(finfo.Name.Replace(".xml", ""));
             }
+
         }
 
         private void ResizeEvent(object sender, EventArgs e)
@@ -47,22 +52,22 @@ namespace AutoTraderGUI.Forms
             LogViewer.Columns[5].Width = restWidth;     // Log
         }
 
-        private void Search(object sender, EventArgs e)
+        void Search(int start)
         {
-            if(File.Exists(string.Format("Log\\{0}.xml", DateList.Text))){
+            if (File.Exists(string.Format("Log\\{0}.xml", DateList.Text)))
+            {
                 LogViewer.Items.Clear();
 
-                DataTable data = new DataTable("logs");
-                data.Columns.Add(new DataColumn("Info", typeof(System.String)));
-                data.Columns.Add(new DataColumn("Time", typeof(System.String)));
-                data.Columns.Add(new DataColumn("Task", typeof(System.String)));
-                data.Columns.Add(new DataColumn("Company", typeof(System.String)));
-                data.Columns.Add(new DataColumn("Log", typeof(System.String)));
+                for(int idx = start; idx < start + 2000; idx++)
+                //foreach (DataRow dr in data.Rows)
+                {
+                    if(idx >= data.Rows.Count || LogViewer.Items.Count >= 1000)
+                    {
+                        break;
+                    }
 
-                data.ReadXml(string.Format("Log\\{0}.xml", DateList.Text));
+                    DataRow dr = data.Rows[idx];
 
-                int idx = 0;
-                foreach (DataRow dr in data.Rows) {
                     if (!DebugCheck.Checked)
                     {
                         if (dr[0].ToString() == "Debug")
@@ -71,11 +76,11 @@ namespace AutoTraderGUI.Forms
                         }
                     }
 
-                    idx++;
                     ListViewItem item = new ListViewItem();
-                    item.Text = idx.ToString();
-                    for (int i = 0; i < data.Columns.Count; i++) {
-                        item.SubItems.Add(dr[i].ToString()); 
+                    item.Text = (start + LogViewer.Items.Count).ToString();
+                    for (int i = 0; i < data.Columns.Count; i++)
+                    {
+                        item.SubItems.Add(dr[i].ToString());
                     }
                     switch (dr[0].ToString())
                     {
@@ -90,13 +95,62 @@ namespace AutoTraderGUI.Forms
                             break;
                     }
 
-                    LogViewer.Items.Add(item); 
+                    LogViewer.Items.Add(item);
                 }
-
             }
             else
             {
                 MessageBox.Show("해날 데이터가 존재하지 않습니다.");
+            }
+        }
+
+        private void HistoricalLogViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LogViewer.Items.Clear();
+        }
+
+        private void SearchClick(object sender, EventArgs e)
+        {
+            data = new DataTable("logs");
+            data.Columns.Add(new DataColumn("Info", typeof(System.String)));
+            data.Columns.Add(new DataColumn("Time", typeof(System.String)));
+            data.Columns.Add(new DataColumn("Task", typeof(System.String)));
+            data.Columns.Add(new DataColumn("Company", typeof(System.String)));
+            data.Columns.Add(new DataColumn("Log", typeof(System.String)));
+
+            data.ReadXml(string.Format("Log\\{0}.xml", DateList.Text));
+
+            start_idx = 0;
+            Search(start_idx);
+        }
+
+        private void PrevClick(object sender, EventArgs e)
+        {
+            if(start_idx > 0)
+            {
+                start_idx -= 1000;
+
+                start_idx = start_idx < 0 ? 0 : start_idx;
+
+                Search(start_idx);
+            }
+            else
+            {
+                MessageBox.Show("이전 데이터가 없습니다.");
+            }
+        }
+
+        private void NextClick(object sender, EventArgs e)
+        {
+            if(start_idx < data.Rows.Count - 1000)
+            {
+                start_idx += 1000;
+
+                Search(start_idx);
+            }
+            else
+            {
+                MessageBox.Show("이후 데이터가 없습니다.");
             }
         }
     }

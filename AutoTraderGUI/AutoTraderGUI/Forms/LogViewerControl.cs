@@ -25,6 +25,22 @@ namespace AutoTraderGUI.Forms
             }
         }
 
+        public string LastLogTime {
+            get
+            {
+                return LogViewer.Items[LogViewer.Items.Count - 1].SubItems[1].Text;
+            }
+        }
+        
+        public int LogCount
+        {
+            get
+            {
+                return LogViewer.Items.Count;
+            }
+        }
+
+
         public LogViewerControl()
         {
             InitializeComponent();

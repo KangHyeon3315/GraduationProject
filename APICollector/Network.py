@@ -79,6 +79,16 @@ class Network:
         except:
             pass
 
+    def Debug(self, msg):
+        send_msg = "Debug;{}".format(msg)
+
+        try:
+            if self.sock is not None:
+                self.Send(send_msg)
+
+        except:
+            pass
+
     def Company(self, company):
         send_msg = "Company;{}".format(company)
 
