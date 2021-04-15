@@ -14,7 +14,7 @@ namespace AutoTraderGUI.Library
         string Company;
         public bool Complete;
 
-        Thread LogTh;
+        public Thread LogTh;
 
         Settings settings;
         LogInterface logInterface = null;
@@ -68,7 +68,8 @@ namespace AutoTraderGUI.Library
                         }
                         logInterface.WriteLog(data[0], "Financial Statement", Company, data[1]);
                         break;
-                    case "log":
+                    case "Debug":
+                    case "Log":
                     case "Exception":
                         logInterface.WriteLog(data[0], "Financial Statement", Company, data[1]);
                         break;

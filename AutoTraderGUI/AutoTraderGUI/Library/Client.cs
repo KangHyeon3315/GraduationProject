@@ -140,6 +140,11 @@ namespace AutoTraderGUI.Library
 
                 return msg;
             }
+            catch (OutOfMemoryException ex)
+            {
+                logInterface.WriteLog("Debug", "ReceiveData", "None", ex.Message);
+                return "";
+            }
             catch (ThreadAbortException)
             {
                 return "";

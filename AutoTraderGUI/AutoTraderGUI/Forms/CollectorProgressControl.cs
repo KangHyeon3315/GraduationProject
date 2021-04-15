@@ -12,6 +12,7 @@ namespace AutoTraderGUI.Forms
 {
     public partial class CollectorProgressControl : UserControl, ProgressInterface
     {
+        delegate void SetTextCallback(string text);
         public ProgressInterface progressInterface
         {
             get
@@ -28,8 +29,20 @@ namespace AutoTraderGUI.Forms
             }
             set
             {
-                TaskInfoText.Text = value;
+                if(this.TaskInfoText.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetTask);
+                    this.Invoke(d, new object[] { value });
+                }
+                else
+                {
+                    SetTask(value);
+                }
             }
+        }
+        void SetTask(string text)
+        {
+            TaskInfoText.Text = text;
         }
         public string Company
         {
@@ -39,8 +52,20 @@ namespace AutoTraderGUI.Forms
             }
             set
             {
-                CompanyText.Text = value;
+                if (this.CompanyText.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetCompany);
+                    this.Invoke(d, new object[] { value });
+                }
+                else
+                {
+                    SetCompany(value);
+                }
             }
+        }
+        void SetCompany(string text)
+        {
+            CompanyText.Text = text;
         }
         public int RqCount
         {
@@ -50,8 +75,20 @@ namespace AutoTraderGUI.Forms
             }
             set
             {
-                RqCountText.Text = value.ToString();
+                if (this.RqCountText.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetRqCount);
+                    this.Invoke(d, new object[] { value.ToString() });
+                }
+                else
+                {
+                    SetRqCount(value.ToString());
+                }    
             }
+        }
+        void SetRqCount(string text)
+        {
+            RqCountText.Text = text;
         }
         public int CompleteCount
         {
@@ -61,8 +98,20 @@ namespace AutoTraderGUI.Forms
             }
             set
             {
-                CompleteCountText.Text = value.ToString();
+                if (this.CompleteCountText.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetCompleteCount);
+                    this.Invoke(d, new object[] { value.ToString() });
+                }
+                else
+                {
+                    SetCompleteCount(value.ToString());
+                }
             }
+        }
+        void SetCompleteCount(string text)
+        {
+            CompleteCountText.Text = text;
         }
         public int CompanyCount
         {
@@ -72,8 +121,21 @@ namespace AutoTraderGUI.Forms
             }
             set
             {
-                CompanyCountText.Text = value.ToString();
+                if (this.CompanyCountText.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetCompanyCount);
+                    this.Invoke(d, new object[] { value.ToString() });
+                }
+                else
+                {
+                    SetCompanyCount(value.ToString());
+                }
+
             }
+        }
+        void SetCompanyCount(string text)
+        {
+            CompanyCountText.Text = text;
         }
         public int Progress
         {
@@ -83,7 +145,26 @@ namespace AutoTraderGUI.Forms
             }
             set
             {
-                progressBar1.Value = value;
+                if (this.progressBar1.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetProgress);
+                    this.Invoke(d, new object[] { value.ToString() });
+                }
+                else
+                {
+                    SetProgress(value.ToString());
+                }
+            }
+        }
+        void SetProgress(string value)
+        {
+            try
+            {
+                progressBar1.Value = int.Parse(value);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                progressBar1.Value = 0;
             }
         }
 

@@ -11,7 +11,7 @@ namespace AutoTraderGUI.Library
     class Log
     {
         DataTable logData;
-
+        string logDate;
         public Log()
         {
             OpenLog();
@@ -36,15 +36,24 @@ namespace AutoTraderGUI.Library
 
                 if (File.Exists(string.Format("Log\\{0}.xml", time)))
                 {
-                    logData.ReadXml(string.Format("Log\\{0}.xml", time));
+                    try
+                    {
+                        logData.ReadXml(string.Format("Log\\{0}.xml", time));
+                    }
+                    catch(System.Xml.XmlException ex)
+                    {
+                        WriteLog("Exception", DateTime.Now.ToString("yyyy-MM-dd HH:dd"), "OpenLog", "None", ex.Message);
+                    }
+                    
                 }
+                logDate = time.ToString();
 
             }
         }
 
         public void WriteLog(string info, string time, string task, string company, string log)
         {
-            if(DateTime.Parse(logData.Rows[0][1].ToString()).ToString("yyyy-MM-dd") != DateTime.Now.ToString("yyyy-MM-dd"))
+            if(logData.Rows.Count > 0 && logDate != DateTime.Now.ToString("yyyy-MM-dd"))
             {
                 OpenLog();
             }
@@ -64,7 +73,15 @@ namespace AutoTraderGUI.Library
         public void SaveLogFile()
         {
             string time = DateTime.Now.ToString("yyyy-MM-dd");
-            logData.WriteXml(string.Format("Log\\{0}.xml", time));
+            try
+            {
+                logData.WriteXml(string.Format("Log\\{0}.xml", time));
+            }
+            catch(Exception ex)
+            {
+                WriteLog("Exception", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), "SvaeLogFile", "None", ex.Message);
+            }
+            
         }
     }
 }

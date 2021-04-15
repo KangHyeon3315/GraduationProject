@@ -64,7 +64,7 @@ class Collector:
         self.df_code = self.df_code.append(self.df_code_konex).reset_index(drop=True)
 
         self.company_info_update()
-        self.net.Log("CompanyInfoUpdate")
+        self.net.Debug("CompanyInfoUpdate")
 
         # th = threading.Thread(target=self.CheckRqCount)
         # th.start()
@@ -77,7 +77,7 @@ class Collector:
         try:
             self.DailyChartCollecting()
         except:
-            self.net.Log(traceback.format_exc())
+            self.net.Exception(traceback.format_exc())
 
     def get_kospi_code(self):
         df_code_kospi = pd.read_html('http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13&marketType=stockMkt', header=0)[0]
@@ -153,12 +153,14 @@ class Collector:
             name = self.df_code.loc[i, "name"]
             count += 1
 
+
             if self.df_code.loc[self.df_code["code"] == code, "daily_collecting"].iloc[0] >= self.today:
                 continue
 
+            self.net.CompleteCount(count)
             self.net.Company(name)
             self.net.Log("{} 일봉차트 수집".format(name))
-            self.net.CompleteCount(count)
+
 
             # DB의 최신 데이터 가져오기기
             if self.DB.IsTableExists("daily_chart", name):
@@ -187,6 +189,12 @@ class Collector:
             #    data["date"] = chart_data["date"]
             # result = pd.merge(chart_data, data)
             result = chart_data
+
+            if len(result) == 0:
+                self.net.Log("조회된 데이터가 없습니다.")
+                self.DB.SetScheduleInfo(code, "daily_collecting", self.today)
+                self.net.Log("{} 수집 완료".format(name))
+                continue
 
             self.net.Log("투자자 매수 수량 조회")
             investor_infomation_buy_volume = self.api.GetInvestorBuyVolume(code=code, date=date)
@@ -295,6 +303,7 @@ class Collector:
             self.DB.SetScheduleInfo(code, "daily_collecting", self.today)
             self.net.Log("{} 수집 완료".format(name))
             # break
+        self.net.CompleteCount(count)
 
     def MinChartCollecting(self):
 

@@ -13,7 +13,6 @@ C:\Users\KangHyeon\Desktop\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.F
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.exe.config
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.exe
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\bin\Debug\AutoTraderGUI.pdb
-F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csprojAssemblyReference.cache
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.Home.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.SettingsForm.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Main.resources
@@ -27,3 +26,4 @@ F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.E
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.LogViewerControl.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.AlgorithmInfoControl.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.HistoricalLogViewer.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csprojAssemblyReference.cache

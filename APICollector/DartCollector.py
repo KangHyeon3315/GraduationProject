@@ -1,6 +1,7 @@
 import sys
 import time
 import numpy as np
+import traceback
 import datetime
 import pandas as pd
 import dart_fss as dart
@@ -10,6 +11,12 @@ from pykrx import stock
 from DB import DataBase
 from Network import Network
 
+"""
+Report Date 수정하기
+    우선 저장할 때 -> 수신받은 데이터에서 year & month를 가져와서 저장
+    
+    유무 파악하기 -> year와 보고서 타입으로 분류
+"""
 
 class Statement:
     def __init__(self):
@@ -33,6 +40,7 @@ class Statement:
         DBID = sys.argv[4]
         DBPW = sys.argv[5]
 
+        self.net.Debug("DB info Setting")
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
         self.corp_info = self.DB.GetCompanyInfoTotalTable()
@@ -52,14 +60,22 @@ class Statement:
 
         self.net.Log("재무제표 데이터 수집 시작")
         self.corp_list = dart.get_corp_list()
+        self.empty_list = []
 
-        self.get_financial_statement()
+        try:
+            self.get_financial_statement()
+        except:
+            self.net.Exception(traceback.format_exc())
+
 
     def get_financial_statement(self):
         for idx in range(len(self.corp_info)):
             code = self.corp_info.loc[idx, "code"]
             name = self.corp_info.loc[idx, "name"]
+
             info = self.corp_list.find_by_stock_code(code)
+
+            self.empty_list = []
 
             if info:
                 corp_code = info.to_dict()['corp_code']
@@ -67,27 +83,41 @@ class Statement:
                 self.net.Debug("corp_class data not queried")
                 continue
 
-            if self.corp_info.loc[idx, "financial_statement"] == "0":
-                year_range = range(2015, datetime.date.today().year)
-            elif self.corp_info.loc[idx, "financial_statement"] == self.month:
+            # if self.corp_info.loc[idx, "financial_statement"] == "0":
+
+            if str(self.corp_info.loc[idx, "financial_statement"]) == str(self.month):
                 continue
             else:
-                year_range = [datetime.date.today().year - 1]
+                year_range = range(2015, datetime.date.today().year + 1)
+                # year_range = range(int(self.corp_info.loc[idx, "financial_statement"][:4]), datetime.date.today().year)
 
             self.net.Company(name)
-            self.net.Log("재무제표 데이터 요청 [{}/{}]".format(idx + 1, len(self.corp_info)))
+            self.net.Log("{} 재무재표 데이터 수집\t[{}/{}]".format(name, idx, len(self.corp_info)))
 
             result = None
             for year in year_range:
                 for reprt_code in ["11013", "11012", "11014", "11011"]:
                     if reprt_code == "11013":
                         reprt_type = "1분기"
+                        report_date = "{}0515".format(year)
                     elif reprt_code == "11012":
                         reprt_type = "2분기"
+                        report_date = "{}0815".format(year)
                     elif reprt_code == "11014":
                         reprt_type = "3분기"
+                        report_date = "{}1115".format(year)
                     else:
                         reprt_type = "사업"
+                        report_date = "{}0331".format(year + 1)
+                        
+                    # 오늘 날짜가 해당 report를 공시하기 전인경우 continue
+
+                    if report_date > self.today:
+                        continue
+
+                    if self.DB.IsTableExists("collector", "financial_statement") and self.DB.IsDataExists("collector", "financial_statement", "report_date='{}' and code='{}'".format(report_date, code)):
+                        self.net.Debug("Report Date : {} is already Exists".format(report_date))
+                        continue
 
                     try:
                         # dart.api.finance.get_single_corp(corp_code: str, bsns_year: str, reprt_code: str)
@@ -98,6 +128,8 @@ class Statement:
 
                     except NoDataReceived as e:
                         self.net.Debug("[{}] {} year data not queried".format(reprt_type, year))
+
+                        self.empty_list.append((code, name, reprt_type, report_date))
                         continue
 
                     df = pd.DataFrame(res['list'])
@@ -120,21 +152,23 @@ class Statement:
                     else:
                         result = result.append(df)
 
-            result = self.processing(result)
-
-            self.DB.UpdateTable("collector", "financial_statement", result)
+            if result is not None and len(result) > 0:
+                result = self.processing(result)
+                
+                self.DB.UpdateTable("collector", "financial_statement", result)
             self.DB.SetScheduleInfo(code, "financial_statement", self.month)
-
             self.net.CompleteCount(idx + 1)
 
         self.net.Send("Complete")
+        self.net.sock.close()
 
     def processing(self, data):
+        # print(data)
         self.net.Debug("Processing Table Data")
         result = {'report_date': [], 'report_type': [], 'type': [], 'start_date': [], 'end_date': [], 'name': [],
                   'code': [], '유동자산': [], '비유동자산': [], '자산총계': [],
                   '유동부채': [], '비유동부채': [], '부채총계': [], '이익잉여금': [], '자본총계': [], '매출액': [], '영업이익': [], '법인세차감전순이익': [],
-                  '당기순이익': [], '주식수': [], '시가총액': []} # 'EPS': [], 'PER': [], '주당순자산': [], 'PBR': [], 'ROE': [], '순이익률': []}
+                  '당기순이익': [], '주식수': [], '시가총액': []}
 
         krx = stock.get_market_cap_by_date("20000101", self.today, "155660", "y").reset_index()
         krx["날짜"] = krx["날짜"].astype(str)
@@ -171,14 +205,19 @@ class Statement:
                         else:
                             result[data_name].append(0)
 
+                    # 사업
                     if end_date[4:6] == "12":
                         rept_date = "{}0331".format(int(end_date[:4]) + 1)
+                    # 1분기
                     elif end_date[4:6] == "03":
-                        rept_date = "{}0515".format(int(end_date[:4]) + 1)
+                        rept_date = "{}0515".format(int(end_date[:4]))
+                    # 2분기
                     elif end_date[4:6] == "06":
-                        rept_date = "{}0815".format(int(end_date[:4]) + 1)
+                        rept_date = "{}0815".format(int(end_date[:4]))
+                    # 3분기
                     else:  # end_date[4:6] == "09":
-                        rept_date = "{}1115".format(int(end_date[:4]) + 1)
+                        rept_date = "{}1115".format(int(end_date[:4]))
+
                     result['report_date'].append(rept_date)  # 나중에 50기까지 수정하기
 
                     if tmp.loc[0, 'reprt_type'] == "사업":
@@ -187,16 +226,33 @@ class Statement:
                     else:
                         result['주식수'].append(krx.loc[krx["날짜"].str[:4] == str(int(end_date[:4]) - 1), "상장주식수"].iloc[0])
                         result['시가총액'].append(krx.loc[krx["날짜"].str[:4] == str(int(end_date[:4]) - 1), "시가총액"].iloc[0])
-                    # result['EPS'].append(0)
-                    # result['PER'].append(0)
-                    # result['주당순자산'].append(0)
-                    # result['PBR'].append(0)
-                    # result['ROE'].append(0)
-                    # result['순이익률'].append(0)
 
-        result = pd.DataFrame(result)
-        result = result.drop_duplicates(["type", "end_date"])
-        result = result.sort_values(by="end_date")
+        for code, name, reprt_type, report_date in self.empty_list:
+            result['code'].append(code)
+            result['name'].append(name)
+            result['report_type'].append(reprt_type)
+            result['report_date'].append(report_date)
+            result['type'].append('0')
+            result['start_date'].append('0')
+            result['end_date'].append('0')
+            result['유동자산'].append('0')
+            result['비유동자산'].append('0')
+            result['자산총계'].append('0')
+            result['유동부채'].append('0')
+            result['비유동부채'].append('0')
+            result['부채총계'].append('0')
+            result['이익잉여금'].append('0')
+            result['자본총계'].append('0')
+            result['매출액'].append('0')
+            result['영업이익'].append('0')
+            result['법인세차감전순이익'].append('0')
+            result['당기순이익'].append('0')
+            result['주식수'].append('0')
+            result['시가총액'].append('0')
+
+        result = pd.DataFrame(result).astype(str)
+        result = result.drop_duplicates(["type", "report_date"])
+        result = result.sort_values(by="report_date")
 
         return result
 

@@ -14,8 +14,10 @@ namespace AutoTraderGUI.Forms
     {
         bool scrollToEnd;
         bool Debug;
-        readonly object thisLock = new object();
+        delegate void SetLogCallback(string info, string task, string company, string log);
+        delegate void SetLogCallback2();
         Library.Log logs;
+        string lastLogTime;
 
         public LogInterface logInterface
         {
@@ -28,7 +30,7 @@ namespace AutoTraderGUI.Forms
         public string LastLogTime {
             get
             {
-                return LogViewer.Items[LogViewer.Items.Count - 1].SubItems[1].Text;
+                return lastLogTime;
             }
         }
         
@@ -43,6 +45,7 @@ namespace AutoTraderGUI.Forms
 
         public LogViewerControl()
         {
+            lastLogTime = "";
             InitializeComponent();
             scrollToEnd = true;
             Debug = false;
@@ -52,9 +55,8 @@ namespace AutoTraderGUI.Forms
         }
         public void WriteLog(string info, string task, string company, string log)
         {
-            lock (thisLock)
-            {
-                if(LogViewer.Items.Count > 1000)
+
+                if (LogViewer.Items.Count > 1000)
                 {
                     LogViewer.Items.RemoveAt(0);
                 }
@@ -72,16 +74,42 @@ namespace AutoTraderGUI.Forms
                     item.SubItems.Add(task);
                     item.SubItems.Add(company);
                     item.SubItems.Add(log);
+
+                if (this.LogViewer.InvokeRequired)
+                {
+                    SetLogCallback d = new SetLogCallback(WriteLog);
+                    this.Invoke(d, new object[] { info, task, company, log });
+                }
+                else
+                {
                     LogViewer.Items.Add(item);
+                }
 
                     if (scrollToEnd)
                     {
-                        LogViewer.Items[LogViewer.Items.Count - 1].EnsureVisible();
+                        if (this.LogViewer.InvokeRequired)
+                        {
+                            SetLogCallback2 d = new SetLogCallback2(SetScrollToEnd);
+                            this.Invoke(d, new object[] { });
+                        }
+                        else
+                        {
+                            SetScrollToEnd();
+                        }
                     }
 
                     logs.WriteLog(info, time, task, company, log);
                 }
 
+                lastLogTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+        }
+
+        void SetScrollToEnd()
+        {
+            if (LogViewer.Items.Count > 0)
+            {
+                LogViewer.Items[LogViewer.Items.Count - 1].EnsureVisible();
             }
         }
 
