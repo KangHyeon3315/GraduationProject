@@ -135,7 +135,7 @@ namespace AutoTraderGUI.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(272, 35);
+            this.label2.Location = new System.Drawing.Point(260, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 12);
             this.label2.TabIndex = 3;
@@ -153,7 +153,7 @@ namespace AutoTraderGUI.Forms
             // RqCountText
             // 
             this.RqCountText.AutoSize = true;
-            this.RqCountText.Location = new System.Drawing.Point(375, 35);
+            this.RqCountText.Location = new System.Drawing.Point(363, 35);
             this.RqCountText.Name = "RqCountText";
             this.RqCountText.Size = new System.Drawing.Size(11, 12);
             this.RqCountText.TabIndex = 4;

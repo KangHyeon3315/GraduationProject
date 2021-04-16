@@ -44,6 +44,13 @@ class Statement:
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
         self.corp_info = self.DB.GetCompanyInfoTotalTable()
+        self.RqCount = 0
+
+        self.net.Work("Financial Statement Collecting")
+        self.net.Company("None")
+        self.net.RqCount(self.RqCount)
+        self.net.CompleteCount(0)
+        self.net.CompanyCount(len(self.corp_info))
 
         # 이번달에 전부 최신화 했으므로 pass
         if self.corp_info.loc[self.corp_info["financial_statement"] < self.month].empty:
@@ -92,7 +99,7 @@ class Statement:
                 # year_range = range(int(self.corp_info.loc[idx, "financial_statement"][:4]), datetime.date.today().year)
 
             self.net.Company(name)
-            self.net.Log("{} 재무재표 데이터 수집\t[{}/{}]".format(name, idx, len(self.corp_info)))
+            self.net.Log("{} 재무재표 데이터 수집".format(name))
 
             result = None
             for year in year_range:
@@ -115,7 +122,7 @@ class Statement:
                     if report_date > self.today:
                         continue
 
-                    if self.DB.IsTableExists("collector", "financial_statement") and self.DB.IsDataExists("collector", "financial_statement", "report_date='{}' and code='{}'".format(report_date, code)):
+                    if self.DB.IsTableExists("financial_statement", name) and self.DB.IsDataExists("financial_statement",name, "report_date='{}' and code='{}'".format(report_date, code)):
                         self.net.Debug("Report Date : {} is already Exists".format(report_date))
                         continue
 
@@ -124,6 +131,8 @@ class Statement:
                         # corp_code: corp_code(종목코드가 아님, 공시대상회사의 고유번호(8자리)),
                         # bsns_year: 연도를(사업연도(4자리))
                         # reprt_code: 1분기보고서 : 11013, 반기보고서 : 11012, 3분기보고서 : 11014, 사업보고서 : 11011
+                        self.RqCount += 1
+                        self.net.RqCount(self.RqCount)
                         res = dart.api.finance.get_single_corp(corp_code, str(year), reprt_code)
 
                     except NoDataReceived as e:
@@ -155,7 +164,7 @@ class Statement:
             if result is not None and len(result) > 0:
                 result = self.processing(result)
                 
-                self.DB.UpdateTable("collector", "financial_statement", result)
+                self.DB.UpdateTable("financial_statement", name, result)
             self.DB.SetScheduleInfo(code, "financial_statement", self.month)
             self.net.CompleteCount(idx + 1)
 

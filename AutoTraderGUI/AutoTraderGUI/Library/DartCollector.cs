@@ -18,12 +18,14 @@ namespace AutoTraderGUI.Library
 
         Settings settings;
         LogInterface logInterface = null;
+        ProgressInterface progressInterface = null;
 
-        public DartCollector(Socket sock, LogInterface logInterface, Settings settings) : base(sock, logInterface, Role.APICollector)
+        public DartCollector(Socket sock, LogInterface logInterface, ProgressInterface progressInterface, Settings settings) : base(sock, logInterface, Role.APICollector)
         {
             Complete = false;
             this.settings = settings;
             this.logInterface = logInterface;
+            this.progressInterface = progressInterface;
 
             LogTh = new Thread(new ThreadStart(LogManaging));
             LogTh.Start();
@@ -53,9 +55,23 @@ namespace AutoTraderGUI.Library
                 {
                     case "Company":
                         Company = data[1];
+                        progressInterface.Company = Company;
                         break;
                     case "Complete":
                         Complete = true;
+                        break;
+                    case "RqCount":
+                        progressInterface.RqCount = int.Parse(data[1]);
+                        break;
+                    case "work":
+                        progressInterface.Task = data[1];
+                        break;
+                    case "CompanyCount":
+                        progressInterface.CompanyCount = int.Parse(data[1]);
+                        break;
+                    case "CompleteCount":
+                        progressInterface.CompleteCount = int.Parse(data[1]);
+                        progressInterface.Progress = (int)(float.Parse(data[1]) / (float)(progressInterface.CompanyCount) * 100);
                         break;
                     case "Requests":
                         if (data[1] == "RequestsDartKey")

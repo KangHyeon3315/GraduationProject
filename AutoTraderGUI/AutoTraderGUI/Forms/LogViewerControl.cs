@@ -55,7 +55,13 @@ namespace AutoTraderGUI.Forms
         }
         public void WriteLog(string info, string task, string company, string log)
         {
-
+            if (this.LogViewer.InvokeRequired)
+            {
+                SetLogCallback d = new SetLogCallback(WriteLog);
+                this.Invoke(d, new object[] { info, task, company, log });
+            }
+            else
+            {
                 if (LogViewer.Items.Count > 1000)
                 {
                     LogViewer.Items.RemoveAt(0);
@@ -75,15 +81,15 @@ namespace AutoTraderGUI.Forms
                     item.SubItems.Add(company);
                     item.SubItems.Add(log);
 
-                if (this.LogViewer.InvokeRequired)
-                {
-                    SetLogCallback d = new SetLogCallback(WriteLog);
-                    this.Invoke(d, new object[] { info, task, company, log });
-                }
-                else
-                {
-                    LogViewer.Items.Add(item);
-                }
+                    if (this.LogViewer.InvokeRequired)
+                    {
+                        SetLogCallback d = new SetLogCallback(WriteLog);
+                        this.Invoke(d, new object[] { info, task, company, log });
+                    }
+                    else
+                    {
+                        LogViewer.Items.Add(item);
+                    }
 
                     if (scrollToEnd)
                     {
@@ -102,6 +108,7 @@ namespace AutoTraderGUI.Forms
                 }
 
                 lastLogTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            }
 
         }
 

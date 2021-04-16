@@ -30,7 +30,6 @@ namespace AutoTraderGUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.작업ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aPICollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,13 +37,19 @@ namespace AutoTraderGUI
             this.설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.정보입력ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.과거로그보기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.TabMenu = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.IconList = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.TabMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -93,57 +98,102 @@ namespace AutoTraderGUI
             // 정보입력ToolStripMenuItem
             // 
             this.정보입력ToolStripMenuItem.Name = "정보입력ToolStripMenuItem";
-            this.정보입력ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.정보입력ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.정보입력ToolStripMenuItem.Text = "정보입력";
             this.정보입력ToolStripMenuItem.Click += new System.EventHandler(this.SettingsClick);
             // 
             // 과거로그보기ToolStripMenuItem
             // 
             this.과거로그보기ToolStripMenuItem.Name = "과거로그보기ToolStripMenuItem";
-            this.과거로그보기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.과거로그보기ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.과거로그보기ToolStripMenuItem.Text = "과거 로그보기";
             this.과거로그보기ToolStripMenuItem.Click += new System.EventHandler(this.HistoricalLogClick);
             // 
-            // toolStrip1
+            // TabMenu
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this.TabMenu.AutoSize = false;
+            this.TabMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.toolStripSeparator1,
+            this.toolStripLabel4,
+            this.toolStripSeparator4,
+            this.toolStripLabel3,
+            this.toolStripSeparator3,
+            this.toolStripLabel2,
+            this.toolStripSeparator2});
+            this.TabMenu.Location = new System.Drawing.Point(0, 24);
+            this.TabMenu.Name = "TabMenu";
+            this.TabMenu.Size = new System.Drawing.Size(800, 25);
+            this.TabMenu.TabIndex = 1;
+            this.TabMenu.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // toolStripLabel1
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.ClickHome);
+            this.toolStripLabel1.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel1.Text = "메인";
+            this.toolStripLabel1.Click += new System.EventHandler(this.ClickHome);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel4.Text = "분석";
+            this.toolStripLabel4.Click += new System.EventHandler(this.ClickAnalyze);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(67, 22);
+            this.toolStripLabel3.Text = "시뮬레이션";
+            this.toolStripLabel3.Click += new System.EventHandler(this.ClickSimulate);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel2.Text = "거래";
+            this.toolStripLabel2.Click += new System.EventHandler(this.ClickTrade);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // MainPanel
             // 
             this.MainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MainPanel.AutoSize = true;
             this.MainPanel.BackColor = System.Drawing.SystemColors.Control;
             this.MainPanel.Location = new System.Drawing.Point(0, 50);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(800, 401);
+            this.MainPanel.Size = new System.Drawing.Size(800, 400);
             this.MainPanel.TabIndex = 2;
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.CheckSystem);
-            // 
-            // IconList
-            // 
-            this.IconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("IconList.ImageStream")));
-            this.IconList.TransparentColor = System.Drawing.Color.Transparent;
-            this.IconList.Images.SetKeyName(0, "home-512.png");
             // 
             // Main
             // 
@@ -152,7 +202,7 @@ namespace AutoTraderGUI
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.MainPanel);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.TabMenu);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
@@ -160,8 +210,8 @@ namespace AutoTraderGUI
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.TabMenu.ResumeLayout(false);
+            this.TabMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,14 +223,20 @@ namespace AutoTraderGUI
         private System.Windows.Forms.ToolStripMenuItem 작업ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aPICollectorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 설정ToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStrip TabMenu;
         private System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.ToolStripMenuItem dartCollectorToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ImageList IconList;
         private System.Windows.Forms.ToolStripMenuItem 정보입력ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 과거로그보기ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

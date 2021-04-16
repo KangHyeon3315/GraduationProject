@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.23.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -70,10 +71,16 @@
     <Compile Include="Forms\HistoricalLogViewer.Designer.cs">
       <DependentUpon>HistoricalLogViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Home.cs">
+    <Compile Include="Layout\Analyze.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Home.Designer.cs">
+    <Compile Include="Layout\Analyze.Designer.cs">
+      <DependentUpon>Analyze.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layout\Home.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Layout\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LogViewerControl.cs">
@@ -92,6 +99,8 @@
     <Compile Include="Library\Client.cs" />
     <Compile Include="Library\Common.cs" />
     <Compile Include="Library\DartCollector.cs" />
+    <Compile Include="Library\DBController.cs" />
+    <Compile Include="Library\IndicatorProcessor.cs" />
     <Compile Include="Library\Log.cs" />
     <Compile Include="Library\Network.cs" />
     <Compile Include="Library\Settings.cs" />
@@ -116,7 +125,10 @@
     <EmbeddedResource Include="Forms\HistoricalLogViewer.resx">
       <DependentUpon>HistoricalLogViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Home.resx">
+    <EmbeddedResource Include="Layout\Analyze.resx">
+      <DependentUpon>Analyze.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layout\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LogViewerControl.resx">

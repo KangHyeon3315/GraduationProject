@@ -31,10 +31,12 @@ namespace AutoTraderGUI.Forms
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.NextButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.DateList = new System.Windows.Forms.ComboBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.DebugCheck = new System.Windows.Forms.CheckBox();
+            this.PrevButton = new System.Windows.Forms.Button();
             this.LogViewer = new System.Windows.Forms.ListView();
             this.IndexColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.InfoColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,8 +44,6 @@ namespace AutoTraderGUI.Forms
             this.TaskColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CompanyColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LogColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.PrevButton = new System.Windows.Forms.Button();
-            this.NextButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +85,17 @@ namespace AutoTraderGUI.Forms
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(539, 34);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // NextButton
+            // 
+            this.NextButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NextButton.Location = new System.Drawing.Point(476, 3);
+            this.NextButton.Name = "NextButton";
+            this.NextButton.Size = new System.Drawing.Size(60, 28);
+            this.NextButton.TabIndex = 5;
+            this.NextButton.Text = ">";
+            this.NextButton.UseVisualStyleBackColor = true;
+            this.NextButton.Click += new System.EventHandler(this.NextClick);
             // 
             // label1
             // 
@@ -129,6 +140,17 @@ namespace AutoTraderGUI.Forms
             this.DebugCheck.TabIndex = 3;
             this.DebugCheck.Text = "Debug";
             this.DebugCheck.UseVisualStyleBackColor = true;
+            // 
+            // PrevButton
+            // 
+            this.PrevButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PrevButton.Location = new System.Drawing.Point(414, 3);
+            this.PrevButton.Name = "PrevButton";
+            this.PrevButton.Size = new System.Drawing.Size(56, 28);
+            this.PrevButton.TabIndex = 4;
+            this.PrevButton.Text = "<";
+            this.PrevButton.UseVisualStyleBackColor = true;
+            this.PrevButton.Click += new System.EventHandler(this.PrevClick);
             // 
             // LogViewer
             // 
@@ -176,28 +198,6 @@ namespace AutoTraderGUI.Forms
             // 
             this.LogColumn.Text = "Log";
             this.LogColumn.Width = 360;
-            // 
-            // PrevButton
-            // 
-            this.PrevButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PrevButton.Location = new System.Drawing.Point(414, 3);
-            this.PrevButton.Name = "PrevButton";
-            this.PrevButton.Size = new System.Drawing.Size(56, 28);
-            this.PrevButton.TabIndex = 4;
-            this.PrevButton.Text = "<";
-            this.PrevButton.UseVisualStyleBackColor = true;
-            this.PrevButton.Click += new System.EventHandler(this.PrevClick);
-            // 
-            // NextButton
-            // 
-            this.NextButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NextButton.Location = new System.Drawing.Point(476, 3);
-            this.NextButton.Name = "NextButton";
-            this.NextButton.Size = new System.Drawing.Size(60, 28);
-            this.NextButton.TabIndex = 5;
-            this.NextButton.Text = ">";
-            this.NextButton.UseVisualStyleBackColor = true;
-            this.NextButton.Click += new System.EventHandler(this.NextClick);
             // 
             // HistoricalLogViewer
             // 

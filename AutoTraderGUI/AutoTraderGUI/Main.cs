@@ -19,9 +19,11 @@ namespace AutoTraderGUI
         System.Diagnostics.Process DartCollecotrPro;
         Thread DartCollectorTh;
 
-        Forms.Home home;
+        Forms.EmptyControl empty;
+        Layout.Home home;
         LogInterface logInterface = null;
         ProgressInterface progressInterface = null;
+        ProgressInterface dartprogressInterface = null;
         Library.Network net;
 
         Forms.HistoricalLogViewer historicalLogViewer;
@@ -33,11 +35,15 @@ namespace AutoTraderGUI
             settings = new Library.Settings();
             settingsForm = new Forms.SettingsForm(settings.info);
 
-            home = new Forms.Home();
+            empty = new Forms.EmptyControl();
+            home = new Layout.Home();
             logInterface = home.logInterface;
             progressInterface = home.progressInterface;
+            dartprogressInterface = home.DartprogressInterface;
 
-            net = new Library.Network(logInterface, progressInterface, settings);
+            net = new Library.Network(logInterface, progressInterface, dartprogressInterface, settings);
+
+            this.WindowState = FormWindowState.Maximized;
 
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(home);
@@ -243,6 +249,24 @@ namespace AutoTraderGUI
         {
             historicalLogViewer = new Forms.HistoricalLogViewer();
             historicalLogViewer.Show();
+        }
+
+        private void ClickAnalyze(object sender, EventArgs e)
+        {
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(empty);
+        }
+
+        private void ClickSimulate(object sender, EventArgs e)
+        {
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(empty);
+        }
+
+        private void ClickTrade(object sender, EventArgs e)
+        {
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(empty);
         }
     }
 }
