@@ -93,6 +93,7 @@ class Statement:
             # if self.corp_info.loc[idx, "financial_statement"] == "0":
 
             if str(self.corp_info.loc[idx, "financial_statement"]) == str(self.month):
+                self.net.CompleteCount(idx + 1)
                 continue
             else:
                 year_range = range(2015, datetime.date.today().year + 1)

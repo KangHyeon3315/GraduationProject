@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 using System.Data;
 
 namespace AutoTraderGUI.Library
@@ -11,38 +12,44 @@ namespace AutoTraderGUI.Library
     {
         DataTable CompanyInfo;
         DBController DB;
+        int ExtraDataLength;
         public IndicatorProcessor()
         {
             DB = new DBController();
-            // 계산 클래스 선언
-        }
-
-        void Initialize()
-        {
-            // 종목 리스트 가져오기
         }
 
         void Processing()
         {
-            foreach(string name in NameList)
+            foreach(DataRow info in CompanyInfo.Rows)
             {
-                /*
-                 *  if Already Calculate Indicator
-                 *      continue;
-                 *  
-                 *  data = GetTable(Calculating Data + Alpha Data)
-                 *  
+                string code = info["code"].ToString();
+                string name = info["name"].ToString();
+                string lastCalculateTime = info["indicator"].ToString();
+
+                if(int.Parse(lastCalculateTime) >= int.Parse(DateTime.Now.ToString("yyyyMMdd")))
+                {
+                    continue;
+                }
+
+                List<string> DateList = DB.SelectIndicatorDateList(name, ExtraDataLength);
+                string ExtraDate = DateList.Count > 0 ? DateList[DateList.Count - 1] : "0";
+
+                DataTable priceData = DB.SelectPriceData(name, string.Format("date>={0}", ExtraDate));
+
+                /*  
                  *  result = CalculatingClass.Calculate(data)
                  *  
-                 *  if column is mismatch with DB
-                 *      Create Column
+                 *  if table is exists
+                 *      for column in columnList
+                 *          if  column is not exists in DB
+                 *              Create Column
                  *      
-                 *      prevData = GetTable(prev all)
+                 *              prevData = SelectPriceData(prev all)
                  *      
-                 *      columnData = CalculatingClass.columnCalculate(column, prevData);
-                 *      UpdateColumn(columnData)
+                 *              columnData = CalculatingClass.columnCalculate(column, prevData);
+                 *              UpdateColumn(columnData)
                  *  
-                 *  UpdateTable(result)
+                 *  UpdateTable(result)         <= date > DateList[0] 
                  *  UpdateCompanyInfo()
                  */
             }

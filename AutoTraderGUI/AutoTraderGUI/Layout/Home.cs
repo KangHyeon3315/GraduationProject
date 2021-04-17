@@ -48,7 +48,7 @@ namespace AutoTraderGUI.Layout
             InitializeComponent();
 
             collectorProgress = new Forms.CollectorProgressControl("API Collector");
-            dartcollectorProgress = new Forms.CollectorProgressControl("Dairt Collector");
+            dartcollectorProgress = new Forms.CollectorProgressControl("Dart Collector");
             algorithmInfo = new Forms.AlgorithmInfoControl();
             logViewer = new Forms.LogViewerControl();
 
