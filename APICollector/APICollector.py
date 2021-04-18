@@ -42,7 +42,8 @@ class Collector:
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
         self.open_time = "0840"
-        self.close_time = "1535"
+        # self.close_time = "1535"
+        self.close_time = "2035"
 
         current_time = datetime.datetime.today().strftime("%H%M")
 
@@ -78,6 +79,9 @@ class Collector:
             self.DailyChartCollecting()
         except:
             self.net.Exception(traceback.format_exc())
+
+        self.net.Send("Complete")
+        sys.exit(0)
 
     def get_kospi_code(self):
         df_code_kospi = pd.read_html('http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13&marketType=stockMkt', header=0)[0]

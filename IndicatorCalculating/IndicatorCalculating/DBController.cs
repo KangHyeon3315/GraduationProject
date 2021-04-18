@@ -19,11 +19,12 @@ namespace IndicatorCalculating
 
         public DBController(string ip, string id, string pw)
         {
-            collectorStrConn = SchemaSelect("collector");
-
             DBIP = ip;
             DBID = id;
             DBPW = pw;
+
+            collectorStrConn = SchemaSelect("collector");
+
         }
 
         string SchemaSelect(string schema)
@@ -256,7 +257,37 @@ namespace IndicatorCalculating
                 Console.WriteLine(ex.ToString());
             }
         }
+        public void UpdateColumn(string schema, string table, List<string> columns, string Key, DataTable data)
+        {
+            
+            try
+            {
+                using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(collectorStrConn))
+                {
+                    conn.Open();
+                    MySqlTransaction trans = conn.BeginTransaction();
 
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    for (int i = 0; i < data.Rows.Count; i++)
+                    {
+                        foreach(string column in columns)
+                        {
+                            string command = string.Format("UPDATE {0}.`{1}` SET {2}='{3}' WHERE {5}='{4}'", schema, table, column, data.Rows[i][column].ToString().Trim() == "" ? "NULL" : data.Rows[i][column], data.Rows[i][Key], Key);
+                            cmd.CommandText = command;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    trans.Commit();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
         public void UpdateTable(string schema, string table, DataTable data)
         {
             if(TableCheck(table, schema))
@@ -391,6 +422,11 @@ namespace IndicatorCalculating
                     command.Connection = conn;
                     command.Transaction = myTrans;
 
+                    if(defaultValue == null)
+                    {
+                        defaultValue = "NULL";
+                    }
+
                     
                     switch (type.Name)
                     {
@@ -405,8 +441,11 @@ namespace IndicatorCalculating
                             command.CommandText = cmd;
                             break;
                         case "Single":
+                            cmd = string.Format("ALTER TABLE {0}.`{1}` ADD {2} {3} default {4}", schema, tableName, columnName, "float", defaultValue);
+                            command.CommandText = cmd;
+                            break;
                         case "Double":
-                            cmd = string.Format("ALTER TABLE {0}.`{1}` ADD {2} {3} default {4}", schema, tableName, columnName, type.Name, defaultValue);
+                            cmd = string.Format("ALTER TABLE {0}.`{1}` ADD {2} {3} default {4}", schema, tableName, columnName, "double", defaultValue);
                             command.CommandText = cmd;
                             break;
 

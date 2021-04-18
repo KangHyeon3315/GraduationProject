@@ -68,12 +68,13 @@ class Statement:
         self.net.Log("재무제표 데이터 수집 시작")
         self.corp_list = dart.get_corp_list()
         self.empty_list = []
-
+        self.net.CompanyCount(len(self.corp_info))
         try:
             self.get_financial_statement()
         except:
             self.net.Exception(traceback.format_exc())
 
+        self.net.Send("Complete")
 
     def get_financial_statement(self):
         for idx in range(len(self.corp_info)):
@@ -93,7 +94,6 @@ class Statement:
             # if self.corp_info.loc[idx, "financial_statement"] == "0":
 
             if str(self.corp_info.loc[idx, "financial_statement"]) == str(self.month):
-                self.net.CompleteCount(idx + 1)
                 continue
             else:
                 year_range = range(2015, datetime.date.today().year + 1)

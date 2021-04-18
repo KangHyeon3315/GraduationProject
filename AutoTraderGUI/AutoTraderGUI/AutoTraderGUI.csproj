@@ -96,6 +96,7 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Library\APICollector.cs" />
+    <Compile Include="Library\Calculate.cs" />
     <Compile Include="Library\Client.cs" />
     <Compile Include="Library\Common.cs" />
     <Compile Include="Library\DartCollector.cs" />

@@ -213,7 +213,11 @@ namespace AutoTraderGUI
                 progressInterface.Company = "None";
                 ExecuteAPICollector();
             }
-            
+            if(net.apiCollector != null && net.apiCollector.Complete)
+            {
+                CloseAPICollector();
+            }
+
             if (net.dartCollector != null && net.dartCollector.Complete)
             {
                 net.dartCollector.ReceiveTh.Abort();
@@ -221,7 +225,7 @@ namespace AutoTraderGUI
             }
 
             // 2분 이상 API Collector가 응답이 없으면 재실행
-            if (APICollecotrPro != null && !APICollecotrPro.HasExited)
+            if (APICollecotrPro != null && !APICollecotrPro.HasExited && net.apiCollector != null && !net.apiCollector.Complete)
             {
                 if (home.logViewer.LastLogTime != "")
                 {

@@ -15,7 +15,7 @@ namespace IndicatorCalculating
         public Processing()
         {
             ExtraDataLength = 120;
-            DB = new DBController();
+            DB = new DBController("localhost", "bot", "kanghyeon#3315");
             calc = new Calculate();
 
             process();
@@ -64,8 +64,30 @@ namespace IndicatorCalculating
                 DataTable result = calc.CalculateData(priceData);
 
                 // Column 체크
+                if(DB.TableCheck(name, "indicator"))
+                {
+                    List<string> columnList = DB.SelectColumnList("indicator", name);
+                    if(columnList.Count != result.Columns.Count)
+                    {
+                        DataTable PrevData = DB.SelectPriceData(name, string.Format("date<={0}", DateList[0]));
+                        DataTable PrevResult = calc.CalculateData(PrevData);
 
-                Console.WriteLine(name);
+                        List<string> UpdateColumnList = new List<string>();
+                        foreach (DataColumn column in result.Columns)
+                        {
+                            if (!columnList.Contains(column.ColumnName))
+                            {
+                                DB.AddColumn("indicator", name, column.ColumnName, column.DataType, null);
+                                UpdateColumnList.Add(column.ColumnName);
+                            }
+                        }
+
+                        DB.UpdateColumn("indicator", name, UpdateColumnList, "date", PrevResult);
+                    }
+                    
+                }
+
+                
                 DB.UpdateTable("indicator", name, TableFilter(result, DateList.Count > 0 ? DateList[0] : "0"));  // Date > dateList[0] 구현
                 DB.UpdateCompanyInfo(name, "indicator", DateTime.Now.ToString("yyyyMMdd"));
                 
@@ -85,7 +107,7 @@ namespace IndicatorCalculating
                  *  UpdateTable(result)         <= date > DateList[0] 
                  *  UpdateCompanyInfo()
                  */
-                //break;
+                break;
             }
 
         }

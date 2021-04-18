@@ -11,6 +11,7 @@ namespace AutoTraderGUI.Library
 {
     class APICollector : Client
     {
+        public bool Complete;
         Thread LogTh;
 
         Settings settings;
@@ -21,10 +22,16 @@ namespace AutoTraderGUI.Library
             this.settings = settings;
             this.logInterface = logInterface;
             this.progressInterface = progressInterface;
+            Complete = false;
 
             LogTh = new Thread(new ThreadStart(LogManaging));
             LogTh.Start();
 
+        }
+
+        public void IndicatorCalculate()
+        {
+            IndicatorProcessor indicator = new IndicatorProcessor(logInterface, progressInterface, settings);
         }
 
         public void Close()
@@ -56,6 +63,10 @@ namespace AutoTraderGUI.Library
                         break;
                     case "Company":
                         progressInterface.Company = data[1];
+                        break;
+                    case "Complete":
+                        IndicatorCalculate();
+                        Complete = true;
                         break;
                     case "CompanyCount":
                         progressInterface.CompanyCount = int.Parse(data[1]);

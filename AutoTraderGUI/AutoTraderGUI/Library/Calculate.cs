@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 
-namespace IndicatorCalculating
+namespace AutoTraderGUI.Library
 {
     enum CandleType
     {
@@ -13,7 +13,7 @@ namespace IndicatorCalculating
         minus,
         cross
     }
-    
+
     class Calculate
     {
         public Calculate()
@@ -54,7 +54,7 @@ namespace IndicatorCalculating
 
             result.Columns.Add("date", typeof(string));
 
-            for(int i = 0; i < data.Rows.Count; i++)
+            for (int i = 0; i < data.Rows.Count; i++)
             {
                 result.Rows.Add(data.Rows[i]["date"].ToString());
             }
@@ -130,16 +130,16 @@ namespace IndicatorCalculating
                     result.Rows[i]["price_channel_high"] = priceChannel[0][i];
                     result.Rows[i]["price_channel_low"] = priceChannel[1][i];
                 }
-                    
+
                 if (i >= 10)
                     result.Rows[i]["sma10"] = sma10[i];
-                if(i >= 11)
+                if (i >= 11)
                 {
-                    result.Rows[i]["stocastic_fask_K"] = stocastic[0][i];
                     result.Rows[i]["stocastic_slow_K"] = stocastic[1][i];
                     result.Rows[i]["stocastic_slow_D"] = stocastic[2][i];
                 }
-                if(i >= 14)
+                    result.Rows[i]["stocastic_fask_K"] = stocastic[0][i];
+                if (i >= 14)
                 {
                     result.Rows[i]["mfi"] = mfi[i];
                     result.Rows[i]["atr"] = atr[i];
@@ -152,19 +152,19 @@ namespace IndicatorCalculating
                     result.Rows[i]["bollinger_bands_lower"] = Bollinger[1][i];
                     result.Rows[i]["rsi"] = rsi[0][i];
                     result.Rows[i]["rsi_signal"] = rsi[1][i];
-                    
+
                 }
-                if(i >= 21)
+                if (i >= 21)
                 {
                     result.Rows[i]["trix"] = trix[0][i];
                     result.Rows[i]["trix_signal"] = trix[1][i];
                 }
-                if(i >= 35)
+                if (i >= 35)
                 {
                     result.Rows[i]["macd"] = macd[0][i];
                     result.Rows[i]["macd_signal"] = macd[1][i];
                 }
-                if(i >= 30)
+                if (i >= 30)
                 {
                     result.Rows[i]["rmi"] = rmi[i];
                 }
@@ -174,9 +174,9 @@ namespace IndicatorCalculating
                     result.Rows[i]["sma120"] = sma120[i];
             }
 
-            
+
             return result;
-            
+
         }
 
         void PrintData(List<int> data)
@@ -202,7 +202,7 @@ namespace IndicatorCalculating
             {
                 windowData.Add(int.Parse(data.Rows[idx]["close"].ToString()));
 
-                if(windowData.Count > window)
+                if (windowData.Count > window)
                 {
                     windowData.RemoveAt(0);
 
@@ -265,7 +265,7 @@ namespace IndicatorCalculating
         List<int> EMA(DataTable data, int window)
         {
             float k = 2f / (window + 1);
-            
+
             float prevEMA = 0;
 
             List<int> windowData = new List<int>();
@@ -351,11 +351,11 @@ namespace IndicatorCalculating
             List<int> BollingerLower = new List<int>();
 
             List<int> sma = SMA(data, windowLength);
-            
-            for(int i = 0; i < data.Rows.Count; i++)
+
+            for (int i = 0; i < data.Rows.Count; i++)
             {
                 window.Add(int.Parse(data.Rows[i]["close"].ToString()));
-                if(window.Count > windowLength)
+                if (window.Count > windowLength)
                 {
                     window.RemoveAt(0);
 
@@ -391,13 +391,13 @@ namespace IndicatorCalculating
             return result;
 
         }
-        
+
         /* Price Osillator
          *      POSC = ((단기(9)이동평균 - 장기(20)이동평균) / 단기(9) 이동평균) * 100
          *      
          *      단위 : %
         */
-            List<float> POCS(DataTable data, int shortWindow, int longWindow)
+        List<float> POCS(DataTable data, int shortWindow, int longWindow)
         {
             List<float> result = new List<float>();
 
@@ -406,7 +406,7 @@ namespace IndicatorCalculating
 
             for (int idx = 0; idx < data.Rows.Count; idx++)
             {
-                if(idx < longWindow)
+                if (idx < longWindow)
                 {
                     result.Add(0);
                 }
@@ -473,7 +473,8 @@ namespace IndicatorCalculating
                 int close = int.Parse(data.Rows[idx]["close"].ToString());
 
                 int x = open + high + close;
-                switch (GetCandleType(open, high, low, close)) {
+                switch (GetCandleType(open, high, low, close))
+                {
                     case CandleType.plus:
                         x += high;
                         break;
@@ -491,7 +492,7 @@ namespace IndicatorCalculating
                 DeMarkDown.Add(x - high);
             }
 
-            List<int>[] result = {DeMarkUp, DeMarkDown};
+            List<int>[] result = { DeMarkUp, DeMarkDown };
 
             return result;
         }
@@ -585,14 +586,14 @@ namespace IndicatorCalculating
             List<int> tmpTrix = new List<int>();
             for (int idx = 0; idx < data.Rows.Count; idx++)
             {
-                if(idx == 0)
+                if (idx == 0)
                 {
                     trix.Add(0);
                     tmpTrix.Add(0);
                 }
                 else
                 {
-                    if(EMA3[idx - 1] != 0)
+                    if (EMA3[idx - 1] != 0)
                     {
                         trix.Add(((float)(EMA3[idx] - EMA3[idx - 1]) / EMA3[idx - 1]) * 100);
                         // Trix로 다시 EMA를 구하면, Nan 오류가 수정이 안되므로 int로 조정후 계산
@@ -603,7 +604,7 @@ namespace IndicatorCalculating
                         trix.Add(0);
                         tmpTrix.Add(0);
                     }
-                    
+
                 }
             }
 
@@ -611,7 +612,7 @@ namespace IndicatorCalculating
 
             List<float> trix_signal = new List<float>();
 
-            foreach(int tmp in tmpTrix)
+            foreach (int tmp in tmpTrix)
             {
                 trix_signal.Add((float)tmp / 1000000);
             }
@@ -628,7 +629,7 @@ namespace IndicatorCalculating
          *          
          *      SAR = 전일SAR + { 가속변수AF(주로 0.02) * ( EP(최저가 or 최저가) - 전일SAR) }
          */
-        List<int>[] ParabolicSAR (DataTable data, float Acceleration, float AccelerationLimit)
+        List<int>[] ParabolicSAR(DataTable data, float Acceleration, float AccelerationLimit)
         {
 
             // initialize
@@ -638,7 +639,7 @@ namespace IndicatorCalculating
             List<int> psar = new List<int>();
             List<int> psarbull = new List<int>();
             List<int> psarbear = new List<int>();
-            for(int i = 0; i < data.Rows.Count; i++)
+            for (int i = 0; i < data.Rows.Count; i++)
             {
                 high.Add(int.Parse(data.Rows[i]["high"].ToString()));
                 low.Add(int.Parse(data.Rows[i]["low"].ToString()));
@@ -654,7 +655,7 @@ namespace IndicatorCalculating
             float hp = high[0];
             float lp = low[0];
 
-            for(int i = 2; i < data.Rows.Count; i++)
+            for (int i = 2; i < data.Rows.Count; i++)
             {
                 if (bull)
                     psar[i] = (int)(psar[i - 1] + af * (hp - psar[i - 1]));
@@ -676,7 +677,7 @@ namespace IndicatorCalculating
                 }
                 else
                 {
-                    if(high[i] > psar[i])
+                    if (high[i] > psar[i])
                     {
                         bull = true;
                         reverse = true;
@@ -690,32 +691,32 @@ namespace IndicatorCalculating
                 {
                     if (bull)
                     {
-                        if(high[i] > hp)
+                        if (high[i] > hp)
                         {
                             hp = high[i];
                             af = Math.Min(af + Acceleration, AccelerationLimit);
                         }
-                        if(low[i - 1] < psar[i])
+                        if (low[i - 1] < psar[i])
                         {
                             psar[i] = low[i - 1];
                         }
-                        if(low[i - 2] < psar[i])
+                        if (low[i - 2] < psar[i])
                         {
                             psar[i] = low[i - 2];
                         }
                     }
                     else
                     {
-                        if(low[i] < lp)
+                        if (low[i] < lp)
                         {
                             lp = low[i];
                             af = Math.Min(af + Acceleration, AccelerationLimit);
                         }
-                        if(high[i - 1] > psar[i])
+                        if (high[i - 1] > psar[i])
                         {
                             psar[i] = high[i - 1];
                         }
-                        if(high[i - 2] > psar[i])
+                        if (high[i - 2] > psar[i])
                         {
                             psar[i] = high[i - 2];
                         }
@@ -785,7 +786,7 @@ namespace IndicatorCalculating
 
                     float ad = (float)(downList.Average());
                     float au = (float)(upList.Average());
-                    
+
                     float rsi;
                     if (ad != 0)
                     {
@@ -796,7 +797,7 @@ namespace IndicatorCalculating
                     {
                         rsi = 100;
                     }
-                    
+
                     rsiList.Add((int)rsi);
                 }
                 else
@@ -955,7 +956,7 @@ namespace IndicatorCalculating
                 int BasePrice = (high + low + close) / 3;
                 BasePriceList.Add(BasePrice);
                 MoneyFlow.Add((ulong)BasePrice * (ulong)volume);
-                
+
                 if (i > 0)
                 {
                     PositiveMoneyFlowList.Add(BasePriceList[i] >= BasePriceList[i - 1] ? (ulong)BasePrice * (ulong)volume : 0);
@@ -966,8 +967,8 @@ namespace IndicatorCalculating
                     PositiveMoneyFlowList.Add(0);
                     NegativeMoneyFlowList.Add(0);
                 }
-                
-                if(MoneyFlow.Count > windowSize)
+
+                if (MoneyFlow.Count > windowSize)
                 {
                     MoneyFlow.RemoveAt(0);
                     PositiveMoneyFlowList.RemoveAt(0);
@@ -976,25 +977,26 @@ namespace IndicatorCalculating
                     ulong PositiveMoneyFlow = 0;
                     ulong NegativeMoneyFlow = 0;
 
-                    for(int idx = 0; idx < windowSize; idx++)
+                    for (int idx = 0; idx < windowSize; idx++)
                     {
                         PositiveMoneyFlow += PositiveMoneyFlowList[idx];
                         NegativeMoneyFlow += NegativeMoneyFlowList[idx];
                     }
 
                     decimal MoneyRatio;
-                    if (NegativeMoneyFlow != 0) {
+                    if (NegativeMoneyFlow != 0)
+                    {
                         MoneyRatio = (decimal)PositiveMoneyFlow / (decimal)NegativeMoneyFlow;
-                        result.Add((int)(100 - (100 / (1 + MoneyRatio)))); 
+                        result.Add((int)(100 - (100 / (1 + MoneyRatio))));
                     }
                     else
                     {
                         result.Add(100);
                     }
-                        
 
 
-                    
+
+
                 }
                 else
                 {
