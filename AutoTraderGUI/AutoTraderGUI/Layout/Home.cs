@@ -28,41 +28,32 @@ namespace AutoTraderGUI.Layout
             }
         }
 
-        public ProgressInterface DartprogressInterface
-        {
-            get
-            {
-                return DartprogInterface;
-            }
-        }
-
         ProgressInterface progInterface = null;
-        ProgressInterface DartprogInterface = null;
         Forms.CollectorProgressControl collectorProgress;
-        Forms.CollectorProgressControl dartcollectorProgress;
         Forms.AlgorithmInfoControl algorithmInfo;
         public Forms.LogViewerControl logViewer;
+        Forms.EmptyControl empty;
 
         public Home()
         {
             InitializeComponent();
 
-            collectorProgress = new Forms.CollectorProgressControl("API Collector");
-            dartcollectorProgress = new Forms.CollectorProgressControl("Dart Collector");
+            collectorProgress = new Forms.CollectorProgressControl();
             algorithmInfo = new Forms.AlgorithmInfoControl();
             logViewer = new Forms.LogViewerControl();
+            empty = new Forms.EmptyControl("포트폴리오 표현");
 
-            tableLayoutPanel2.ColumnStyles[1].Width = 417;
-            tableLayoutPanel2.ColumnStyles[2].Width = 417;
+
+            tableLayoutPanel2.ColumnStyles[0].Width = 417;            
 
             tableLayoutPanel2.Controls.Clear();
-            tableLayoutPanel2.Controls.Add(new Forms.EmptyControl());
             tableLayoutPanel2.Controls.Add(collectorProgress);
-            tableLayoutPanel2.Controls.Add(dartcollectorProgress);
+            //tableLayoutPanel2.Controls.Add(new Forms.EmptyControl());
+            
 
             progInterface = collectorProgress.progressInterface;
-            DartprogInterface = dartcollectorProgress.progressInterface;
 
+            splitContainer1.Panel1.Controls.Add(empty);
             splitContainer2.Panel1.Controls.Clear();
             splitContainer2.Panel1.Controls.Add(algorithmInfo);
 

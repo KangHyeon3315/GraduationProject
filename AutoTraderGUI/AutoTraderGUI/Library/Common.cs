@@ -19,6 +19,7 @@ namespace AutoTraderGUI
         int CompleteCount { get; set; }
         int CompanyCount { get; set; }
         int Progress { get; set; }
+        string Title { get; set; }
     }
 
     class Queue

@@ -12,10 +12,11 @@ namespace AutoTraderGUI.Forms
 {
     public partial class EmptyControl : UserControl
     {
-        public EmptyControl()
+        public EmptyControl(string Text)
         {
             InitializeComponent();
             Dock = DockStyle.Fill;
+            label1.Text = Text;
         }
     }
 }

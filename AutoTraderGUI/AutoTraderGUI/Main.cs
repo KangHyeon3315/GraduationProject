@@ -2,25 +2,31 @@
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Drawing;
 
 
 namespace AutoTraderGUI
 {
+    enum ProcessInfo
+    {
+        None,
+        APICollector,
+        DartCollector
+    }
+
     public partial class Main : Form
     {
         Library.Settings settings;
         Forms.SettingsForm settingsForm;
 
-        System.Diagnostics.ProcessStartInfo APICollectorPri;
-        System.Diagnostics.Process APICollecotrPro;
-        Thread APICollectorTh;
-
-        System.Diagnostics.ProcessStartInfo DartCollectorPri;
-        System.Diagnostics.Process DartCollecotrPro;
-        Thread DartCollectorTh;
+        System.Diagnostics.ProcessStartInfo Pri;
+        System.Diagnostics.Process Pro;
+        Thread CollectorTh;
+        ProcessInfo processinfo;
 
         Forms.EmptyControl empty;
         Layout.Home home;
+        Layout.Analyze analyze;
         LogInterface logInterface = null;
         ProgressInterface progressInterface = null;
         ProgressInterface dartprogressInterface = null;
@@ -32,19 +38,20 @@ namespace AutoTraderGUI
         {
             InitializeComponent();
 
+            processinfo = ProcessInfo.None;
             settings = new Library.Settings();
             settingsForm = new Forms.SettingsForm(settings.info);
 
-            empty = new Forms.EmptyControl();
+            analyze = new Layout.Analyze();
             home = new Layout.Home();
             logInterface = home.logInterface;
             progressInterface = home.progressInterface;
-            dartprogressInterface = home.DartprogressInterface;
 
             net = new Library.Network(logInterface, progressInterface, dartprogressInterface, settings);
 
             this.WindowState = FormWindowState.Maximized;
 
+            TabMenu.Items["MainToolStripLabel"].Font = new Font(TabMenu.Items["MainToolStripLabel"].Font, FontStyle.Bold);
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(home);
 
@@ -67,17 +74,23 @@ namespace AutoTraderGUI
             }
 
 
-            if (APICollecotrPro != null && !APICollecotrPro.HasExited)
+            if (Pro != null && !Pro.HasExited)
             {
-                CloseAPICollector();
+                if(processinfo == ProcessInfo.APICollector)
+                {
+                    CloseAPICollector();
+                }
+                else
+                {
+                    MessageBox.Show("다른 하위 프로세스가 작동중입니다.");
+                }
+                
             }
             else
             {
-                APICollectorTh = new Thread(new ThreadStart(ExecuteAPICollector));
-                APICollectorTh.Start();
+                CollectorTh = new Thread(new ThreadStart(ExecuteAPICollector));
+                CollectorTh.Start();
             }
-
-            
 
         }
 
@@ -85,17 +98,20 @@ namespace AutoTraderGUI
         {
             try
             {
-                APICollectorPri = new System.Diagnostics.ProcessStartInfo();
-                APICollectorPri.FileName = settings.info.InterpreterPath;
-                APICollectorPri.Arguments = settings.info.APICollectorPath + string.Format(" {0} {1} {2} {3} {4}", settings.info.RequestsInterval, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
+                Pri = new System.Diagnostics.ProcessStartInfo();
+                Pri.FileName = settings.info.InterpreterPath;
+                Pri.Arguments = settings.info.APICollectorPath + string.Format(" {0} {1} {2} {3} {4}", settings.info.RequestsInterval, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
 
-                APICollectorPri.UseShellExecute = false;
-                APICollectorPri.CreateNoWindow = true;
-                APICollectorPri.RedirectStandardOutput = false;
-                APICollectorPri.RedirectStandardError = false;
+                Pri.UseShellExecute = false;
+                Pri.CreateNoWindow = true;
+                Pri.RedirectStandardOutput = false;
+                Pri.RedirectStandardError = false;
 
-                logInterface.WriteLog("Log", "None", "None", "Execute API Collector");
-                APICollecotrPro = System.Diagnostics.Process.Start(APICollectorPri);
+                processinfo = ProcessInfo.APICollector;
+                progressInterface.Title = "API Collector";
+                logInterface.WriteLog("Debug", "None", "None", "Execute API Collector");
+
+                Pro = System.Diagnostics.Process.Start(Pri);
             }
             catch (Exception ex)
             {
@@ -104,18 +120,17 @@ namespace AutoTraderGUI
         }
         void CloseAPICollector()
         {
-            if (APICollecotrPro != null && !APICollecotrPro.HasExited)
+            if (Pro != null && !Pro.HasExited && processinfo == ProcessInfo.APICollector)
             {
                 net.apiCollector.Close();
-                logInterface.WriteLog("Log", "None", "None", "Close API Collector");
-                APICollecotrPro.Kill();
+                logInterface.WriteLog("Debug", "None", "None", "Close API Collector");
+                Pro.Kill();
                 progressInterface.Company = "None";
                 progressInterface.RqCount = 0;
-                net.RebootServer();
+                processinfo = ProcessInfo.None;
+                net.RebootServer();                     // Listen 카운팅 해서 필요할때만 Reboot하도록 수정
             }
         }
-
-
 
         private void SettingsClick(object sender, EventArgs e)
         {
@@ -140,14 +155,22 @@ namespace AutoTraderGUI
                 return;
             }
 
-            if (DartCollecotrPro != null && !DartCollecotrPro.HasExited)
+            if (Pro != null && !Pro.HasExited)
             {
-                CloseDartCollector();
+                if(processinfo == ProcessInfo.DartCollector)
+                {
+                    CloseDartCollector();
+                }
+                else
+                {
+                    MessageBox.Show("다른 하위 프로세스가 작동중입니다.");
+                }
+                    
             }
             else
             {
-                DartCollectorTh = new Thread(new ThreadStart(ExecuteDartCollector));
-                DartCollectorTh.Start();
+                CollectorTh = new Thread(new ThreadStart(ExecuteDartCollector));
+                CollectorTh.Start();
             }
         }
 
@@ -155,17 +178,20 @@ namespace AutoTraderGUI
         {
             try
             {
-                DartCollectorPri = new System.Diagnostics.ProcessStartInfo();
-                DartCollectorPri.FileName = settings.info.InterpreterPath;
-                DartCollectorPri.Arguments = settings.info.DartCollectorPath + string.Format(" {0} {1} {2} {3} {4}", settings.info.DartAPI, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
+                Pri = new System.Diagnostics.ProcessStartInfo();
+                Pri.FileName = settings.info.InterpreterPath;
+                Pri.Arguments = settings.info.DartCollectorPath + string.Format(" {0} {1} {2} {3} {4}", settings.info.DartAPI, settings.info.DBIP, settings.info.DBPort, settings.info.DBID, settings.info.DBPW);
 
-                DartCollectorPri.UseShellExecute = false;
-                DartCollectorPri.CreateNoWindow = false;
-                DartCollectorPri.RedirectStandardOutput = false;
-                DartCollectorPri.RedirectStandardError = false;
+                Pri.UseShellExecute = false;
+                Pri.CreateNoWindow = false;
+                Pri.RedirectStandardOutput = false;
+                Pri.RedirectStandardError = false;
 
+                processinfo = ProcessInfo.DartCollector;
+                progressInterface.Title = "Dart Collector";
                 logInterface.WriteLog("Log", "None", "None", "Execute Dart Collector");
-                DartCollecotrPro = System.Diagnostics.Process.Start(DartCollectorPri);
+
+                Pro = System.Diagnostics.Process.Start(Pri);
             }
             catch (Exception ex)
             {
@@ -174,11 +200,12 @@ namespace AutoTraderGUI
         }
         void CloseDartCollector()
         {
-            if (DartCollecotrPro != null && !DartCollecotrPro.HasExited)
+            if (Pro != null && !Pro.HasExited && processinfo == ProcessInfo.DartCollector)
             {
                 net.dartCollector.Close();
                 logInterface.WriteLog("Log", "None", "None", "Close Dart Collector");
-                DartCollecotrPro.Kill();
+                Pro.Kill();
+                processinfo = ProcessInfo.None;
                 net.RebootServer();
             }
 
@@ -187,7 +214,7 @@ namespace AutoTraderGUI
         private void CheckSystem(object sender, EventArgs e)
         {
             
-            if (APICollecotrPro != null && !APICollecotrPro.HasExited)
+            if (Pro != null && !Pro.HasExited && processinfo == ProcessInfo.APICollector)
             {
                 aPICollectorToolStripMenuItem.Text = "API Collector 종료";
             }
@@ -197,7 +224,7 @@ namespace AutoTraderGUI
             }
             
             
-            if (DartCollecotrPro != null && !DartCollecotrPro.HasExited)
+            if (Pro != null && !Pro.HasExited && processinfo == ProcessInfo.DartCollector)
             {
                 dartCollectorToolStripMenuItem.Text = "Dart Collector 종료";
             }
@@ -206,7 +233,7 @@ namespace AutoTraderGUI
                 dartCollectorToolStripMenuItem.Text = "Dart Collector 시작";
             }
 
-            if (progressInterface.RqCount == settings.info.MaxRequestsCount - 10)
+            if (progressInterface.RqCount == settings.info.MaxRequestsCount - 10 && processinfo == ProcessInfo.APICollector)
             {
                 CloseAPICollector();
                 progressInterface.RqCount = 0;
@@ -222,10 +249,11 @@ namespace AutoTraderGUI
             {
                 net.dartCollector.ReceiveTh.Abort();
                 net.dartCollector.LogTh.Abort();
+                processinfo = ProcessInfo.None;
             }
 
             // 2분 이상 API Collector가 응답이 없으면 재실행
-            if (APICollecotrPro != null && !APICollecotrPro.HasExited && net.apiCollector != null && !net.apiCollector.Complete)
+            if (Pro != null && !Pro.HasExited && net.apiCollector != null && !net.apiCollector.Complete && processinfo == ProcessInfo.APICollector)
             {
                 if (home.logViewer.LastLogTime != "")
                 {
@@ -241,12 +269,50 @@ namespace AutoTraderGUI
                     }
                 }
             }
+
+            if(Pro != null && Pro.HasExited)
+            {
+                processinfo = ProcessInfo.None;
+            }
+        }
+
+        private void ResetClickToolStrip()
+        {
+            for(int i = 0; i < TabMenu.Items.Count; i++)
+            {
+                TabMenu.Items[i].Font = new Font(TabMenu.Items[i].Font, FontStyle.Regular);
+            }
         }
 
         private void ClickHome(object sender, EventArgs e)
         {
+            ResetClickToolStrip();
+            TabMenu.Items["MainToolStripLabel"].Font = new Font(TabMenu.Items["MainToolStripLabel"].Font, FontStyle.Bold);
             MainPanel.Controls.Clear();
             MainPanel.Controls.Add(home);
+        }
+        private void ClickAnalyze(object sender, EventArgs e)
+        {
+            ResetClickToolStrip();
+            TabMenu.Items["AnalyzeToolStripLabel"].Font = new Font(TabMenu.Items["AnalyzeToolStripLabel"].Font, FontStyle.Bold);
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(analyze);
+        }
+
+        private void ClickSimulate(object sender, EventArgs e)
+        {
+            ResetClickToolStrip();
+            TabMenu.Items["SimulationToolStripLabel"].Font = new Font(TabMenu.Items["SimulationToolStripLabel"].Font, FontStyle.Bold);
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(empty);
+        }
+
+        private void ClickTrade(object sender, EventArgs e)
+        {
+            ResetClickToolStrip();
+            TabMenu.Items["TradeToolStripLabel"].Font = new Font(TabMenu.Items["TradeToolStripLabel"].Font, FontStyle.Bold);
+            MainPanel.Controls.Clear();
+            MainPanel.Controls.Add(empty);
         }
 
         private void HistoricalLogClick(object sender, EventArgs e)
@@ -255,22 +321,5 @@ namespace AutoTraderGUI
             historicalLogViewer.Show();
         }
 
-        private void ClickAnalyze(object sender, EventArgs e)
-        {
-            MainPanel.Controls.Clear();
-            MainPanel.Controls.Add(empty);
-        }
-
-        private void ClickSimulate(object sender, EventArgs e)
-        {
-            MainPanel.Controls.Clear();
-            MainPanel.Controls.Add(empty);
-        }
-
-        private void ClickTrade(object sender, EventArgs e)
-        {
-            MainPanel.Controls.Clear();
-            MainPanel.Controls.Add(empty);
-        }
     }
 }

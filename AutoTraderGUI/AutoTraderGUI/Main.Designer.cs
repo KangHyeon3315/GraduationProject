@@ -38,16 +38,16 @@ namespace AutoTraderGUI
             this.정보입력ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.과거로그보기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabMenu = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.AnalyzeToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.SimulationToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.TradeToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.MainToolStripLabel = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1.SuspendLayout();
             this.TabMenu.SuspendLayout();
             this.SuspendLayout();
@@ -113,13 +113,13 @@ namespace AutoTraderGUI
             // 
             this.TabMenu.AutoSize = false;
             this.TabMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
+            this.MainToolStripLabel,
             this.toolStripSeparator1,
-            this.toolStripLabel4,
+            this.AnalyzeToolStripLabel,
             this.toolStripSeparator4,
-            this.toolStripLabel3,
+            this.SimulationToolStripLabel,
             this.toolStripSeparator3,
-            this.toolStripLabel2,
+            this.TradeToolStripLabel,
             this.toolStripSeparator2});
             this.TabMenu.Location = new System.Drawing.Point(0, 24);
             this.TabMenu.Name = "TabMenu";
@@ -127,52 +127,44 @@ namespace AutoTraderGUI
             this.TabMenu.TabIndex = 1;
             this.TabMenu.Text = "toolStrip1";
             // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(31, 22);
-            this.toolStripLabel1.Text = "메인";
-            this.toolStripLabel1.Click += new System.EventHandler(this.ClickHome);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripLabel4
+            // AnalyzeToolStripLabel
             // 
-            this.toolStripLabel4.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(31, 22);
-            this.toolStripLabel4.Text = "분석";
-            this.toolStripLabel4.Click += new System.EventHandler(this.ClickAnalyze);
+            this.AnalyzeToolStripLabel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.AnalyzeToolStripLabel.Name = "AnalyzeToolStripLabel";
+            this.AnalyzeToolStripLabel.Size = new System.Drawing.Size(31, 22);
+            this.AnalyzeToolStripLabel.Text = "분석";
+            this.AnalyzeToolStripLabel.Click += new System.EventHandler(this.ClickAnalyze);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripLabel3
+            // SimulationToolStripLabel
             // 
-            this.toolStripLabel3.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(67, 22);
-            this.toolStripLabel3.Text = "시뮬레이션";
-            this.toolStripLabel3.Click += new System.EventHandler(this.ClickSimulate);
+            this.SimulationToolStripLabel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.SimulationToolStripLabel.Name = "SimulationToolStripLabel";
+            this.SimulationToolStripLabel.Size = new System.Drawing.Size(67, 22);
+            this.SimulationToolStripLabel.Text = "시뮬레이션";
+            this.SimulationToolStripLabel.Click += new System.EventHandler(this.ClickSimulate);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripLabel2
+            // TradeToolStripLabel
             // 
-            this.toolStripLabel2.Font = new System.Drawing.Font("맑은 고딕", 9F);
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(31, 22);
-            this.toolStripLabel2.Text = "거래";
-            this.toolStripLabel2.Click += new System.EventHandler(this.ClickTrade);
+            this.TradeToolStripLabel.Font = new System.Drawing.Font("맑은 고딕", 9F);
+            this.TradeToolStripLabel.Name = "TradeToolStripLabel";
+            this.TradeToolStripLabel.Size = new System.Drawing.Size(31, 22);
+            this.TradeToolStripLabel.Text = "거래";
+            this.TradeToolStripLabel.Click += new System.EventHandler(this.ClickTrade);
             // 
             // toolStripSeparator2
             // 
@@ -194,6 +186,13 @@ namespace AutoTraderGUI
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.CheckSystem);
+            // 
+            // MainToolStripLabel
+            // 
+            this.MainToolStripLabel.Name = "MainToolStripLabel";
+            this.MainToolStripLabel.Size = new System.Drawing.Size(31, 22);
+            this.MainToolStripLabel.Text = "메인";
+            this.MainToolStripLabel.Click += new System.EventHandler(this.ClickHome);
             // 
             // Main
             // 
@@ -229,14 +228,14 @@ namespace AutoTraderGUI
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem 정보입력ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 과거로그보기ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripLabel TradeToolStripLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripLabel AnalyzeToolStripLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripLabel SimulationToolStripLabel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripLabel MainToolStripLabel;
     }
 }
 

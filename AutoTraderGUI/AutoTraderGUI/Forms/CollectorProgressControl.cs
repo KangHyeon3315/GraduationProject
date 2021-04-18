@@ -175,11 +175,20 @@ namespace AutoTraderGUI.Forms
                 return groupBox1.Size;
             }
         }
-        public CollectorProgressControl(string name)
+        public string Title
+        {
+            get
+            {
+                return groupBox1.Text;
+            }
+            set
+            {
+                groupBox1.Text = value;
+            }
+        }
+        public CollectorProgressControl()
         {
             InitializeComponent();
-
-            groupBox1.Text = name;
         }
     }
 }

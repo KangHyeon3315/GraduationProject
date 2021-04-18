@@ -15,6 +15,12 @@ namespace AutoTraderGUI.Layout
         public Analyze()
         {
             InitializeComponent();
+            Dock = DockStyle.Fill;
+        }
+
+        private void CenterLayout_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
