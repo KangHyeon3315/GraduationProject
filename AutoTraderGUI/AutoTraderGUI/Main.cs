@@ -29,7 +29,7 @@ namespace AutoTraderGUI
         Layout.Analyze analyze;
         LogInterface logInterface = null;
         ProgressInterface progressInterface = null;
-        ProgressInterface dartprogressInterface = null;
+
         Library.Network net;
 
         Forms.HistoricalLogViewer historicalLogViewer;
@@ -47,7 +47,7 @@ namespace AutoTraderGUI
             logInterface = home.logInterface;
             progressInterface = home.progressInterface;
 
-            net = new Library.Network(logInterface, progressInterface, dartprogressInterface, settings);
+            net = new Library.Network(logInterface, progressInterface, settings);
 
             this.WindowState = FormWindowState.Maximized;
 

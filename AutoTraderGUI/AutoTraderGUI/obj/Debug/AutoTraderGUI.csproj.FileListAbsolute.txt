@@ -44,3 +44,4 @@ F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\bin\Debug\MySql.Data.xml
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.exe.config
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Layout.Analyze.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.CopyComplete
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.CandleChartControl.resources

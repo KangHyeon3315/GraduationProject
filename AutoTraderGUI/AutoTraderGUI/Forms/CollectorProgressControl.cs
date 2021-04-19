@@ -183,8 +183,21 @@ namespace AutoTraderGUI.Forms
             }
             set
             {
-                groupBox1.Text = value;
+                if (this.groupBox1.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetTitle);
+                    this.Invoke(d, new object[] { value });
+                }
+                else
+                {
+                    SetTitle(value);
+                }
+                
             }
+        }
+        void SetTitle(string text)
+        {
+            groupBox1.Text = text;
         }
         public CollectorProgressControl()
         {

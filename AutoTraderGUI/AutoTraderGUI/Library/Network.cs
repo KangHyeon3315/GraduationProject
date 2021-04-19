@@ -21,13 +21,12 @@ namespace AutoTraderGUI.Library
 
         LogInterface logInterface = null;
         ProgressInterface progressInterface = null;
-        ProgressInterface dartprogressInterface = null;
-        public Network(LogInterface logInterface, ProgressInterface progressInterface, ProgressInterface dartprogressInterface, Settings settings)
+
+        public Network(LogInterface logInterface, ProgressInterface progressInterface, Settings settings)
         {
             this.settings = settings;
             this.logInterface = logInterface;
             this.progressInterface = progressInterface;
-            this.dartprogressInterface = dartprogressInterface;
 
             serverTh = new Thread(new ThreadStart(RunServer));
             serverTh.Start();
@@ -72,7 +71,7 @@ namespace AutoTraderGUI.Library
                     else if(client.role == Role.DartCollector)
                     {
                         logInterface.WriteLog("Debug", "None", "None", "Allocate Dart Collector");
-                        dartCollector = new DartCollector(sock, logInterface, dartprogressInterface, settings);
+                        dartCollector = new DartCollector(sock, logInterface, progressInterface, settings);
                         dartCollector.ReceiveQueue = client.ReceiveQueue;
                         client.ReceiveTh.Abort();
                     }

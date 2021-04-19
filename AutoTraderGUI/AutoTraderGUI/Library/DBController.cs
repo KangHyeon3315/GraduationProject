@@ -154,6 +154,34 @@ namespace AutoTraderGUI.Library
             return ds.Tables["result"];
         }
 
+        public DataTable SelectTableData(string schema, string table, string option = "")
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
+                {
+                    conn.Open();
+                    string command;
+                    if (option == "")
+                        command = string.Format("SELECT * FROM {0}.`{1}`", schema, table);
+                    else
+                        command = string.Format("SELECT * FROM {0}.`{1}` WHERE {2}", schema, table, option);
+
+                    MySqlDataAdapter adpt = new MySqlDataAdapter(command, collectorStrConn);
+                    adpt.Fill(ds, "result");
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+
+            return ds.Tables["result"];
+        }
+
         public bool ColumnCheck(string tableName, string schemaName, string columnName)
         {
             bool result = false;

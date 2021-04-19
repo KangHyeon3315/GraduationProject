@@ -46,7 +46,6 @@ class Statement:
         self.corp_info = self.DB.GetCompanyInfoTotalTable()
         self.RqCount = 0
 
-        self.net.Work("Financial Statement Collecting")
         self.net.Company("None")
         self.net.RqCount(self.RqCount)
         self.net.CompleteCount(0)
@@ -77,6 +76,7 @@ class Statement:
         self.net.Send("Complete")
 
     def get_financial_statement(self):
+        self.net.Work("Financial Statement Collecting")
         for idx in range(len(self.corp_info)):
             code = self.corp_info.loc[idx, "code"]
             name = self.corp_info.loc[idx, "name"]
@@ -99,6 +99,7 @@ class Statement:
                 year_range = range(2015, datetime.date.today().year + 1)
                 # year_range = range(int(self.corp_info.loc[idx, "financial_statement"][:4]), datetime.date.today().year)
 
+            self.net.CompleteCount(idx)
             self.net.Company(name)
             self.net.Log("{} 재무재표 데이터 수집".format(name))
 
@@ -167,7 +168,6 @@ class Statement:
                 
                 self.DB.UpdateTable("financial_statement", name, result)
             self.DB.SetScheduleInfo(code, "financial_statement", self.month)
-            self.net.CompleteCount(idx + 1)
 
         self.net.Send("Complete")
         self.net.sock.close()
