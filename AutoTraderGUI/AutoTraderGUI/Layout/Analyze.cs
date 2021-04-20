@@ -14,6 +14,7 @@ namespace AutoTraderGUI.Layout
 {
     public partial class Analyze : UserControl
     {
+        //Analyze
         Library.DBController DB;
         Library.Settings settings;
 
