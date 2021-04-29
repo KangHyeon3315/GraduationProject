@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Data;
 
 
 namespace AutoTraderGUI
@@ -27,6 +28,7 @@ namespace AutoTraderGUI
         Forms.EmptyControl empty;
         Layout.Home home;
         Layout.Analyze analyze;
+        Forms.Simulate simulate;
         LogInterface logInterface = null;
         ProgressInterface progressInterface = null;
 
@@ -42,6 +44,8 @@ namespace AutoTraderGUI
             settings = new Library.Settings();
             settingsForm = new Forms.SettingsForm(settings.info);
 
+            empty = new Forms.EmptyControl("Empty");
+            simulate = new Forms.Simulate();
             analyze = new Layout.Analyze();
             home = new Layout.Home();
             logInterface = home.logInterface;
@@ -304,7 +308,7 @@ namespace AutoTraderGUI
             ResetClickToolStrip();
             TabMenu.Items["SimulationToolStripLabel"].Font = new Font(TabMenu.Items["SimulationToolStripLabel"].Font, FontStyle.Bold);
             MainPanel.Controls.Clear();
-            MainPanel.Controls.Add(empty);
+            MainPanel.Controls.Add(simulate);
         }
 
         private void ClickTrade(object sender, EventArgs e)

@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Windows.Forms;
 
 namespace AutoTraderGUI
 {
+    public interface SymbolInterface
+    {
+        Forms.SymbolTable SymbolTable { get;}
+    }
     public interface LogInterface
     {
         void WriteLog(string info, string task, string company, string log);
@@ -65,6 +71,22 @@ namespace AutoTraderGUI
         APICollector,
         DartCollector
     }
+
+    enum TradeTiming
+    {
+        Open,
+        Close,
+        All
+    }
+
+    enum Trends
+    {
+        None,
+        UpTrends,
+        DownTrends,
+        LateralTrends
+    }
+
     class Common
     {
     }

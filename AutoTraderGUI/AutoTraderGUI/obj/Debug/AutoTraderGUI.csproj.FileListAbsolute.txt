@@ -45,3 +45,8 @@ F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.exe.con
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Layout.Analyze.resources
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.csproj.CopyComplete
 F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.CandleChartControl.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.AlgorithmManager.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.Simulate.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.AlgorithmCreate.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.AlgorithmOptionManager.resources
+F:\GraduationProject\AutoTraderGUI\AutoTraderGUI\obj\Debug\AutoTraderGUI.Forms.SymbolTable.resources

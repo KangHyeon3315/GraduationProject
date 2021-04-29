@@ -1,7 +1,7 @@
 ﻿
 namespace AutoTraderGUI.Forms
 {
-    partial class AlgorithmInfoControl
+    partial class SymbolTable
     {
         /// <summary> 
         /// 필수 디자이너 변수입니다.
@@ -29,7 +29,7 @@ namespace AutoTraderGUI.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.AlgorithmInfo = new System.Windows.Forms.ListView();
+            this.SymbolsListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -38,80 +38,75 @@ namespace AutoTraderGUI.Forms
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // AlgorithmInfo
+            // SymbolsListView
             // 
-            this.AlgorithmInfo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.SymbolsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
-            this.AlgorithmInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AlgorithmInfo.GridLines = true;
-            this.AlgorithmInfo.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.AlgorithmInfo.HideSelection = false;
-            this.AlgorithmInfo.Location = new System.Drawing.Point(0, 0);
-            this.AlgorithmInfo.Name = "AlgorithmInfo";
-            this.AlgorithmInfo.Size = new System.Drawing.Size(999, 484);
-            this.AlgorithmInfo.TabIndex = 10;
-            this.AlgorithmInfo.UseCompatibleStateImageBehavior = false;
-            this.AlgorithmInfo.View = System.Windows.Forms.View.Details;
-            this.AlgorithmInfo.Resize += new System.EventHandler(this.ResizeEvent);
+            this.SymbolsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SymbolsListView.HideSelection = false;
+            this.SymbolsListView.Location = new System.Drawing.Point(0, 0);
+            this.SymbolsListView.Name = "SymbolsListView";
+            this.SymbolsListView.Size = new System.Drawing.Size(738, 459);
+            this.SymbolsListView.TabIndex = 1;
+            this.SymbolsListView.UseCompatibleStateImageBehavior = false;
+            this.SymbolsListView.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "알고리즘 이름";
-            this.columnHeader1.Width = 95;
+            this.columnHeader1.Text = "인덱스";
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "수익률";
+            this.columnHeader2.Text = "변수 명";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 180;
+            this.columnHeader2.Width = 120;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "손익비";
+            this.columnHeader3.Text = "지표";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 180;
+            this.columnHeader3.Width = 120;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "최대 누적 하락 수익률";
+            this.columnHeader4.Text = "오프셋";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 180;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "최대 미실현 수익";
+            this.columnHeader5.Text = "속성";
             this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader5.Width = 180;
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "최대 미실현 손실";
-            this.columnHeader6.Width = 180;
+            this.columnHeader6.Text = "속성값";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader6.Width = 120;
             // 
-            // AlgorithmInfoControl
+            // SymbolTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.AlgorithmInfo);
-            this.Name = "AlgorithmInfoControl";
-            this.Size = new System.Drawing.Size(999, 484);
+            this.Controls.Add(this.SymbolsListView);
+            this.Name = "SymbolTable";
+            this.Size = new System.Drawing.Size(738, 459);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView AlgorithmInfo;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        public System.Windows.Forms.ListView SymbolsListView;
     }
 }

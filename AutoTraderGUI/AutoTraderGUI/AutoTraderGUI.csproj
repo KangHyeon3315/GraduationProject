@@ -48,11 +48,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AlgorithmCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AlgorithmCreate.Designer.cs">
+      <DependentUpon>AlgorithmCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AlgorithmInfoControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\AlgorithmInfoControl.Designer.cs">
       <DependentUpon>AlgorithmInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AlgorithmManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AlgorithmManager.Designer.cs">
+      <DependentUpon>AlgorithmManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AlgorithmOptionManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\AlgorithmOptionManager.Designer.cs">
+      <DependentUpon>AlgorithmOptionManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\CandleChartControl.cs">
       <SubType>UserControl</SubType>
@@ -78,6 +96,12 @@
     <Compile Include="Forms\HistoricalLogViewer.Designer.cs">
       <DependentUpon>HistoricalLogViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SymbolTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\SymbolTable.Designer.cs">
+      <DependentUpon>SymbolTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layout\Analyze.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -102,6 +126,13 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Simulate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Simulate.Designer.cs">
+      <DependentUpon>Simulate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Library\AlgorithmInfo.cs" />
     <Compile Include="Library\APICollector.cs" />
     <Compile Include="Library\Calculate.cs" />
     <Compile Include="Library\Client.cs" />
@@ -121,8 +152,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AlgorithmCreate.resx">
+      <DependentUpon>AlgorithmCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AlgorithmInfoControl.resx">
       <DependentUpon>AlgorithmInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AlgorithmManager.resx">
+      <DependentUpon>AlgorithmManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AlgorithmOptionManager.resx">
+      <DependentUpon>AlgorithmOptionManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CandleChartControl.resx">
       <DependentUpon>CandleChartControl.cs</DependentUpon>
@@ -136,6 +176,9 @@
     <EmbeddedResource Include="Forms\HistoricalLogViewer.resx">
       <DependentUpon>HistoricalLogViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SymbolTable.resx">
+      <DependentUpon>SymbolTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Layout\Analyze.resx">
       <DependentUpon>Analyze.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Simulate.resx">
+      <DependentUpon>Simulate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

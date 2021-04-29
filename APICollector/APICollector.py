@@ -42,8 +42,8 @@ class Collector:
         self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
 
         self.open_time = "0840"
-        # self.close_time = "1535"
-        self.close_time = "2035"
+        self.close_time = "1535"
+        # self.close_time = "2035"
 
         current_time = datetime.datetime.today().strftime("%H%M")
 
@@ -220,8 +220,9 @@ class Collector:
                 self.net.Log("Data is Not Equal")
                 # 데이터 삭제
                 self.net.Log("Drop Table")
-                self.DB.DropTable("daily_chart_data", name)
-
+                self.DB.DropTable("daily_chart", name)
+                self.DB.DropTable("indicator", name)
+                self.DB.SetScheduleInfo(code, "reprocessing", "Rewrite")
                 self.net.Log("chart Collecting")
                 chart_data = self.api.GetDailyData(code=code, date="0")
 
