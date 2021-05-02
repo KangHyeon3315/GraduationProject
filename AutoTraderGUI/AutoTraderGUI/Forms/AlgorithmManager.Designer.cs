@@ -95,6 +95,7 @@ namespace AutoTraderGUI.Forms
             this.button2.TabIndex = 1;
             this.button2.Text = "선택하기";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.AlgorithmSelect);
             // 
             // SearchTextBox
             // 
@@ -115,6 +116,7 @@ namespace AutoTraderGUI.Forms
             this.button3.TabIndex = 3;
             this.button3.Text = "검색";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.SearchClick);
             // 
             // AlgorithmManager
             // 

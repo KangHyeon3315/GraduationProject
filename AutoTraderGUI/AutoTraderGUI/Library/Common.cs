@@ -10,7 +10,13 @@ namespace AutoTraderGUI
 {
     public interface SymbolInterface
     {
-        Forms.SymbolTable SymbolTable { get;}
+        Forms.SymbolTable SymbolTable { get; }
+        void AddSymbol(object symbol);
+    }
+    public interface AlgorithmInfoInterface
+    {
+        string[] AlgorithmNames { get; }
+        void refreshAlgorithmInfo();
     }
     public interface LogInterface
     {
@@ -27,7 +33,24 @@ namespace AutoTraderGUI
         int Progress { get; set; }
         string Title { get; set; }
     }
+    [Serializable]
+    class Symbol
+    {
+        public string varName;
+        public string indicatorName;
+        public int offset;
+        public string Parameter;
+        public string ParameterValue;
 
+        public Symbol(string varName, string indicatorName, int offset, string Parameter, string ParameterValue)
+        {
+            this.varName = varName;
+            this.indicatorName = indicatorName;
+            this.offset = offset;
+            this.Parameter = Parameter;
+            this.ParameterValue = ParameterValue;
+        }
+    }
     class Queue
     {
         List<string> ReceiveQueue;
@@ -87,6 +110,13 @@ namespace AutoTraderGUI
         LateralTrends
     }
 
+    enum Frequency
+    {
+        Min,
+        Date,
+        Month,
+        Year
+    }
     class Common
     {
     }

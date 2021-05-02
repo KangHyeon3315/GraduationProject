@@ -29,6 +29,7 @@ namespace AutoTraderGUI.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.AlgorithmInfo = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -36,6 +37,11 @@ namespace AutoTraderGUI.Forms
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.세부정보ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.수정하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.삭제하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // AlgorithmInfo
@@ -47,11 +53,13 @@ namespace AutoTraderGUI.Forms
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
+            this.AlgorithmInfo.ContextMenuStrip = this.contextMenuStrip1;
             this.AlgorithmInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AlgorithmInfo.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.AlgorithmInfo.GridLines = true;
-            this.AlgorithmInfo.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.AlgorithmInfo.HideSelection = false;
             this.AlgorithmInfo.Location = new System.Drawing.Point(0, 0);
+            this.AlgorithmInfo.MultiSelect = false;
             this.AlgorithmInfo.Name = "AlgorithmInfo";
             this.AlgorithmInfo.Size = new System.Drawing.Size(999, 484);
             this.AlgorithmInfo.TabIndex = 10;
@@ -93,6 +101,35 @@ namespace AutoTraderGUI.Forms
             this.columnHeader6.Text = "최대 미실현 손실";
             this.columnHeader6.Width = 180;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.세부정보ToolStripMenuItem,
+            this.수정하기ToolStripMenuItem,
+            this.삭제하기ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            // 
+            // 세부정보ToolStripMenuItem
+            // 
+            this.세부정보ToolStripMenuItem.Name = "세부정보ToolStripMenuItem";
+            this.세부정보ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.세부정보ToolStripMenuItem.Text = "세부정보";
+            // 
+            // 수정하기ToolStripMenuItem
+            // 
+            this.수정하기ToolStripMenuItem.Name = "수정하기ToolStripMenuItem";
+            this.수정하기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.수정하기ToolStripMenuItem.Text = "수정하기";
+            this.수정하기ToolStripMenuItem.Click += new System.EventHandler(this.EidtClick);
+            // 
+            // 삭제하기ToolStripMenuItem
+            // 
+            this.삭제하기ToolStripMenuItem.Name = "삭제하기ToolStripMenuItem";
+            this.삭제하기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.삭제하기ToolStripMenuItem.Text = "삭제하기";
+            this.삭제하기ToolStripMenuItem.Click += new System.EventHandler(this.DeleteClick);
+            // 
             // AlgorithmInfoControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -100,18 +137,22 @@ namespace AutoTraderGUI.Forms
             this.Controls.Add(this.AlgorithmInfo);
             this.Name = "AlgorithmInfoControl";
             this.Size = new System.Drawing.Size(999, 484);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView AlgorithmInfo;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        public System.Windows.Forms.ListView AlgorithmInfo;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 세부정보ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 수정하기ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 삭제하기ToolStripMenuItem;
     }
 }

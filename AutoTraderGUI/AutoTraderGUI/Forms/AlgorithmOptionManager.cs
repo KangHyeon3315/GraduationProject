@@ -20,6 +20,10 @@ namespace AutoTraderGUI.Forms
             {
                 return OptionWriter.Text;
             }
+            set
+            {
+                OptionWriter.Text = value;
+            }
         }
 
         public string SQL
@@ -27,6 +31,10 @@ namespace AutoTraderGUI.Forms
             get
             {
                 return SQLCommand.Text;
+            }
+            set
+            {
+                SQLCommand.Text = value;
             }
         }
         SymbolInterface symbolInterface;
@@ -132,6 +140,7 @@ namespace AutoTraderGUI.Forms
             item.SubItems.Add(Property);
 
             symbolInterface.SymbolTable.SymbolsListView.Items.Add(item);
+            symbolInterface.AddSymbol(new Symbol(VarName.Text, indicatorName.Text.Replace(" ", ""), int.Parse(OffsetCombo.Text), PropertyName, Property));
             SeparationCombo.Items.Add(VarName.Text);
             Reset();
         }
@@ -177,6 +186,7 @@ namespace AutoTraderGUI.Forms
         
         bool TokenAnalyze()
         {
+            OptionWriter.Text = OptionWriter.Text.Replace("\n", " ");
             string[] token = OptionWriter.Text.Split(' ');
             int opened_parentheses = 0;
             int unknown_keyword = 0;
@@ -550,6 +560,13 @@ namespace AutoTraderGUI.Forms
             Reformating();
             TokenAnalyze();
             MakeSQLTemplate();
+        }
+
+        public void ResetInfo()
+        {
+            Reset();
+            SQLCommand.Text = "";
+            OptionWriter.Text = "";
         }
 
     }
