@@ -172,5 +172,10 @@ namespace AutoTraderGUI.Forms
 
             AlgorithmInfo.Columns[5].Width = restWidth;
         }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

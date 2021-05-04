@@ -9,16 +9,13 @@ namespace AutoTraderGUI.Library
 {
     class DBController
     {
-        static string strConn = "Server=localhost;Database=mydb;Uid=root;Pwd=vmfhwprxm1";
-        static void Main(string[] args)
-        {
+        private static string strConn = "Server=localhost;Database=mydb;Uid=root;Pwd=vmfhwprxm1";
 
-        }
 
         private static bool InsertData(string tableName, string date, int open, int high, int low, int close, int volume)
         {
             string command = "INSERT INTO " + tableName + "(date,open,high,low,close,volume) VALUES(" + date + "," + open.ToString() + "," + high.ToString() + "," + low.ToString() + "," + close.ToString() + "," + volume.ToString() + ")";
-
+            System.Console.WriteLine(command);
             try
             {
                 using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(strConn))
@@ -47,7 +44,7 @@ namespace AutoTraderGUI.Library
                 {
                     conn.Open();
                     string command = "SELECT * FROM" + tableName + "WHERE date = '" + date + "'";
-
+                    System.Console.WriteLine(command);
                     MySqlCommand cmd = new MySqlCommand(command, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
                     result = rdr.GetString(0);
@@ -64,7 +61,7 @@ namespace AutoTraderGUI.Library
             return result;
         }
 
-        private static void TableUpdate(string tableName)  ////////////////////////////////////////// 미완성 ////////////////////////////////
+        private static bool AddTable(string tableName) //같은 이름의 테이블이 있는지 확인 후 없으면 생성, 생성 완료 시 true 실패 시 false 반환
         {
             string cmd = null;
             using (MySqlConnection conn = new MySqlConnection(strConn))
@@ -74,26 +71,46 @@ namespace AutoTraderGUI.Library
                     conn.Open();
                     MySqlCommand command = conn.CreateCommand();
                     MySqlTransaction myTrans = conn.BeginTransaction();
-
                     command.Connection = conn;
                     command.Transaction = myTrans;
-
-                    cmd = "CREATE TABLE " + tableName + "(date DATE, open INT, high INT, low INT, close INT, volume INT)";
+                    cmd = "SHOW TABLES LIKE '" + tableName + "'";
+                    System.Console.WriteLine(cmd);
                     command.CommandText = cmd;
                     command.ExecuteNonQuery();
-
                     myTrans.Commit();
                     conn.Close();
-
+                    return false;
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.WriteLine(ex.ToString());
+                    Console.WriteLine(e.ToString());
+                    try
+                    {
+                        conn.Open();
+                        MySqlCommand command = conn.CreateCommand();
+                        MySqlTransaction myTrans = conn.BeginTransaction();
+
+                        command.Connection = conn;
+                        command.Transaction = myTrans;
+
+                        cmd = "CREATE TABLE " + tableName + "(date DATE, open INT, high INT, low INT, close INT, volume INT)";
+                        System.Console.WriteLine(cmd);
+                        command.CommandText = cmd;
+                        command.ExecuteNonQuery();
+                        myTrans.Commit();
+                        conn.Close();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        return false;
+                    }
                 }
             }
         }
 
-        private static bool ColumnCheck(string corporationName, string schemaName, string column_name)
+        private static bool CheckColumn(string corporationName, string schemaName, string column_name) //Column 조회 성공 시 true 반환
         {
             string result = null;
             using (MySqlConnection conn = new MySqlConnection(strConn))
@@ -102,13 +119,14 @@ namespace AutoTraderGUI.Library
                 {
                     conn.Open();
                     string command = "SELECT null FROM information_schema.columns where table_name = '" + corporationName + "' and table_schema = '" + schemaName + "'and column_name = '" + column_name + "'";
-
+                    System.Console.WriteLine(command);
                     MySqlCommand cmd = new MySqlCommand(command, conn);
                     MySqlDataReader rdr = cmd.ExecuteReader();
                     result = rdr.GetString(0);
                     rdr.Close();
                     conn.Close(); conn.Open();
-                    return true;
+                    if (result != null) { return true; }
+                    else { return false; }
                 }
                 catch(Exception ex)
                 {
@@ -133,6 +151,7 @@ namespace AutoTraderGUI.Library
                     command.Transaction = myTrans;
 
                     cmd = "ALTER TABLE " + tableName + " ADD "+columnName+" "+type.Name+" default "+defaultValue;
+                    System.Console.WriteLine(cmd);
                     command.CommandText = cmd;
                     command.ExecuteNonQuery();
 
