@@ -29,6 +29,7 @@ namespace AutoTraderGUI.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SymbolsListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -36,6 +37,9 @@ namespace AutoTraderGUI.Forms
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.삭제하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SymbolsListView
@@ -47,6 +51,7 @@ namespace AutoTraderGUI.Forms
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6});
+            this.SymbolsListView.ContextMenuStrip = this.contextMenuStrip1;
             this.SymbolsListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SymbolsListView.HideSelection = false;
             this.SymbolsListView.Location = new System.Drawing.Point(0, 0);
@@ -55,6 +60,7 @@ namespace AutoTraderGUI.Forms
             this.SymbolsListView.TabIndex = 1;
             this.SymbolsListView.UseCompatibleStateImageBehavior = false;
             this.SymbolsListView.View = System.Windows.Forms.View.Details;
+            this.SymbolsListView.Resize += new System.EventHandler(this.ResizeEvent);
             // 
             // columnHeader1
             // 
@@ -89,6 +95,20 @@ namespace AutoTraderGUI.Forms
             this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader6.Width = 120;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.삭제하기ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(123, 26);
+            // 
+            // 삭제하기ToolStripMenuItem
+            // 
+            this.삭제하기ToolStripMenuItem.Name = "삭제하기ToolStripMenuItem";
+            this.삭제하기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.삭제하기ToolStripMenuItem.Text = "삭제하기";
+            this.삭제하기ToolStripMenuItem.Click += new System.EventHandler(this.DeleteSymbolClick);
+            // 
             // SymbolTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -96,6 +116,8 @@ namespace AutoTraderGUI.Forms
             this.Controls.Add(this.SymbolsListView);
             this.Name = "SymbolTable";
             this.Size = new System.Drawing.Size(738, 459);
+            this.Load += new System.EventHandler(this.ResizeEvent);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -108,5 +130,7 @@ namespace AutoTraderGUI.Forms
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         public System.Windows.Forms.ListView SymbolsListView;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 삭제하기ToolStripMenuItem;
     }
 }

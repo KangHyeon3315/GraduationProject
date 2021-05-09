@@ -24,7 +24,14 @@ namespace AutoTraderGUI.Library
 
             ExtraDataLength = 120;
             DB = new DBController(settings.info.DBIP, settings.info.DBID, settings.info.DBPW);
+
             calc = new Calculate();
+
+            if (!DB.SchemaCheck("indicator"))
+            {
+                DB.CreateSchema("indicator");
+            }
+
 
             process();
         }

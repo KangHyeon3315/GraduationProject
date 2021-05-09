@@ -108,25 +108,26 @@ namespace AutoTraderGUI.Forms
             this.수정하기ToolStripMenuItem,
             this.삭제하기ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(123, 70);
             // 
             // 세부정보ToolStripMenuItem
             // 
             this.세부정보ToolStripMenuItem.Name = "세부정보ToolStripMenuItem";
-            this.세부정보ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.세부정보ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.세부정보ToolStripMenuItem.Text = "세부정보";
+            this.세부정보ToolStripMenuItem.Click += new System.EventHandler(this.AlgorithmInfoViewClick);
             // 
             // 수정하기ToolStripMenuItem
             // 
             this.수정하기ToolStripMenuItem.Name = "수정하기ToolStripMenuItem";
-            this.수정하기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.수정하기ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.수정하기ToolStripMenuItem.Text = "수정하기";
             this.수정하기ToolStripMenuItem.Click += new System.EventHandler(this.EidtClick);
             // 
             // 삭제하기ToolStripMenuItem
             // 
             this.삭제하기ToolStripMenuItem.Name = "삭제하기ToolStripMenuItem";
-            this.삭제하기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.삭제하기ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.삭제하기ToolStripMenuItem.Text = "삭제하기";
             this.삭제하기ToolStripMenuItem.Click += new System.EventHandler(this.DeleteClick);
             // 

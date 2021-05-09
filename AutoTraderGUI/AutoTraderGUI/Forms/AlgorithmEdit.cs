@@ -12,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AutoTraderGUI.Forms
 {
-    public partial class AlgorithmEidt : Form, SymbolInterface
+    public partial class AlgorithmEdit : Form, SymbolInterface, AlgorithmDetailsInterface
     {
         bool overWrite;
         AlgorithmOptionManager buyOption;
@@ -36,12 +36,30 @@ namespace AutoTraderGUI.Forms
 
         public void AddSymbol(object symbol)
         {
-            symbols.Add((Symbol)symbol);
+            Symbol tmp = (Symbol)symbol;
+            symbols.Add(tmp);
+            symbolTable.AddSymbol(tmp.varName, tmp.indicatorName, tmp.offset, tmp.Parameter, tmp.ParameterValue);
+        }
+
+        public string TradeFrequencyInfo
+        {
+            get
+            {
+                return TradeFrequency.Text;
+            }
+        }
+
+        public string marketTrends
+        {
+            get
+            {
+                return TrendsCombo.Text;
+            }
         }
 
         List<Symbol> symbols;
         AlgorithmInfoInterface algorithmInfoInterface;
-        public AlgorithmEidt(AlgorithmInfoInterface algorithmInfoInterface)
+        public AlgorithmEdit(AlgorithmInfoInterface algorithmInfoInterface)
         {
             InitializeComponent();
             this.CenterToParent();
@@ -58,9 +76,9 @@ namespace AutoTraderGUI.Forms
             TrendsCombo.SelectedIndex = 0;          // None
 
 
-            buyOption = new AlgorithmOptionManager(this as SymbolInterface);
-            sellOption = new AlgorithmOptionManager(this as SymbolInterface);
-            
+            buyOption = new AlgorithmOptionManager("buy", this as SymbolInterface, this as AlgorithmDetailsInterface);
+            sellOption = new AlgorithmOptionManager("sell", this as SymbolInterface, this as AlgorithmDetailsInterface);
+
 
             buyOptionPage.Controls.Clear();
             buyOptionPage.Controls.Add(buyOption);
@@ -76,13 +94,14 @@ namespace AutoTraderGUI.Forms
 
             overWrite = true;
 
-            buyOption = new AlgorithmOptionManager(this as SymbolInterface);
-            sellOption = new AlgorithmOptionManager(this as SymbolInterface);
+            buyOption = new AlgorithmOptionManager("buy", this as SymbolInterface, this as AlgorithmDetailsInterface);
+            sellOption = new AlgorithmOptionManager("sell", this as SymbolInterface, this as AlgorithmDetailsInterface);
 
             Library.AlgorithmInfo info;
             FileStream fs = new FileStream(Application.StartupPath + "\\Algorithm\\" + algorithmName + ".trstr", FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
             info = (Library.AlgorithmInfo)bf.Deserialize(fs);
+            fs.Close();
 
             AlgorithmName.Text = algorithmName;
             DistributeCount.Text = info.DistributeNum.ToString();
@@ -104,13 +123,8 @@ namespace AutoTraderGUI.Forms
             symbolTable.SymbolsListView.Items.Clear();
             for (int i = 0; i < info.symbols.Count; i++)
             {
-                ListViewItem item = new ListViewItem(i.ToString());
-                item.SubItems.Add(info.symbols[i].varName);
-                item.SubItems.Add(info.symbols[i].indicatorName);
-                item.SubItems.Add(info.symbols[i].offset.ToString());
-                item.SubItems.Add(info.symbols[i].Parameter);
-                item.SubItems.Add(info.symbols[i].ParameterValue);
-                symbolTable.SymbolsListView.Items.Add(item);
+                Symbol tmp = new Symbol(info.symbols[i].varName, info.symbols[i].indicatorName, info.symbols[i].offset, info.symbols[i].Parameter, info.symbols[i].ParameterValue);
+                AddSymbol(tmp);
             }
 
             buyOptionPage.Controls.Clear();
@@ -219,6 +233,7 @@ namespace AutoTraderGUI.Forms
             }
 
             algorithmInfo.DateCount = buyOption.offsetRange > sellOption.offsetRange ? buyOption.offsetRange : sellOption.offsetRange;
+            algorithmInfo.RealTimeDateCount = buyOption.realtimeOffsetRange > sellOption.realtimeOffsetRange ? buyOption.realtimeOffsetRange : sellOption.realtimeOffsetRange;
             switch (TradeFrequency.SelectedIndex)
             {
                 case 0:
@@ -234,6 +249,7 @@ namespace AutoTraderGUI.Forms
                     algorithmInfo.TradeFrequency = Frequency.Year;
                     break;
             }
+
             algorithmInfo.buyOption = buyOption.Option;
             algorithmInfo.buySQLFormat = buyOption.SQL;
             algorithmInfo.sellOption = sellOption.Option;
@@ -314,59 +330,54 @@ namespace AutoTraderGUI.Forms
 
         private void AlgorithmLoad(object sender, EventArgs e)
         {
-            // 파일 탐색기로 파일 Load
-            // 화면에 정보 표시
-            // FileStream fs = new FileStream()
             openFileDialog1.Filter = "알고리즘 파일 (*.trstr)   |*.trstr";
-            openFileDialog1.ShowDialog();
+            openFileDialog1.FileName = "";
+            DialogResult OpenResult = openFileDialog1.ShowDialog();
 
-            Library.AlgorithmInfo algorithmInfo;
-            FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open);
-            BinaryFormatter bf = new BinaryFormatter();
-            algorithmInfo = (Library.AlgorithmInfo)bf.Deserialize(fs);
-            fs.Close();
-
-            AlgorithmName.Text = algorithmInfo.AlgorithmName;
-            DistributeCount.Text = algorithmInfo.DistributeNum.ToString();
-            MaxOwnDay.Text = algorithmInfo.MaxOwnDate.ToString();
-
-            TradeFrequency.SelectedIndex = (int)algorithmInfo.TradeFrequency;            
-            BuyTimingCombo.SelectedIndex = (int)algorithmInfo.buyTiming;
-            SellTimingCombo.SelectedIndex = (int)algorithmInfo.sellTiming;
-            TrendsCombo.SelectedIndex = (int)algorithmInfo.marketTrends;
-
-            LosscutTextBox.Text = algorithmInfo.lossCut.ToString();
-            ProfitcutTextBox.Text = algorithmInfo.profitCut.ToString();
-            buyOption.SQL = algorithmInfo.buySQLFormat;
-            buyOption.Option = algorithmInfo.buyOption;
-            sellOption.SQL = algorithmInfo.sellSQLFormat;
-            sellOption.Option = algorithmInfo.sellOption;
-            symbolTable.SymbolsListView.Items.Clear();
-            for (int i = 0; i < algorithmInfo.symbols.Count; i++)
+            if(OpenResult == DialogResult.OK)
             {
-                ListViewItem item = new ListViewItem(i.ToString());
-                item.SubItems.Add(algorithmInfo.symbols[i].varName);
-                item.SubItems.Add(algorithmInfo.symbols[i].indicatorName);
-                item.SubItems.Add(algorithmInfo.symbols[i].offset.ToString());
-                item.SubItems.Add(algorithmInfo.symbols[i].Parameter);
-                item.SubItems.Add(algorithmInfo.symbols[i].ParameterValue);
-                symbolTable.SymbolsListView.Items.Add(item);
-            }
+                Library.AlgorithmInfo algorithmInfo;
+                FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open);
+                BinaryFormatter bf = new BinaryFormatter();
+                algorithmInfo = (Library.AlgorithmInfo)bf.Deserialize(fs);
+                fs.Close();
 
+                AlgorithmName.Text = algorithmInfo.AlgorithmName;
+                DistributeCount.Text = algorithmInfo.DistributeNum.ToString();
+                MaxOwnDay.Text = algorithmInfo.MaxOwnDate.ToString();
 
-            if (checkAlgorithmName(AlgorithmName.Text))
-            {
-                DialogResult result = MessageBox.Show("동일한 이름의 알고리즘이 이미 존재합니다. 이름을 변경하여 저장하겠습니까?", "Error", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                TradeFrequency.SelectedIndex = (int)algorithmInfo.TradeFrequency;
+                BuyTimingCombo.SelectedIndex = (int)algorithmInfo.buyTiming;
+                SellTimingCombo.SelectedIndex = (int)algorithmInfo.sellTiming;
+                TrendsCombo.SelectedIndex = (int)algorithmInfo.marketTrends;
+
+                LosscutTextBox.Text = algorithmInfo.lossCut.ToString();
+                ProfitcutTextBox.Text = algorithmInfo.profitCut.ToString();
+                buyOption.SQL = algorithmInfo.buySQLFormat;
+                buyOption.Option = algorithmInfo.buyOption;
+                sellOption.SQL = algorithmInfo.sellSQLFormat;
+                sellOption.Option = algorithmInfo.sellOption;
+                symbolTable.SymbolsListView.Items.Clear();
+                for (int i = 0; i < algorithmInfo.symbols.Count; i++)
                 {
-                    AlgorithmName.Text = "";
+                    Symbol tmp = new Symbol(algorithmInfo.symbols[i].varName, algorithmInfo.symbols[i].indicatorName, algorithmInfo.symbols[i].offset, algorithmInfo.symbols[i].Parameter, algorithmInfo.symbols[i].ParameterValue);
+                    AddSymbol(tmp);
                 }
-                else
+
+
+                if (checkAlgorithmName(AlgorithmName.Text))
                 {
-                    ResetData();
+                    DialogResult result = MessageBox.Show("동일한 이름의 알고리즘이 이미 존재합니다. 이름을 변경하여 저장하겠습니까?", "Error", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        AlgorithmName.Text = "";
+                    }
+                    else
+                    {
+                        ResetData();
+                    }
                 }
             }
-
         }
 
         bool checkAlgorithmName(string name)

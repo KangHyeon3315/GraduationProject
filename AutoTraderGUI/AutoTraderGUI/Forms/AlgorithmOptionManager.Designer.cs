@@ -29,165 +29,176 @@ namespace AutoTraderGUI.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode165 = new System.Windows.Forms.TreeNode("시가");
-            System.Windows.Forms.TreeNode treeNode166 = new System.Windows.Forms.TreeNode("고가");
-            System.Windows.Forms.TreeNode treeNode167 = new System.Windows.Forms.TreeNode("저가");
-            System.Windows.Forms.TreeNode treeNode168 = new System.Windows.Forms.TreeNode("종가");
-            System.Windows.Forms.TreeNode treeNode169 = new System.Windows.Forms.TreeNode("거래량");
-            System.Windows.Forms.TreeNode treeNode170 = new System.Windows.Forms.TreeNode("개인 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode171 = new System.Windows.Forms.TreeNode("개인 매수 금액");
-            System.Windows.Forms.TreeNode treeNode172 = new System.Windows.Forms.TreeNode("개인 매도 금액");
-            System.Windows.Forms.TreeNode treeNode173 = new System.Windows.Forms.TreeNode("외국인 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode174 = new System.Windows.Forms.TreeNode("외국인 매수 금액");
-            System.Windows.Forms.TreeNode treeNode175 = new System.Windows.Forms.TreeNode("외국인 매도 금액");
-            System.Windows.Forms.TreeNode treeNode176 = new System.Windows.Forms.TreeNode("기관 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode177 = new System.Windows.Forms.TreeNode("기관 매수 금액");
-            System.Windows.Forms.TreeNode treeNode178 = new System.Windows.Forms.TreeNode("기관 매도 금액");
-            System.Windows.Forms.TreeNode treeNode179 = new System.Windows.Forms.TreeNode("금융투자 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode180 = new System.Windows.Forms.TreeNode("금융투자 매수 금액");
-            System.Windows.Forms.TreeNode treeNode181 = new System.Windows.Forms.TreeNode("금융투자 매도 금액");
-            System.Windows.Forms.TreeNode treeNode182 = new System.Windows.Forms.TreeNode("보험 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode183 = new System.Windows.Forms.TreeNode("보험 매수 금액");
-            System.Windows.Forms.TreeNode treeNode184 = new System.Windows.Forms.TreeNode("보험 매도 금액");
-            System.Windows.Forms.TreeNode treeNode185 = new System.Windows.Forms.TreeNode("투신 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode186 = new System.Windows.Forms.TreeNode("투신 매수 금액");
-            System.Windows.Forms.TreeNode treeNode187 = new System.Windows.Forms.TreeNode("투신 매도 금액");
-            System.Windows.Forms.TreeNode treeNode188 = new System.Windows.Forms.TreeNode("기타금융 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode189 = new System.Windows.Forms.TreeNode("기타금융 매수 금액");
-            System.Windows.Forms.TreeNode treeNode190 = new System.Windows.Forms.TreeNode("기타금융 매도 금액");
-            System.Windows.Forms.TreeNode treeNode191 = new System.Windows.Forms.TreeNode("은행 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode192 = new System.Windows.Forms.TreeNode("은행 매수 금액");
-            System.Windows.Forms.TreeNode treeNode193 = new System.Windows.Forms.TreeNode("은행 매도 금액");
-            System.Windows.Forms.TreeNode treeNode194 = new System.Windows.Forms.TreeNode("연기금등 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode195 = new System.Windows.Forms.TreeNode("연기금등 매수 금액");
-            System.Windows.Forms.TreeNode treeNode196 = new System.Windows.Forms.TreeNode("연기금등 매도 금액");
-            System.Windows.Forms.TreeNode treeNode197 = new System.Windows.Forms.TreeNode("사모펀드 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode198 = new System.Windows.Forms.TreeNode("사모펀드 매수 금액");
-            System.Windows.Forms.TreeNode treeNode199 = new System.Windows.Forms.TreeNode("사모펀드 매도 금액");
-            System.Windows.Forms.TreeNode treeNode200 = new System.Windows.Forms.TreeNode("국가 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode201 = new System.Windows.Forms.TreeNode("국가 매수 금액");
-            System.Windows.Forms.TreeNode treeNode202 = new System.Windows.Forms.TreeNode("국가 매도 금액");
-            System.Windows.Forms.TreeNode treeNode203 = new System.Windows.Forms.TreeNode("기타법인 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode204 = new System.Windows.Forms.TreeNode("기타법인 매수 금액");
-            System.Windows.Forms.TreeNode treeNode205 = new System.Windows.Forms.TreeNode("기타법인 매도 금액");
-            System.Windows.Forms.TreeNode treeNode206 = new System.Windows.Forms.TreeNode("내외국인 순매수 금액");
-            System.Windows.Forms.TreeNode treeNode207 = new System.Windows.Forms.TreeNode("내외국인 매수 금액");
-            System.Windows.Forms.TreeNode treeNode208 = new System.Windows.Forms.TreeNode("내외국인 매도 금액");
-            System.Windows.Forms.TreeNode treeNode209 = new System.Windows.Forms.TreeNode("가격 지표", new System.Windows.Forms.TreeNode[] {
-            treeNode165,
-            treeNode166,
-            treeNode167,
-            treeNode168,
-            treeNode169,
-            treeNode170,
-            treeNode171,
-            treeNode172,
-            treeNode173,
-            treeNode174,
-            treeNode175,
-            treeNode176,
-            treeNode177,
-            treeNode178,
-            treeNode179,
-            treeNode180,
-            treeNode181,
-            treeNode182,
-            treeNode183,
-            treeNode184,
-            treeNode185,
-            treeNode186,
-            treeNode187,
-            treeNode188,
-            treeNode189,
-            treeNode190,
-            treeNode191,
-            treeNode192,
-            treeNode193,
-            treeNode194,
-            treeNode195,
-            treeNode196,
-            treeNode197,
-            treeNode198,
-            treeNode199,
-            treeNode200,
-            treeNode201,
-            treeNode202,
-            treeNode203,
-            treeNode204,
-            treeNode205,
-            treeNode206,
-            treeNode207,
-            treeNode208});
-            System.Windows.Forms.TreeNode treeNode210 = new System.Windows.Forms.TreeNode("이동평균선 5");
-            System.Windows.Forms.TreeNode treeNode211 = new System.Windows.Forms.TreeNode("이동평균선 10");
-            System.Windows.Forms.TreeNode treeNode212 = new System.Windows.Forms.TreeNode("이동평균선 20");
-            System.Windows.Forms.TreeNode treeNode213 = new System.Windows.Forms.TreeNode("이동평균선 60");
-            System.Windows.Forms.TreeNode treeNode214 = new System.Windows.Forms.TreeNode("이동평균선 120");
-            System.Windows.Forms.TreeNode treeNode215 = new System.Windows.Forms.TreeNode("이동평균선", new System.Windows.Forms.TreeNode[] {
-            treeNode210,
-            treeNode211,
-            treeNode212,
-            treeNode213,
-            treeNode214});
-            System.Windows.Forms.TreeNode treeNode216 = new System.Windows.Forms.TreeNode("MACD");
-            System.Windows.Forms.TreeNode treeNode217 = new System.Windows.Forms.TreeNode("MACD Signal");
-            System.Windows.Forms.TreeNode treeNode218 = new System.Windows.Forms.TreeNode("피벗 ");
-            System.Windows.Forms.TreeNode treeNode219 = new System.Windows.Forms.TreeNode("피벗 1차지지선");
-            System.Windows.Forms.TreeNode treeNode220 = new System.Windows.Forms.TreeNode("피벗 2차지지선");
-            System.Windows.Forms.TreeNode treeNode221 = new System.Windows.Forms.TreeNode("피벗 1차저항선");
-            System.Windows.Forms.TreeNode treeNode222 = new System.Windows.Forms.TreeNode("피벗 1차저항선");
-            System.Windows.Forms.TreeNode treeNode223 = new System.Windows.Forms.TreeNode("Parabolic SAR");
-            System.Windows.Forms.TreeNode treeNode224 = new System.Windows.Forms.TreeNode("Parabolic SAR 상승");
-            System.Windows.Forms.TreeNode treeNode225 = new System.Windows.Forms.TreeNode("Parabolic SAR 하락");
-            System.Windows.Forms.TreeNode treeNode226 = new System.Windows.Forms.TreeNode("DeMark UP");
-            System.Windows.Forms.TreeNode treeNode227 = new System.Windows.Forms.TreeNode("DeMark Down");
-            System.Windows.Forms.TreeNode treeNode228 = new System.Windows.Forms.TreeNode("Price Channel UP");
-            System.Windows.Forms.TreeNode treeNode229 = new System.Windows.Forms.TreeNode("Price Channel Down");
-            System.Windows.Forms.TreeNode treeNode230 = new System.Windows.Forms.TreeNode("추세 지표", new System.Windows.Forms.TreeNode[] {
-            treeNode215,
-            treeNode216,
-            treeNode217,
-            treeNode218,
-            treeNode219,
-            treeNode220,
-            treeNode221,
-            treeNode222,
-            treeNode223,
-            treeNode224,
-            treeNode225,
-            treeNode226,
-            treeNode227,
-            treeNode228,
-            treeNode229});
-            System.Windows.Forms.TreeNode treeNode231 = new System.Windows.Forms.TreeNode("볼린저 밴드 UP");
-            System.Windows.Forms.TreeNode treeNode232 = new System.Windows.Forms.TreeNode("볼린저 밴드 Down");
-            System.Windows.Forms.TreeNode treeNode233 = new System.Windows.Forms.TreeNode("ATR");
-            System.Windows.Forms.TreeNode treeNode234 = new System.Windows.Forms.TreeNode("변동성 지표", new System.Windows.Forms.TreeNode[] {
-            treeNode231,
-            treeNode232,
-            treeNode233});
-            System.Windows.Forms.TreeNode treeNode235 = new System.Windows.Forms.TreeNode("RSI");
-            System.Windows.Forms.TreeNode treeNode236 = new System.Windows.Forms.TreeNode("RSI Signal");
-            System.Windows.Forms.TreeNode treeNode237 = new System.Windows.Forms.TreeNode("Stocastic Fast K");
-            System.Windows.Forms.TreeNode treeNode238 = new System.Windows.Forms.TreeNode("Stocastic Slow K");
-            System.Windows.Forms.TreeNode treeNode239 = new System.Windows.Forms.TreeNode("Stocastic Slow D");
-            System.Windows.Forms.TreeNode treeNode240 = new System.Windows.Forms.TreeNode("Price 오실레이터");
-            System.Windows.Forms.TreeNode treeNode241 = new System.Windows.Forms.TreeNode("TRIX");
-            System.Windows.Forms.TreeNode treeNode242 = new System.Windows.Forms.TreeNode("TRIX Signal");
-            System.Windows.Forms.TreeNode treeNode243 = new System.Windows.Forms.TreeNode("RMI");
-            System.Windows.Forms.TreeNode treeNode244 = new System.Windows.Forms.TreeNode("모멘텀 지표", new System.Windows.Forms.TreeNode[] {
-            treeNode235,
-            treeNode236,
-            treeNode237,
-            treeNode238,
-            treeNode239,
-            treeNode240,
-            treeNode241,
-            treeNode242,
-            treeNode243});
-            System.Windows.Forms.TreeNode treeNode245 = new System.Windows.Forms.TreeNode("MFI");
-            System.Windows.Forms.TreeNode treeNode246 = new System.Windows.Forms.TreeNode("시장강도 지표", new System.Windows.Forms.TreeNode[] {
-            treeNode245});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("시가");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("고가");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("저가");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("종가");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("거래량");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("실시간정보", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("시가");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("고가");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("저가");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("종가");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("거래량");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("개인 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("개인 매수 금액");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("개인 매도 금액");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("외국인 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("외국인 매수 금액");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("외국인 매도 금액");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("기관 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("기관 매수 금액");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("기관 매도 금액");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("금융투자 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("금융투자 매수 금액");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("금융투자 매도 금액");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("보험 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("보험 매수 금액");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("보험 매도 금액");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("투신 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("투신 매수 금액");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("투신 매도 금액");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("기타금융 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("기타금융 매수 금액");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("기타금융 매도 금액");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("은행 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("은행 매수 금액");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("은행 매도 금액");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("연기금등 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("연기금등 매수 금액");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("연기금등 매도 금액");
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("사모펀드 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("사모펀드 매수 금액");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("사모펀드 매도 금액");
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("국가 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("국가 매수 금액");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("국가 매도 금액");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("기타법인 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("기타법인 매수 금액");
+            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("기타법인 매도 금액");
+            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("내외국인 순매수 금액");
+            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("내외국인 매수 금액");
+            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("내외국인 매도 금액");
+            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("가격 지표", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode22,
+            treeNode23,
+            treeNode24,
+            treeNode25,
+            treeNode26,
+            treeNode27,
+            treeNode28,
+            treeNode29,
+            treeNode30,
+            treeNode31,
+            treeNode32,
+            treeNode33,
+            treeNode34,
+            treeNode35,
+            treeNode36,
+            treeNode37,
+            treeNode38,
+            treeNode39,
+            treeNode40,
+            treeNode41,
+            treeNode42,
+            treeNode43,
+            treeNode44,
+            treeNode45,
+            treeNode46,
+            treeNode47,
+            treeNode48,
+            treeNode49,
+            treeNode50});
+            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("이동평균선 5");
+            System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("이동평균선 10");
+            System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("이동평균선 20");
+            System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("이동평균선 60");
+            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("이동평균선 120");
+            System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("이동평균선", new System.Windows.Forms.TreeNode[] {
+            treeNode52,
+            treeNode53,
+            treeNode54,
+            treeNode55,
+            treeNode56});
+            System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode("MACD");
+            System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("MACD Signal");
+            System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("피벗 ");
+            System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("피벗 1차지지선");
+            System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("피벗 2차지지선");
+            System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("피벗 1차저항선");
+            System.Windows.Forms.TreeNode treeNode64 = new System.Windows.Forms.TreeNode("피벗 1차저항선");
+            System.Windows.Forms.TreeNode treeNode65 = new System.Windows.Forms.TreeNode("Parabolic SAR");
+            System.Windows.Forms.TreeNode treeNode66 = new System.Windows.Forms.TreeNode("Parabolic SAR 상승");
+            System.Windows.Forms.TreeNode treeNode67 = new System.Windows.Forms.TreeNode("Parabolic SAR 하락");
+            System.Windows.Forms.TreeNode treeNode68 = new System.Windows.Forms.TreeNode("DeMark UP");
+            System.Windows.Forms.TreeNode treeNode69 = new System.Windows.Forms.TreeNode("DeMark Down");
+            System.Windows.Forms.TreeNode treeNode70 = new System.Windows.Forms.TreeNode("Price Channel UP");
+            System.Windows.Forms.TreeNode treeNode71 = new System.Windows.Forms.TreeNode("Price Channel Down");
+            System.Windows.Forms.TreeNode treeNode72 = new System.Windows.Forms.TreeNode("추세 지표", new System.Windows.Forms.TreeNode[] {
+            treeNode57,
+            treeNode58,
+            treeNode59,
+            treeNode60,
+            treeNode61,
+            treeNode62,
+            treeNode63,
+            treeNode64,
+            treeNode65,
+            treeNode66,
+            treeNode67,
+            treeNode68,
+            treeNode69,
+            treeNode70,
+            treeNode71});
+            System.Windows.Forms.TreeNode treeNode73 = new System.Windows.Forms.TreeNode("볼린저 밴드 UP");
+            System.Windows.Forms.TreeNode treeNode74 = new System.Windows.Forms.TreeNode("볼린저 밴드 Down");
+            System.Windows.Forms.TreeNode treeNode75 = new System.Windows.Forms.TreeNode("ATR");
+            System.Windows.Forms.TreeNode treeNode76 = new System.Windows.Forms.TreeNode("변동성 지표", new System.Windows.Forms.TreeNode[] {
+            treeNode73,
+            treeNode74,
+            treeNode75});
+            System.Windows.Forms.TreeNode treeNode77 = new System.Windows.Forms.TreeNode("RSI");
+            System.Windows.Forms.TreeNode treeNode78 = new System.Windows.Forms.TreeNode("RSI Signal");
+            System.Windows.Forms.TreeNode treeNode79 = new System.Windows.Forms.TreeNode("Stocastic Fast K");
+            System.Windows.Forms.TreeNode treeNode80 = new System.Windows.Forms.TreeNode("Stocastic Slow K");
+            System.Windows.Forms.TreeNode treeNode81 = new System.Windows.Forms.TreeNode("Stocastic Slow D");
+            System.Windows.Forms.TreeNode treeNode82 = new System.Windows.Forms.TreeNode("Price 오실레이터");
+            System.Windows.Forms.TreeNode treeNode83 = new System.Windows.Forms.TreeNode("TRIX");
+            System.Windows.Forms.TreeNode treeNode84 = new System.Windows.Forms.TreeNode("TRIX Signal");
+            System.Windows.Forms.TreeNode treeNode85 = new System.Windows.Forms.TreeNode("RMI");
+            System.Windows.Forms.TreeNode treeNode86 = new System.Windows.Forms.TreeNode("모멘텀 지표", new System.Windows.Forms.TreeNode[] {
+            treeNode77,
+            treeNode78,
+            treeNode79,
+            treeNode80,
+            treeNode81,
+            treeNode82,
+            treeNode83,
+            treeNode84,
+            treeNode85});
+            System.Windows.Forms.TreeNode treeNode87 = new System.Windows.Forms.TreeNode("MFI");
+            System.Windows.Forms.TreeNode treeNode88 = new System.Windows.Forms.TreeNode("시장강도 지표", new System.Windows.Forms.TreeNode[] {
+            treeNode87});
             this.BasicLayout = new System.Windows.Forms.TableLayoutPanel();
             this.IndicatorViewer = new System.Windows.Forms.TreeView();
             this.OptionInputLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -244,176 +255,189 @@ namespace AutoTraderGUI.Forms
             this.IndicatorViewer.HideSelection = false;
             this.IndicatorViewer.Location = new System.Drawing.Point(3, 3);
             this.IndicatorViewer.Name = "IndicatorViewer";
-            treeNode165.Name = "노드1";
-            treeNode165.Text = "시가";
-            treeNode166.Name = "노드2";
-            treeNode166.Text = "고가";
-            treeNode167.Name = "노드3";
-            treeNode167.Text = "저가";
-            treeNode168.Name = "노드4";
-            treeNode168.Text = "종가";
-            treeNode169.Name = "노드5";
-            treeNode169.Text = "거래량";
-            treeNode170.Name = "노드6";
-            treeNode170.Text = "개인 순매수 금액";
-            treeNode171.Name = "노드7";
-            treeNode171.Text = "개인 매수 금액";
-            treeNode172.Name = "노드8";
-            treeNode172.Text = "개인 매도 금액";
-            treeNode173.Name = "노드9";
-            treeNode173.Text = "외국인 순매수 금액";
-            treeNode174.Name = "노드10";
-            treeNode174.Text = "외국인 매수 금액";
-            treeNode175.Name = "노드11";
-            treeNode175.Text = "외국인 매도 금액";
-            treeNode176.Name = "노드12";
-            treeNode176.Text = "기관 순매수 금액";
-            treeNode177.Name = "노드13";
-            treeNode177.Text = "기관 매수 금액";
-            treeNode178.Name = "노드14";
-            treeNode178.Text = "기관 매도 금액";
-            treeNode179.Name = "노드15";
-            treeNode179.Text = "금융투자 순매수 금액";
-            treeNode180.Name = "노드16";
-            treeNode180.Text = "금융투자 매수 금액";
-            treeNode181.Name = "노드17";
-            treeNode181.Text = "금융투자 매도 금액";
-            treeNode182.Name = "노드18";
-            treeNode182.Text = "보험 순매수 금액";
-            treeNode183.Name = "노드19";
-            treeNode183.Text = "보험 매수 금액";
-            treeNode184.Name = "노드20";
-            treeNode184.Text = "보험 매도 금액";
-            treeNode185.Name = "노드21";
-            treeNode185.Text = "투신 순매수 금액";
-            treeNode186.Name = "노드22";
-            treeNode186.Text = "투신 매수 금액";
-            treeNode187.Name = "노드23";
-            treeNode187.Text = "투신 매도 금액";
-            treeNode188.Name = "노드24";
-            treeNode188.Text = "기타금융 순매수 금액";
-            treeNode189.Name = "노드25";
-            treeNode189.Text = "기타금융 매수 금액";
-            treeNode190.Name = "노드26";
-            treeNode190.Text = "기타금융 매도 금액";
-            treeNode191.Name = "노드27";
-            treeNode191.Text = "은행 순매수 금액";
-            treeNode192.Name = "노드28";
-            treeNode192.Text = "은행 매수 금액";
-            treeNode193.Name = "노드29";
-            treeNode193.Text = "은행 매도 금액";
-            treeNode194.Name = "노드30";
-            treeNode194.Text = "연기금등 순매수 금액";
-            treeNode195.Name = "노드31";
-            treeNode195.Text = "연기금등 매수 금액";
-            treeNode196.Name = "노드32";
-            treeNode196.Text = "연기금등 매도 금액";
-            treeNode197.Name = "노드33";
-            treeNode197.Text = "사모펀드 순매수 금액";
-            treeNode198.Name = "노드34";
-            treeNode198.Text = "사모펀드 매수 금액";
-            treeNode199.Name = "노드35";
-            treeNode199.Text = "사모펀드 매도 금액";
-            treeNode200.Name = "노드36";
-            treeNode200.Text = "국가 순매수 금액";
-            treeNode201.Name = "노드37";
-            treeNode201.Text = "국가 매수 금액";
-            treeNode202.Name = "노드38";
-            treeNode202.Text = "국가 매도 금액";
-            treeNode203.Name = "노드39";
-            treeNode203.Text = "기타법인 순매수 금액";
-            treeNode204.Name = "노드40";
-            treeNode204.Text = "기타법인 매수 금액";
-            treeNode205.Name = "노드41";
-            treeNode205.Text = "기타법인 매도 금액";
-            treeNode206.Name = "노드42";
-            treeNode206.Text = "내외국인 순매수 금액";
-            treeNode207.Name = "노드43";
-            treeNode207.Text = "내외국인 매수 금액";
-            treeNode208.Name = "노드44";
-            treeNode208.Text = "내외국인 매도 금액";
-            treeNode209.Name = "노드0";
-            treeNode209.Text = "가격 지표";
-            treeNode210.Name = "노드8";
-            treeNode210.Text = "이동평균선 5";
-            treeNode211.Name = "노드9";
-            treeNode211.Text = "이동평균선 10";
-            treeNode212.Name = "노드10";
-            treeNode212.Text = "이동평균선 20";
-            treeNode213.Name = "노드11";
-            treeNode213.Text = "이동평균선 60";
-            treeNode214.Name = "노드12";
-            treeNode214.Text = "이동평균선 120";
-            treeNode215.Name = "노드7";
-            treeNode215.Text = "이동평균선";
-            treeNode216.Name = "노드13";
-            treeNode216.Text = "MACD";
-            treeNode217.Name = "노드0";
-            treeNode217.Text = "MACD Signal";
-            treeNode218.Name = "노드15";
-            treeNode218.Text = "피벗 ";
-            treeNode219.Name = "노드1";
-            treeNode219.Text = "피벗 1차지지선";
-            treeNode220.Name = "노드7";
-            treeNode220.Text = "피벗 2차지지선";
-            treeNode221.Name = "노드8";
-            treeNode221.Text = "피벗 1차저항선";
-            treeNode222.Name = "노드9";
-            treeNode222.Text = "피벗 1차저항선";
-            treeNode223.Name = "노드16";
-            treeNode223.Text = "Parabolic SAR";
-            treeNode224.Name = "노드10";
-            treeNode224.Text = "Parabolic SAR 상승";
-            treeNode225.Name = "노드11";
-            treeNode225.Text = "Parabolic SAR 하락";
-            treeNode226.Name = "노드25";
-            treeNode226.Text = "DeMark UP";
-            treeNode227.Name = "노드12";
-            treeNode227.Text = "DeMark Down";
-            treeNode228.Name = "노드26";
-            treeNode228.Text = "Price Channel UP";
-            treeNode229.Name = "노드2";
-            treeNode229.Text = "Price Channel Down";
-            treeNode230.Name = "노드0";
-            treeNode230.Text = "추세 지표";
-            treeNode231.Name = "노드17";
-            treeNode231.Text = "볼린저 밴드 UP";
-            treeNode232.Name = "노드13";
-            treeNode232.Text = "볼린저 밴드 Down";
-            treeNode233.Name = "노드22";
-            treeNode233.Text = "ATR";
-            treeNode234.Name = "노드1";
-            treeNode234.Text = "변동성 지표";
-            treeNode235.Name = "노드18";
-            treeNode235.Text = "RSI";
-            treeNode236.Name = "노드14";
-            treeNode236.Text = "RSI Signal";
-            treeNode237.Name = "노드19";
-            treeNode237.Text = "Stocastic Fast K";
-            treeNode238.Name = "노드15";
-            treeNode238.Text = "Stocastic Slow K";
-            treeNode239.Name = "노드16";
-            treeNode239.Text = "Stocastic Slow D";
-            treeNode240.Name = "노드21";
-            treeNode240.Text = "Price 오실레이터";
-            treeNode241.Name = "노드23";
-            treeNode241.Text = "TRIX";
-            treeNode242.Name = "노드17";
-            treeNode242.Text = "TRIX Signal";
-            treeNode243.Name = "노드24";
-            treeNode243.Text = "RMI";
-            treeNode244.Name = "노드2";
-            treeNode244.Text = "모멘텀 지표";
-            treeNode245.Name = "노드20";
-            treeNode245.Text = "MFI";
-            treeNode246.Name = "노드3";
-            treeNode246.Text = "시장강도 지표";
+            treeNode1.Name = "노드1";
+            treeNode1.Text = "시가";
+            treeNode2.Name = "노드2";
+            treeNode2.Text = "고가";
+            treeNode3.Name = "노드3";
+            treeNode3.Text = "저가";
+            treeNode4.Name = "노드4";
+            treeNode4.Text = "종가";
+            treeNode5.Name = "노드5";
+            treeNode5.Text = "거래량";
+            treeNode6.Name = "노드0";
+            treeNode6.Text = "실시간정보";
+            treeNode7.Name = "노드1";
+            treeNode7.Text = "시가";
+            treeNode8.Name = "노드2";
+            treeNode8.Text = "고가";
+            treeNode9.Name = "노드3";
+            treeNode9.Text = "저가";
+            treeNode10.Name = "노드4";
+            treeNode10.Text = "종가";
+            treeNode11.Name = "노드5";
+            treeNode11.Text = "거래량";
+            treeNode12.Name = "노드6";
+            treeNode12.Text = "개인 순매수 금액";
+            treeNode13.Name = "노드7";
+            treeNode13.Text = "개인 매수 금액";
+            treeNode14.Name = "노드8";
+            treeNode14.Text = "개인 매도 금액";
+            treeNode15.Name = "노드9";
+            treeNode15.Text = "외국인 순매수 금액";
+            treeNode16.Name = "노드10";
+            treeNode16.Text = "외국인 매수 금액";
+            treeNode17.Name = "노드11";
+            treeNode17.Text = "외국인 매도 금액";
+            treeNode18.Name = "노드12";
+            treeNode18.Text = "기관 순매수 금액";
+            treeNode19.Name = "노드13";
+            treeNode19.Text = "기관 매수 금액";
+            treeNode20.Name = "노드14";
+            treeNode20.Text = "기관 매도 금액";
+            treeNode21.Name = "노드15";
+            treeNode21.Text = "금융투자 순매수 금액";
+            treeNode22.Name = "노드16";
+            treeNode22.Text = "금융투자 매수 금액";
+            treeNode23.Name = "노드17";
+            treeNode23.Text = "금융투자 매도 금액";
+            treeNode24.Name = "노드18";
+            treeNode24.Text = "보험 순매수 금액";
+            treeNode25.Name = "노드19";
+            treeNode25.Text = "보험 매수 금액";
+            treeNode26.Name = "노드20";
+            treeNode26.Text = "보험 매도 금액";
+            treeNode27.Name = "노드21";
+            treeNode27.Text = "투신 순매수 금액";
+            treeNode28.Name = "노드22";
+            treeNode28.Text = "투신 매수 금액";
+            treeNode29.Name = "노드23";
+            treeNode29.Text = "투신 매도 금액";
+            treeNode30.Name = "노드24";
+            treeNode30.Text = "기타금융 순매수 금액";
+            treeNode31.Name = "노드25";
+            treeNode31.Text = "기타금융 매수 금액";
+            treeNode32.Name = "노드26";
+            treeNode32.Text = "기타금융 매도 금액";
+            treeNode33.Name = "노드27";
+            treeNode33.Text = "은행 순매수 금액";
+            treeNode34.Name = "노드28";
+            treeNode34.Text = "은행 매수 금액";
+            treeNode35.Name = "노드29";
+            treeNode35.Text = "은행 매도 금액";
+            treeNode36.Name = "노드30";
+            treeNode36.Text = "연기금등 순매수 금액";
+            treeNode37.Name = "노드31";
+            treeNode37.Text = "연기금등 매수 금액";
+            treeNode38.Name = "노드32";
+            treeNode38.Text = "연기금등 매도 금액";
+            treeNode39.Name = "노드33";
+            treeNode39.Text = "사모펀드 순매수 금액";
+            treeNode40.Name = "노드34";
+            treeNode40.Text = "사모펀드 매수 금액";
+            treeNode41.Name = "노드35";
+            treeNode41.Text = "사모펀드 매도 금액";
+            treeNode42.Name = "노드36";
+            treeNode42.Text = "국가 순매수 금액";
+            treeNode43.Name = "노드37";
+            treeNode43.Text = "국가 매수 금액";
+            treeNode44.Name = "노드38";
+            treeNode44.Text = "국가 매도 금액";
+            treeNode45.Name = "노드39";
+            treeNode45.Text = "기타법인 순매수 금액";
+            treeNode46.Name = "노드40";
+            treeNode46.Text = "기타법인 매수 금액";
+            treeNode47.Name = "노드41";
+            treeNode47.Text = "기타법인 매도 금액";
+            treeNode48.Name = "노드42";
+            treeNode48.Text = "내외국인 순매수 금액";
+            treeNode49.Name = "노드43";
+            treeNode49.Text = "내외국인 매수 금액";
+            treeNode50.Name = "노드44";
+            treeNode50.Text = "내외국인 매도 금액";
+            treeNode51.Name = "노드0";
+            treeNode51.Text = "가격 지표";
+            treeNode52.Name = "노드8";
+            treeNode52.Text = "이동평균선 5";
+            treeNode53.Name = "노드9";
+            treeNode53.Text = "이동평균선 10";
+            treeNode54.Name = "노드10";
+            treeNode54.Text = "이동평균선 20";
+            treeNode55.Name = "노드11";
+            treeNode55.Text = "이동평균선 60";
+            treeNode56.Name = "노드12";
+            treeNode56.Text = "이동평균선 120";
+            treeNode57.Name = "노드7";
+            treeNode57.Text = "이동평균선";
+            treeNode58.Name = "노드13";
+            treeNode58.Text = "MACD";
+            treeNode59.Name = "노드0";
+            treeNode59.Text = "MACD Signal";
+            treeNode60.Name = "노드15";
+            treeNode60.Text = "피벗 ";
+            treeNode61.Name = "노드1";
+            treeNode61.Text = "피벗 1차지지선";
+            treeNode62.Name = "노드7";
+            treeNode62.Text = "피벗 2차지지선";
+            treeNode63.Name = "노드8";
+            treeNode63.Text = "피벗 1차저항선";
+            treeNode64.Name = "노드9";
+            treeNode64.Text = "피벗 1차저항선";
+            treeNode65.Name = "노드16";
+            treeNode65.Text = "Parabolic SAR";
+            treeNode66.Name = "노드10";
+            treeNode66.Text = "Parabolic SAR 상승";
+            treeNode67.Name = "노드11";
+            treeNode67.Text = "Parabolic SAR 하락";
+            treeNode68.Name = "노드25";
+            treeNode68.Text = "DeMark UP";
+            treeNode69.Name = "노드12";
+            treeNode69.Text = "DeMark Down";
+            treeNode70.Name = "노드26";
+            treeNode70.Text = "Price Channel UP";
+            treeNode71.Name = "노드2";
+            treeNode71.Text = "Price Channel Down";
+            treeNode72.Name = "노드0";
+            treeNode72.Text = "추세 지표";
+            treeNode73.Name = "노드17";
+            treeNode73.Text = "볼린저 밴드 UP";
+            treeNode74.Name = "노드13";
+            treeNode74.Text = "볼린저 밴드 Down";
+            treeNode75.Name = "노드22";
+            treeNode75.Text = "ATR";
+            treeNode76.Name = "노드1";
+            treeNode76.Text = "변동성 지표";
+            treeNode77.Name = "노드18";
+            treeNode77.Text = "RSI";
+            treeNode78.Name = "노드14";
+            treeNode78.Text = "RSI Signal";
+            treeNode79.Name = "노드19";
+            treeNode79.Text = "Stocastic Fast K";
+            treeNode80.Name = "노드15";
+            treeNode80.Text = "Stocastic Slow K";
+            treeNode81.Name = "노드16";
+            treeNode81.Text = "Stocastic Slow D";
+            treeNode82.Name = "노드21";
+            treeNode82.Text = "Price 오실레이터";
+            treeNode83.Name = "노드23";
+            treeNode83.Text = "TRIX";
+            treeNode84.Name = "노드17";
+            treeNode84.Text = "TRIX Signal";
+            treeNode85.Name = "노드24";
+            treeNode85.Text = "RMI";
+            treeNode86.Name = "노드2";
+            treeNode86.Text = "모멘텀 지표";
+            treeNode87.Name = "노드20";
+            treeNode87.Text = "MFI";
+            treeNode88.Name = "노드3";
+            treeNode88.Text = "시장강도 지표";
             this.IndicatorViewer.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode209,
-            treeNode230,
-            treeNode234,
-            treeNode244,
-            treeNode246});
+            treeNode6,
+            treeNode51,
+            treeNode72,
+            treeNode76,
+            treeNode86,
+            treeNode88});
             this.IndicatorViewer.Size = new System.Drawing.Size(244, 713);
             this.IndicatorViewer.TabIndex = 3;
             this.IndicatorViewer.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.itemClick);

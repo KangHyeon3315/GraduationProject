@@ -15,16 +15,23 @@ namespace AutoTraderGUI.Forms
     public partial class HistoricalLogViewer : Form
     {
         int start_idx = 0;
-
+        Library.DBController DB;
         DataTable data;
         public HistoricalLogViewer()
         {
             InitializeComponent();
 
-            DirectoryInfo Dinfo = new DirectoryInfo("Log");
-            foreach (FileInfo finfo in Dinfo.GetFiles())
+            Library.Settings settings = new Library.Settings();
+            DB = new Library.DBController(settings.info.DBIP, settings.info.DBID, settings.info.DBPW);
+
+            if (!DB.SchemaCheck("log"))
             {
-                DateList.Items.Add(finfo.Name.Replace(".xml", ""));
+                DB.CreateSchema("log");
+            }
+
+            foreach (string log in DB.SelectTableList("log"))
+            {
+                DateList.Items.Add(log);
             }
 
         }
@@ -54,7 +61,7 @@ namespace AutoTraderGUI.Forms
 
         void Search(int start)
         {
-            if (File.Exists(string.Format("Log\\{0}.xml", DateList.Text)))
+            if (DB.TableCheck(DateTime.Now.ToString("yyyymmdd_HH"), "log")) 
             {
                 LogViewer.Items.Clear();
 
@@ -111,14 +118,7 @@ namespace AutoTraderGUI.Forms
 
         private void SearchClick(object sender, EventArgs e)
         {
-            data = new DataTable("logs");
-            data.Columns.Add(new DataColumn("Info", typeof(System.String)));
-            data.Columns.Add(new DataColumn("Time", typeof(System.String)));
-            data.Columns.Add(new DataColumn("Task", typeof(System.String)));
-            data.Columns.Add(new DataColumn("Company", typeof(System.String)));
-            data.Columns.Add(new DataColumn("Log", typeof(System.String)));
-
-            data.ReadXml(string.Format("Log\\{0}.xml", DateList.Text));
+            data = DB.SelectTableData("log", DateTime.Now.ToString("yyyymmdd_HH"));
 
             start_idx = 0;
             Search(start_idx);

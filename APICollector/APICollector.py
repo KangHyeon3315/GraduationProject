@@ -24,6 +24,13 @@ class Collector:
         self.net.CompleteCount(0)
         self.net.CompanyCount(0)
 
+        DBIP = sys.argv[2]
+        DBPort = int(sys.argv[3])
+        DBID = sys.argv[4]
+        DBPW = sys.argv[5]
+        self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
+
+
         self.api = OpenApi(self.net)
 
         # DBInfo = self.net.Requests("DBInfo").split(";")
@@ -35,11 +42,7 @@ class Collector:
         # DBID = DBInfo[3]
         # DBPW = DBInfo[4]
 
-        DBIP = sys.argv[2]
-        DBPort = int(sys.argv[3])
-        DBID = sys.argv[4]
-        DBPW = sys.argv[5]
-        self.DB = DataBase(DBIP, DBPort, DBID, DBPW)
+
 
         self.open_time = "0840"
         self.close_time = "1535"

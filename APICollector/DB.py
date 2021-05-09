@@ -2,6 +2,12 @@ from sqlalchemy import create_engine
 import pandas as pd
 import pymysql
 import datetime
+import numpy as np
+
+pymysql.converters.encoders[np.int64] = pymysql.converters.escape_int
+pymysql.converters.encoders[np.float64] = pymysql.converters.escape_float
+pymysql.converters.conversions = pymysql.converters.encoders.copy()
+pymysql.converters.conversions.update(pymysql.converters.decoders)
 
 class DataBase:
     def __init__(self, IP, Port, ID, PW):

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Windows.Forms;
 
 namespace AutoTraderGUI.Library
 {
@@ -72,6 +73,35 @@ namespace AutoTraderGUI.Library
                     while (rdr.Read())
                     {
                         result.Add(rdr["COLUMN_NAME"].ToString());
+                    }
+                    rdr.Close();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+
+            return result;
+        }
+        
+        public List<string> SelectTableList(string schema)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
+                {
+                    conn.Open();
+                    string command = string.Format("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA='{0}';", schema);
+
+                    MySqlCommand cmd = new MySqlCommand(command, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        result.Add(rdr["TABLE_NAME"].ToString());
                     }
                     rdr.Close();
                     conn.Close();
@@ -182,6 +212,33 @@ namespace AutoTraderGUI.Library
             return ds.Tables["result"];
         }
 
+        public DataTable SelectSQLData(string schema, string sql)
+        {
+            DataSet ds = new DataSet();
+            collectorStrConn = SchemaSelect(schema);
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
+                {
+                    conn.Open();
+                    string command;
+                    command = sql;
+
+                    MySqlDataAdapter adpt = new MySqlDataAdapter(command, collectorStrConn);
+                    adpt.Fill(ds, "result");
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+
+            return ds.Tables["result"];
+        }
+
         public bool ColumnCheck(string tableName, string schemaName, string columnName)
         {
             bool result = false;
@@ -239,7 +296,7 @@ namespace AutoTraderGUI.Library
                 try
                 {
                     conn.Open();
-                    string command = string.Format("UPDATE company_info SET {0}='{1}' WHERE name='{2}'", columnName, value, companyName);
+                    string command = string.Format("UPDATE collector.company_info SET {0}='{1}' WHERE name='{2}'", columnName, value, companyName);
                     
                     MySqlCommand cmd = new MySqlCommand(command, conn);
                     cmd.ExecuteNonQuery();
@@ -249,7 +306,199 @@ namespace AutoTraderGUI.Library
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
+                    MessageBox.Show(ex.ToString());
                 }
+            }
+        }
+
+        public bool SchemaCheck(string schema)
+        {
+            bool result = false;
+            using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
+            {
+                try
+                {
+                    conn.Open();
+                    string command = string.Format("SELECT null FROM information_schema.SCHEMATA where SCHEMA_NAME = '{0}'", schema);
+
+                    MySqlCommand cmd = new MySqlCommand(command, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    result = rdr.Read();
+                    rdr.Close();
+                    conn.Close();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+        }
+
+        public bool DataCheck(string schema, string table, string column, string data)
+        {
+            bool result = false;
+            using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
+            {
+                try
+                {
+                    conn.Open();
+                    string command = string.Format("SELECT null FROM {0}.`{1}` where {2} = '{3}'", schema, table, column, data);
+
+                    MySqlCommand cmd = new MySqlCommand(command, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    result = rdr.Read();
+                    rdr.Close();
+                    conn.Close();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+        }
+
+        public void CreateSchema(string schema)
+        {
+            string SQL = string.Format("create schema {0};", schema);
+            try
+            {
+                using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(collectorStrConn))
+                {
+                    conn.Open();
+                    MySqlTransaction trans = conn.BeginTransaction();
+
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = SQL;
+                    cmd.ExecuteNonQuery();
+
+                    trans.Commit();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                MessageBox.Show(SQL);
+            }
+        }
+
+        public void UpdateRow(string schema, string table, DataColumnCollection columns, DataRow row, string key)
+        {
+            string SQL1 = string.Format("UPDATE {0}.`{1}` SET ", schema, table);
+            string SQL2 = "";
+            string SQL3 = string.Format(" WHERE name='{0}'", key);
+
+            foreach (DataColumn column in columns)
+            {
+                if (SQL2 != "")
+                    SQL2 += ", ";
+                string value = row[column].ToString().Trim() == "" ? "null" : row[column].ToString();
+                if (column.DataType.Name == "String")
+                {
+                    SQL2 += string.Format("{0}='{1}'", column.ColumnName, value);
+                }
+                else
+                {
+                    SQL2 += string.Format("{0}={1}", column.ColumnName, value);
+                }
+            }
+            string SQL = SQL1 + SQL2 + SQL3;
+            
+            try
+            {
+                using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(collectorStrConn))
+                {
+                    conn.Open();
+                    MySqlTransaction trans = conn.BeginTransaction();
+
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = SQL;
+                    cmd.ExecuteNonQuery();
+
+                    trans.Commit();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                MessageBox.Show(SQL);
+            }
+        }
+        public void InsertRow(string schema, string table, DataColumnCollection columns, DataRow row, DataColumn key=null)
+        {
+            // 해당 날짜 테이블에 해당 기업의 데이터가 없는 경우 Insert 아니면 업데이트
+            // INSERT INTO collector.test (tt, tsts) VALUES (2, 1960) ON DUPLICATE KEY UPDATE tsts=12345;
+            string SQL1 = string.Format("INSERT INTO {0}.`{1}` (", schema, table);
+            string SQL2 = "";
+            string SQL3 = ") VALUES (";
+            string SQL4 = "";
+            string SQL5 = ") ON DUPLICATE KEY UPDATE ";
+            string SQL6 = "";
+
+            foreach(DataColumn column in columns)
+            {
+                string value = row[column].ToString().Trim() == "" ? "null" : row[column].ToString();
+
+                if (SQL2 != "")
+                    SQL2 += ", ";
+                if (SQL4 != "")
+                    SQL4 += ", ";
+                SQL2 += string.Format("{0}", column.ColumnName);
+
+                //SQL4 += value;
+                if (column.DataType.Name == "String")
+                {
+                    SQL4 += string.Format("'{1}'", column.ColumnName, value);
+                }
+                else
+                {
+                    SQL4 += string.Format("{1}", column.ColumnName, value);
+                }
+
+                if (key != null && column.ColumnName != key.ColumnName)
+                {
+                    if (SQL6 != "")
+                        SQL6 += ", ";
+                    if (column.DataType.Name == "String")
+                    {
+                        SQL6 += string.Format("{0}='{1}'", column.ColumnName, value);
+                    }
+                    else
+                    {
+                        SQL6 += string.Format("{0}={1}", column.ColumnName, value);
+                    }
+                }
+            }
+
+            string SQL = SQL1 + SQL2 + SQL3 + SQL4 + SQL5 + SQL6;
+            
+            try
+            {
+                using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(collectorStrConn))
+                {
+                    conn.Open();
+                    MySqlTransaction trans = conn.BeginTransaction();
+
+                    MySqlCommand cmd = conn.CreateCommand();
+
+                    cmd.CommandText = SQL;
+                    cmd.ExecuteNonQuery();
+
+                    trans.Commit();
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                MessageBox.Show(SQL);
             }
         }
 
@@ -316,6 +565,88 @@ namespace AutoTraderGUI.Library
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        public void CreateTable(string schema, string Name, DataColumnCollection columns, string key="")
+        {
+            if (TableCheck(Name, schema))
+                return;
+            string command = string.Format("CREATE TABLE `{0}` (", Name);
+            string uniCommand = "";
+            string keyCommand = "";
+            for (int idx = 0; idx < columns.Count; idx++)
+            {
+                string column = columns[idx].ColumnName;
+                Type dataType = columns[idx].DataType;
+
+                switch (dataType.Name)
+                {
+                    case "String":
+                        command += string.Format("{0} {1} null", column, "text");
+                        break;
+                    case "Int":
+                    case "Int32":
+                    case "Int64":
+                        command += string.Format("{0} {1} null", column, "bigint");
+                        break;
+                    case "Single":
+                        command += string.Format("{0} {1} null", column, "float");
+                        break;
+                    case "Double":
+                        command += string.Format("{0} {1} null", column, "double");
+                        break;
+
+                }
+
+                if (idx != columns.Count - 1)
+                {
+                    command += ", ";
+                }
+            }
+            command += ") DEFAULT CHARSET=utf8;";
+
+            if(key != "")
+            {
+                bool isContain = false;
+                for (int idx = 0; idx < columns.Count; idx++)
+                {
+                    if(columns[idx].ColumnName == key)
+                    {
+                        isContain = true;
+                        break;
+                    }
+                }
+
+                if (isContain)
+                {
+                    uniCommand = string.Format("create unique index {0}_{1}_uindex on {0} ({1}); ", Name, key);
+                    keyCommand = string.Format("alter table {2}.`{0}` add constraint `{0}_pk` primary key({1});", Name, key, schema);
+                }
+            }
+
+            using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(SchemaSelect(schema)))
+            {
+                conn.Open();
+                MySqlTransaction trans = conn.BeginTransaction();
+                //MySqlCommand cmd = new MySqlCommand(command, conn);
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = command;
+                cmd.ExecuteNonQuery();
+                if(uniCommand != "")
+                {
+                    cmd.CommandText = uniCommand;
+                    cmd.ExecuteNonQuery();
+                }
+                if(keyCommand != "")
+                {
+                    cmd.CommandText = keyCommand;
+                    cmd.ExecuteNonQuery();
+                }
+                trans.Commit();
+                conn.Close();
+                    
+            }
+        }
+
         public void UpdateTable(string schema, string table, DataTable data)
         {
             if(TableCheck(table, schema))
@@ -332,48 +663,7 @@ namespace AutoTraderGUI.Library
             }
             else
             {
-                string command = string.Format("CREATE TABLE `{0}` (", table);
-
-                for (int idx = 0; idx < data.Columns.Count; idx++)
-                {
-                    string column = data.Columns[idx].ColumnName;
-                    Type dataType = data.Columns[idx].DataType;
-
-                    switch (dataType.Name)
-                    {
-                        case "String":
-                            command += string.Format("{0} {1} null", column, "text");
-                            break;
-                        case "Int":
-                        case "Int32":
-                        case "Int64":
-                            command += string.Format("{0} {1} null", column, "int");
-                            break;
-                        case "Single":
-                            command += string.Format("{0} {1} null", column, "float");
-                            break;
-                        case "Double":
-                            command += string.Format("{0} {1} null", column, "double");
-                            break;
-
-                    }
-
-                    if (idx != data.Columns.Count - 1)
-                    {
-                        command += ", ";
-                    }
-                }
-                command += ") DEFAULT CHARSET=utf8;";
-
-                using (MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(SchemaSelect(schema)))
-                {
-                    conn.Open();
-
-                    MySqlCommand cmd = new MySqlCommand(command, conn);
-                    cmd.ExecuteNonQuery();
-
-                    conn.Close();
-                }
+                CreateTable(schema, table, data.Columns);
             }
 
             try

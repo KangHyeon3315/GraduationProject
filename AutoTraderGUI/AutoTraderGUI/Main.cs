@@ -28,7 +28,7 @@ namespace AutoTraderGUI
         Forms.EmptyControl empty;
         Layout.Home home;
         Layout.Analyze analyze;
-        Forms.Simulate simulate;
+        Forms.SimulateForm simulate;
         LogInterface logInterface = null;
         ProgressInterface progressInterface = null;
 
@@ -45,7 +45,7 @@ namespace AutoTraderGUI
             settingsForm = new Forms.SettingsForm(settings.info);
 
             empty = new Forms.EmptyControl("Empty");
-            simulate = new Forms.Simulate();
+            simulate = new Forms.SimulateForm();
             analyze = new Layout.Analyze();
             home = new Layout.Home();
             logInterface = home.logInterface;
@@ -60,6 +60,7 @@ namespace AutoTraderGUI
             MainPanel.Controls.Add(home);
 
             timer1.Start();
+
         }
 
         private void MainFormClosing(object sender, FormClosingEventArgs e)

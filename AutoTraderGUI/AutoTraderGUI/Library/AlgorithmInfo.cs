@@ -11,18 +11,18 @@ namespace AutoTraderGUI.Library
     [Serializable]
     class AlgorithmInfo
     {
-        public float Yield;             // 수익률
-        public float ProfitLossRatio;   // 손익비
-        public float winRate;           // 승률
-        public float MDD;               // 최대 누적 하락률
-        public float maxFE;             // 최대 미실현 수익
-        public float meanFE;            // 평균 미실현 수익
-        public float maxAE;             // 최대 미실현 손실
-        public float meanAE;            // 평균 미실현 손실
+        public float Yield = 0;             // 수익률
+        public float ProfitLossRatio = 0;   // 손익비
+        public float winRate = 0;           // 승률
+        public float MDD = 0;               // 최대 누적 하락률
+        public float MFE = 0;               // 최대 미실현 수익
+        public float AFE = 0;               // 평균 미실현 수익
+        public float MAE = 0;               // 최대 미실현 손실
+        public float AAE = 0;               // 평균 미실현 손실
 
         public string AlgorithmName;
-        public int DistributeNum;
-        public int MaxOwnDate;
+        public int DistributeNum = 0;
+        public int MaxOwnDate = 0;
         public Frequency TradeFrequency;
 
         public TradeTiming buyTiming;
@@ -33,6 +33,7 @@ namespace AutoTraderGUI.Library
         public float lossCut = 0;
 
         public int DateCount;
+        public int RealTimeDateCount;
         public string buyOption;
         public string buySQLFormat;
         public string sellOption;

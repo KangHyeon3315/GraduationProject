@@ -95,8 +95,8 @@ namespace AutoTraderGUI.Forms
                 item.SubItems.Add(algorithmInfo.Yield.ToString());
                 item.SubItems.Add(algorithmInfo.ProfitLossRatio.ToString());
                 item.SubItems.Add(algorithmInfo.MDD.ToString());
-                item.SubItems.Add(algorithmInfo.maxFE.ToString());
-                item.SubItems.Add(algorithmInfo.maxAE.ToString());
+                item.SubItems.Add(algorithmInfo.MFE.ToString());
+                item.SubItems.Add(algorithmInfo.MAE.ToString());
 
                 AlgorithmInfo.Items.Add(item);
                 
@@ -108,7 +108,7 @@ namespace AutoTraderGUI.Forms
             if(AlgorithmInfo.SelectedItems.Count > 0)
             {
                 string selectedName = AlgorithmInfo.SelectedItems[0].Text;
-                AlgorithmEidt edit = new AlgorithmEidt(algorithmInfoInterface);
+                AlgorithmEdit edit = new AlgorithmEdit(algorithmInfoInterface);
                 edit.Show();
                 edit.LoadAlgorithm(selectedName);
             }
@@ -123,6 +123,13 @@ namespace AutoTraderGUI.Forms
                 File.Delete(Application.StartupPath + "\\Algorithm\\" + selectedName + ".trstr");
                 refreshAlgorithmInfo();
             }
+        }
+
+        private void AlgorithmInfoViewClick(object sender, EventArgs e)
+        {
+            string selectedName = AlgorithmInfo.SelectedItems[0].Text;
+            AlgorithmInfoViewer info = new AlgorithmInfoViewer(selectedName);
+            info.Show();
         }
     }
 }

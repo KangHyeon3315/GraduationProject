@@ -32,6 +32,7 @@ namespace AutoTraderGUI.Library
         public void IndicatorCalculate()
         {
             IndicatorProcessor indicator = new IndicatorProcessor(logInterface, progressInterface, settings);
+            SimulateDataRecollect recollect = new SimulateDataRecollect(settings, logInterface, progressInterface);
         }
 
         public void Close()

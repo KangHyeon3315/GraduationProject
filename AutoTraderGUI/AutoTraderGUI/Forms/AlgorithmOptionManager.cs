@@ -14,6 +14,7 @@ namespace AutoTraderGUI.Forms
     public partial class AlgorithmOptionManager : UserControl
     {
         public int offsetRange;
+        public int realtimeOffsetRange;
         public string Option 
         {
             get
@@ -38,14 +39,18 @@ namespace AutoTraderGUI.Forms
             }
         }
         SymbolInterface symbolInterface;
-        public AlgorithmOptionManager(SymbolInterface symbolInterface)
+        AlgorithmDetailsInterface algorithmDetailsInterface;
+        string tradeType;
+        public AlgorithmOptionManager(string tradeType, SymbolInterface symbolInterface, AlgorithmDetailsInterface algorithmDetailsInterface)
         {
             InitializeComponent();
             this.symbolInterface = symbolInterface;
+            this.algorithmDetailsInterface = algorithmDetailsInterface;
+            this.tradeType = tradeType;
 
-            
             OffsetCombo.SelectedIndex = 0;
 
+            IndicatorViewer.ExpandAll();
             Dock = DockStyle.Fill;
         }
 
@@ -59,6 +64,14 @@ namespace AutoTraderGUI.Forms
 
         private void itemClick(object sender, TreeViewEventArgs e)
         {
+            OffsetCombo.Items.Clear();
+            OffsetCombo.Items.Add("0");
+            OffsetCombo.Items.Add("1");
+            OffsetCombo.Items.Add("2");
+            OffsetCombo.Items.Add("3");
+            OffsetCombo.Items.Add("4");
+            OffsetCombo.Items.Add("5");
+            OffsetCombo.SelectedIndex = 0;
             if (e.Node.Level == 0)
             {
                 indicatorName.Text = "None";
@@ -66,7 +79,28 @@ namespace AutoTraderGUI.Forms
             }
             else
             {
-                indicatorName.Text = e.Node.Text;
+                if(e.Node.Text == "이동평균선")
+                {
+                    indicatorName.Text = "None";
+                    return;
+                }
+
+                if(e.Node.Parent.Text == "실시간정보")
+                {
+                    indicatorName.Text = e.Node.Text + "(실시간)";
+
+                    if (algorithmDetailsInterface.TradeFrequencyInfo != "분")
+                    {
+                        OffsetCombo.Items.Clear();
+                        OffsetCombo.Items.Add("0");
+                        OffsetCombo.SelectedIndex = 0;
+                    }
+                }
+                else
+                {
+                    indicatorName.Text = e.Node.Text;
+                }
+                
             }
         }
 
@@ -98,10 +132,10 @@ namespace AutoTraderGUI.Forms
                 }
             }
 
-            ListViewItem item = new ListViewItem(symbolInterface.SymbolTable.SymbolsListView.Items.Count.ToString());
-            item.SubItems.Add(VarName.Text);
-            item.SubItems.Add(indicatorName.Text.Replace(" ", ""));
-            item.SubItems.Add(OffsetCombo.Text);
+            //ListViewItem item = new ListViewItem(symbolInterface.SymbolTable.SymbolsListView.Items.Count.ToString());
+            //item.SubItems.Add(VarName.Text);
+            //item.SubItems.Add(indicatorName.Text.Replace(" ", ""));
+            //item.SubItems.Add(OffsetCombo.Text);
 
 
             string PropertyName = "";
@@ -136,10 +170,22 @@ namespace AutoTraderGUI.Forms
                 Property += OrderCombo.Text;
             }
 
-            item.SubItems.Add(PropertyName);
-            item.SubItems.Add(Property);
+            if (indicatorName.Text.Contains("(실시간)"))
+            {
+                if(PropertyName != "")
+                {
+                    PropertyName += ",";
+                    Property += ",";
+                }
 
-            symbolInterface.SymbolTable.SymbolsListView.Items.Add(item);
+                PropertyName += "실시간";
+                Property += algorithmDetailsInterface.TradeFrequencyInfo;
+            }
+
+            //item.SubItems.Add(PropertyName);
+            //item.SubItems.Add(Property);
+
+            //symbolInterface.SymbolTable.SymbolsListView.Items.Add(item);
             symbolInterface.AddSymbol(new Symbol(VarName.Text, indicatorName.Text.Replace(" ", ""), int.Parse(OffsetCombo.Text), PropertyName, Property));
             SeparationCombo.Items.Add(VarName.Text);
             Reset();
@@ -147,6 +193,7 @@ namespace AutoTraderGUI.Forms
 
         void Reset()
         {
+            IndicatorViewer.SelectedNode = null;
             indicatorName.Text = "None";
             OffsetCombo.SelectedIndex = 0;
             SeparationCheck.Checked = false;
@@ -248,30 +295,121 @@ namespace AutoTraderGUI.Forms
 
         void MakeSQLTemplate()
         {
+            OptionWriter.Text = " " + OptionWriter.Text;
             offsetRange = 0;
-            string firstPart = "SELECT t0.code FROM ";
+            realtimeOffsetRange = 0;
+            string firstPart = "";
+            string standardTable = "";
+
             for (int i = 0; i < symbolInterface.SymbolTable.SymbolsListView.Items.Count; i++)
             {
-                offsetRange = int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text) > offsetRange ? int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text) : offsetRange;
+                if (!symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[4].Text.Contains("실시간"))
+                {
+                    offsetRange = int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text) > offsetRange ? int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text) : offsetRange;
+                }
+                else
+                {
+                    realtimeOffsetRange = int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text) > realtimeOffsetRange ? int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text) : realtimeOffsetRange;
+                }
+                
             }
 
-            string tableList = "";
+            List<string> addedtable = new List<string>();
+            addedtable.Add("r0");
+            addedtable.Add("t0");
+            string tableList = "[리얼타임테이블0] r0, [테이블0] t0";
             string baseOption = " WHERE ";
+            string TrendsOption = "";
             string OrderOption = "";
+
+            if(tradeType == "buy")
+            {
+                switch (algorithmDetailsInterface.marketTrends)
+                {
+                    case "상승 추세":
+                        TrendsOption = " and (t0.sma20 > t0.sma60 and t0.sma60 > t0.sma120)";
+                        break;
+                    case "하락 추세":
+                        TrendsOption = " and (t0.sma20 < t0.sma60 and t0.sma60 < t0.sma120)";
+                        break;
+                    case "횡보 추세":
+                        TrendsOption = " and (not(t0.sma20 > t0.sma60 and t0.sma60 > t0.sma120) and not(t0.sma20 < t0.sma60 and t0.sma60 < t0.sma120))";
+                        break;
+                }
+            }
+            
+            
 
             for(int i = 0; i <= offsetRange; i++)
             {
-                tableList += string.Format("[테이블{0}] t{0}", i);
-
-                if(i > 0)
+                
+                for (int j = 0; j < symbolInterface.SymbolTable.SymbolsListView.Items.Count; j++)
                 {
-                    baseOption += string.Format("t0.code = t{0}.code and", i);
-                }
+                    if (!symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[4].Text.Contains("실시간") && int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[3].Text) == i)
+                    {
+                        //if (!OptionWriter.Text.Contains(string.Format("{0}", symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[1].Text)))
+                        if (!OptionTokenContains(symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[1].Text))
+                            continue;
 
-                if(i != offsetRange)
-                {
-                    tableList += ", ";
+                        if(firstPart == "")
+                        {
+                            firstPart = string.Format("SELECT r0.name, r0.code, r0.open, r0.high, r0.low, r0.close, r0.volume FROM ", i);
+                            standardTable = string.Format("t{0}", i);
+
+
+                        }
+                        if(i > 0)
+                        {
+                            if (tableList != "")
+                            {
+                                tableList += ", ";
+                            }
+                            tableList += string.Format("[테이블{0}] t{0}", i);
+                            addedtable.Add(string.Format("t{0}", i));
+                        }
+                         
+                        break;
+                    }
                 }
+            }
+
+            
+            for (int i = 0; i <= realtimeOffsetRange; i++)
+            {
+                for (int j = 0; j < symbolInterface.SymbolTable.SymbolsListView.Items.Count; j++)
+                {
+                    if (symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[4].Text.Contains("실시간") && int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[3].Text) == i)
+                    {
+                        //if (!OptionWriter.Text.Contains(string.Format("{0}", symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[1].Text)))
+                        if(!OptionTokenContains(symbolInterface.SymbolTable.SymbolsListView.Items[j].SubItems[1].Text))
+                            continue;
+
+                        if (firstPart == "")
+                        {
+                            firstPart = string.Format("SELECT r0.name, r0.code, r0.open, r0.high, r0.low, r0.close, r0.volume FROM ", i);
+                            standardTable = string.Format("r{0}", i);
+                        }
+                        if(i > 0)
+                        {
+                            if (tableList != "")
+                            {
+                                tableList += ", ";
+                            }
+                            tableList += string.Format("[리얼타임테이블{0}] r{0}", i);
+                            addedtable.Add(string.Format("r{0}", i));
+                        }
+                        
+                        break;
+                    }
+                }
+            }
+
+            foreach(string t in addedtable)
+            {
+                if (t == "r0")
+                    continue;
+
+                baseOption += string.Format("r0.code = {0}.code and ", t);
             }
 
             string option = string.Format(" ( {0} )", OptionWriter.Text);
@@ -281,6 +419,7 @@ namespace AutoTraderGUI.Forms
                 string keyword = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[1].Text;
                 int offset = int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text);
                 string indicator = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[2].Text;
+                string tableType = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[4].Text.Contains("실시간") ? "r" : "t";
 
                 if (symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[4].Text.Trim() != "")
                 {
@@ -290,33 +429,50 @@ namespace AutoTraderGUI.Forms
                     {
                         if(Parameter[j].Trim() == "이격도")
                         {
-                            option = option.Replace(keyword, string.Format("t{0}.{1} / {2} * 100", offset, GetTableColumn(indicator), ParameterValue[j].Trim()));
+                            option = option.Replace(keyword, string.Format("{3}{0}.{1} / {2} * 100", offset, GetTableColumn(indicator), ParameterValue[j].Trim(), tableType));
                         }
                         else if(Parameter[j].Trim() == "거래 우선순위")
                         {
                             if(ParameterValue[j] == "오름차순")
                             {
-                                OrderOption = string.Format(" ORDER BY t{0}.{1}", offset, GetTableColumn(indicator));
+                                OrderOption = string.Format(" ORDER BY {2}{0}.{1}", offset, GetTableColumn(indicator), tableType);
                             }
                             else if(ParameterValue[j] == "내림차순")
                             {
-                                OrderOption = string.Format(" ORDER BY t{0}.{1} DESC", offset, GetTableColumn(indicator));
+                                OrderOption = string.Format(" ORDER BY {2}{0}.{1} DESC", offset, GetTableColumn(indicator), tableType);
                             }
                             
+                        }
+                        else if(Parameter[j].Trim() == "실시간")
+                        {
+                            option = option.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ", offset, GetTableColumn(indicator), tableType));
                         }
                     }
                 }
                 else
                 {
                     // 단순 지표
-                    option = option.Replace(keyword, string.Format("t{0}.{1}",offset ,GetTableColumn(indicator)));
+                    option = option.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ",offset ,GetTableColumn(indicator), tableType));
                 }
             }
 
-            string result = firstPart + tableList + baseOption + option + OrderOption;
+            string result = firstPart + tableList + baseOption + option + TrendsOption + OrderOption;
             SQLCommand.Text = result;
+            OptionWriter.Text.Remove(0, 1);
         }
+        bool OptionTokenContains(string data)
+        {
+            string[] tokens = OptionWriter.Text.Split(' ');
 
+            foreach(string token in tokens)
+            {
+                if(token.Trim() == data)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         string GetTableColumn(string indicator)
         {
             string column = "";
@@ -335,6 +491,21 @@ namespace AutoTraderGUI.Forms
                     column = "close";
                     break;
                 case "거래량":
+                    column = "volume";
+                    break;
+                case "시가(실시간)":
+                    column = "open";
+                    break;
+                case "고가(실시간)":
+                    column = "high";
+                    break;
+                case "저가(실시간)":
+                    column = "low";
+                    break;
+                case "종가(실시간)":
+                    column = "close";
+                    break;
+                case "거래량(실시간)":
                     column = "volume";
                     break;
                 case "개인순매수금액":

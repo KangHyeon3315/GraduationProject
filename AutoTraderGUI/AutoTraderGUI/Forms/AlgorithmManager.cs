@@ -18,7 +18,7 @@ namespace AutoTraderGUI.Forms
 
         Library.AlgorithmInfo selectedAlgorithm;
         Forms.AlgorithmInfoControl algorithmInfo;
-        Forms.AlgorithmEidt algorithmCreate;
+        Forms.AlgorithmEdit algorithmCreate;
 
         AlgorithmInfoInterface algorithmInfoInterface;
 
@@ -38,7 +38,7 @@ namespace AutoTraderGUI.Forms
 
         private void AlgorithmOptionManagerClick(object sender, EventArgs e)
         {
-            algorithmCreate = new Forms.AlgorithmEidt(algorithmInfoInterface);
+            algorithmCreate = new Forms.AlgorithmEdit(algorithmInfoInterface);
             algorithmCreate.Show();
         }
 

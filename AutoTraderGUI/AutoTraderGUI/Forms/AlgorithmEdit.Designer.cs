@@ -1,7 +1,7 @@
 ﻿
 namespace AutoTraderGUI.Forms
 {
-    partial class AlgorithmEidt
+    partial class AlgorithmEdit
     {
         /// <summary>
         /// Required designer variable.
@@ -268,10 +268,8 @@ namespace AutoTraderGUI.Forms
             this.TradeFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.TradeFrequency.FormattingEnabled = true;
             this.TradeFrequency.Items.AddRange(new object[] {
-            "분 (현재 미지원)",
-            "일",
-            "달",
-            "년"});
+            "분",
+            "일"});
             this.TradeFrequency.Location = new System.Drawing.Point(127, 195);
             this.TradeFrequency.Name = "TradeFrequency";
             this.TradeFrequency.Size = new System.Drawing.Size(204, 28);
@@ -596,7 +594,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // AlgorithmEidt
+            // AlgorithmEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -604,7 +602,7 @@ namespace AutoTraderGUI.Forms
             this.Controls.Add(this.CancelCreateButton);
             this.Controls.Add(this.CompleteButton);
             this.Controls.Add(this.tabTable);
-            this.Name = "AlgorithmEidt";
+            this.Name = "AlgorithmEdit";
             this.Text = "알고리즘 추가/수정";
             this.Load += new System.EventHandler(this.AlgorithmCreate_Load);
             this.tabTable.ResumeLayout(false);

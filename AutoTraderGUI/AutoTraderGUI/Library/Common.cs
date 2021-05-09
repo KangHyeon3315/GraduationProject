@@ -8,6 +8,17 @@ using System.Windows.Forms;
 
 namespace AutoTraderGUI
 {
+    public interface SimulateInterface
+    {
+        bool isSimulating { get; }
+        void SimulateStart();
+        void SimulateStop();
+    }
+    public interface AlgorithmDetailsInterface
+    {
+        string TradeFrequencyInfo { get; }
+        string marketTrends { get; }
+    }
     public interface SymbolInterface
     {
         Forms.SymbolTable SymbolTable { get; }
