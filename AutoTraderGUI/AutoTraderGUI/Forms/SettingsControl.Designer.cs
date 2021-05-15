@@ -130,20 +130,19 @@ namespace AutoTraderGUI.Forms
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.DBIP);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.groupBox2.Location = new System.Drawing.Point(3, 272);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(812, 165);
+            this.groupBox2.Size = new System.Drawing.Size(905, 177);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Database 설정";
             // 
             // DBPW
             // 
-            this.DBPW.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBPW.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.DBPW.Location = new System.Drawing.Point(161, 123);
+            this.DBPW.Location = new System.Drawing.Point(172, 133);
             this.DBPW.Name = "DBPW";
             this.DBPW.Size = new System.Drawing.Size(645, 29);
             this.DBPW.TabIndex = 19;
@@ -152,7 +151,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label9.Location = new System.Drawing.Point(8, 126);
+            this.label9.Location = new System.Drawing.Point(19, 136);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(60, 21);
             this.label9.TabIndex = 18;
@@ -162,7 +161,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label10.Location = new System.Drawing.Point(8, 91);
+            this.label10.Location = new System.Drawing.Point(19, 101);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(51, 21);
             this.label10.TabIndex = 16;
@@ -170,20 +169,16 @@ namespace AutoTraderGUI.Forms
             // 
             // DBID
             // 
-            this.DBID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBID.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.DBID.Location = new System.Drawing.Point(161, 88);
+            this.DBID.Location = new System.Drawing.Point(172, 98);
             this.DBID.Name = "DBID";
             this.DBID.Size = new System.Drawing.Size(645, 29);
             this.DBID.TabIndex = 17;
             // 
             // DBPort
             // 
-            this.DBPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBPort.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.DBPort.Location = new System.Drawing.Point(161, 53);
+            this.DBPort.Location = new System.Drawing.Point(172, 63);
             this.DBPort.Name = "DBPort";
             this.DBPort.Size = new System.Drawing.Size(645, 29);
             this.DBPort.TabIndex = 15;
@@ -192,7 +187,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label7.Location = new System.Drawing.Point(9, 56);
+            this.label7.Location = new System.Drawing.Point(20, 66);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 21);
             this.label7.TabIndex = 14;
@@ -202,7 +197,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label8.Location = new System.Drawing.Point(9, 21);
+            this.label8.Location = new System.Drawing.Point(20, 31);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(49, 21);
             this.label8.TabIndex = 12;
@@ -210,10 +205,8 @@ namespace AutoTraderGUI.Forms
             // 
             // DBIP
             // 
-            this.DBIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBIP.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.DBIP.Location = new System.Drawing.Point(161, 18);
+            this.DBIP.Location = new System.Drawing.Point(172, 28);
             this.DBIP.Name = "DBIP";
             this.DBIP.Size = new System.Drawing.Size(645, 29);
             this.DBIP.TabIndex = 13;
@@ -235,18 +228,18 @@ namespace AutoTraderGUI.Forms
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.InterpreterPath);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(812, 254);
+            this.groupBox1.Size = new System.Drawing.Size(905, 263);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Collector 설정";
             // 
             // DartCollectorSearchButton
             // 
-            this.DartCollectorSearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DartCollectorSearchButton.Location = new System.Drawing.Point(722, 97);
+            this.DartCollectorSearchButton.Location = new System.Drawing.Point(733, 106);
             this.DartCollectorSearchButton.Name = "DartCollectorSearchButton";
             this.DartCollectorSearchButton.Size = new System.Drawing.Size(84, 29);
             this.DartCollectorSearchButton.TabIndex = 14;
@@ -256,8 +249,7 @@ namespace AutoTraderGUI.Forms
             // 
             // APICollectorSartchButton
             // 
-            this.APICollectorSartchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.APICollectorSartchButton.Location = new System.Drawing.Point(722, 63);
+            this.APICollectorSartchButton.Location = new System.Drawing.Point(733, 72);
             this.APICollectorSartchButton.Name = "APICollectorSartchButton";
             this.APICollectorSartchButton.Size = new System.Drawing.Size(84, 29);
             this.APICollectorSartchButton.TabIndex = 13;
@@ -267,8 +259,7 @@ namespace AutoTraderGUI.Forms
             // 
             // InterpreterSearchButton
             // 
-            this.InterpreterSearchButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.InterpreterSearchButton.Location = new System.Drawing.Point(722, 27);
+            this.InterpreterSearchButton.Location = new System.Drawing.Point(733, 36);
             this.InterpreterSearchButton.Name = "InterpreterSearchButton";
             this.InterpreterSearchButton.Size = new System.Drawing.Size(84, 29);
             this.InterpreterSearchButton.TabIndex = 12;
@@ -278,10 +269,8 @@ namespace AutoTraderGUI.Forms
             // 
             // DartAPI
             // 
-            this.DartAPI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.DartAPI.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.DartAPI.Location = new System.Drawing.Point(161, 202);
+            this.DartAPI.Location = new System.Drawing.Point(172, 211);
             this.DartAPI.Name = "DartAPI";
             this.DartAPI.Size = new System.Drawing.Size(645, 29);
             this.DartAPI.TabIndex = 11;
@@ -290,7 +279,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label6.Location = new System.Drawing.Point(9, 205);
+            this.label6.Location = new System.Drawing.Point(20, 214);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(103, 21);
             this.label6.TabIndex = 10;
@@ -298,10 +287,8 @@ namespace AutoTraderGUI.Forms
             // 
             // RequestsInterval
             // 
-            this.RequestsInterval.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.RequestsInterval.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.RequestsInterval.Location = new System.Drawing.Point(161, 167);
+            this.RequestsInterval.Location = new System.Drawing.Point(172, 176);
             this.RequestsInterval.Name = "RequestsInterval";
             this.RequestsInterval.Size = new System.Drawing.Size(645, 29);
             this.RequestsInterval.TabIndex = 9;
@@ -310,7 +297,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label5.Location = new System.Drawing.Point(9, 170);
+            this.label5.Location = new System.Drawing.Point(20, 179);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 21);
             this.label5.TabIndex = 8;
@@ -318,10 +305,8 @@ namespace AutoTraderGUI.Forms
             // 
             // MaxRequestsCount
             // 
-            this.MaxRequestsCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.MaxRequestsCount.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.MaxRequestsCount.Location = new System.Drawing.Point(161, 132);
+            this.MaxRequestsCount.Location = new System.Drawing.Point(172, 141);
             this.MaxRequestsCount.Name = "MaxRequestsCount";
             this.MaxRequestsCount.Size = new System.Drawing.Size(645, 29);
             this.MaxRequestsCount.TabIndex = 7;
@@ -330,7 +315,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label4.Location = new System.Drawing.Point(9, 135);
+            this.label4.Location = new System.Drawing.Point(20, 144);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 21);
             this.label4.TabIndex = 6;
@@ -338,10 +323,8 @@ namespace AutoTraderGUI.Forms
             // 
             // DartCollectorPath
             // 
-            this.DartCollectorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.DartCollectorPath.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.DartCollectorPath.Location = new System.Drawing.Point(161, 97);
+            this.DartCollectorPath.Location = new System.Drawing.Point(172, 106);
             this.DartCollectorPath.Name = "DartCollectorPath";
             this.DartCollectorPath.Size = new System.Drawing.Size(555, 29);
             this.DartCollectorPath.TabIndex = 5;
@@ -350,7 +333,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label3.Location = new System.Drawing.Point(9, 100);
+            this.label3.Location = new System.Drawing.Point(20, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(146, 21);
             this.label3.TabIndex = 4;
@@ -358,10 +341,8 @@ namespace AutoTraderGUI.Forms
             // 
             // APICollectorPath
             // 
-            this.APICollectorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.APICollectorPath.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.APICollectorPath.Location = new System.Drawing.Point(161, 62);
+            this.APICollectorPath.Location = new System.Drawing.Point(172, 71);
             this.APICollectorPath.Name = "APICollectorPath";
             this.APICollectorPath.Size = new System.Drawing.Size(555, 29);
             this.APICollectorPath.TabIndex = 3;
@@ -370,7 +351,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label2.Location = new System.Drawing.Point(9, 65);
+            this.label2.Location = new System.Drawing.Point(20, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(139, 21);
             this.label2.TabIndex = 2;
@@ -378,10 +359,8 @@ namespace AutoTraderGUI.Forms
             // 
             // InterpreterPath
             // 
-            this.InterpreterPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.InterpreterPath.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.InterpreterPath.Location = new System.Drawing.Point(161, 27);
+            this.InterpreterPath.Location = new System.Drawing.Point(172, 36);
             this.InterpreterPath.Name = "InterpreterPath";
             this.InterpreterPath.Size = new System.Drawing.Size(555, 29);
             this.InterpreterPath.TabIndex = 1;
@@ -390,7 +369,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label1.Location = new System.Drawing.Point(9, 30);
+            this.label1.Location = new System.Drawing.Point(20, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 21);
             this.label1.TabIndex = 0;

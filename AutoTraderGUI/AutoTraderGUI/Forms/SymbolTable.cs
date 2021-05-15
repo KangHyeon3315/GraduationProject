@@ -13,8 +13,10 @@ namespace AutoTraderGUI.Forms
     [Serializable]
     public partial class SymbolTable : UserControl
     {
-        public SymbolTable()
+        SymbolInterface symbolInterface;
+        public SymbolTable(SymbolInterface symbolInterface)
         {
+            this.symbolInterface = symbolInterface;
             InitializeComponent();
             Dock = DockStyle.Fill;
             SymbolsListView.FullRowSelect = true;
@@ -35,7 +37,10 @@ namespace AutoTraderGUI.Forms
         {
             for(int i = SymbolsListView.SelectedIndices.Count - 1; i >= 0; i--)
             {
+                string name = SymbolsListView.Items[SymbolsListView.SelectedIndices[i]].SubItems[1].Text;
                 SymbolsListView.Items.RemoveAt(SymbolsListView.SelectedIndices[i]);
+
+                symbolInterface.DeleteSymbol(name);
             }
         }
 

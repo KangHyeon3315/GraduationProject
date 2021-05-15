@@ -34,7 +34,6 @@ namespace AutoTraderGUI.Forms
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.AlgorithmCombo = new System.Windows.Forms.ComboBox();
             this.SimulateUnit = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -51,6 +50,7 @@ namespace AutoTraderGUI.Forms
             this.SimulateInfoPanel = new System.Windows.Forms.Panel();
             this.MonitoringViewer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.AlgorithmCombo = new System.Windows.Forms.ComboBox();
             this.BasicLayout.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +77,9 @@ namespace AutoTraderGUI.Forms
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
             this.button1.Location = new System.Drawing.Point(1481, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(294, 34);
@@ -88,9 +90,10 @@ namespace AutoTraderGUI.Forms
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 16;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
+            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
+            this.tableLayoutPanel1.ColumnCount = 17;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
@@ -104,9 +107,8 @@ namespace AutoTraderGUI.Forms
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.AlgorithmCombo, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.SimulateUnit, 4, 0);
@@ -132,73 +134,67 @@ namespace AutoTraderGUI.Forms
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.Window;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F);
+            this.label1.Location = new System.Drawing.Point(3, 1);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 1, 3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 34);
+            this.label1.Size = new System.Drawing.Size(75, 33);
             this.label1.TabIndex = 1;
-            this.label1.Text = "알고리즘 : ";
+            this.label1.Text = "알고리즘";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // AlgorithmCombo
-            // 
-            this.AlgorithmCombo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AlgorithmCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AlgorithmCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.AlgorithmCombo.FormattingEnabled = true;
-            this.AlgorithmCombo.Location = new System.Drawing.Point(93, 3);
-            this.AlgorithmCombo.Name = "AlgorithmCombo";
-            this.AlgorithmCombo.Size = new System.Drawing.Size(165, 28);
-            this.AlgorithmCombo.TabIndex = 4;
-            this.AlgorithmCombo.SelectedIndexChanged += new System.EventHandler(this.AlgorithmCombo_SelectedIndexChanged);
             // 
             // SimulateUnit
             // 
             this.SimulateUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SimulateUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SimulateUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.SimulateUnit.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.SimulateUnit.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.SimulateUnit.FormattingEnabled = true;
             this.SimulateUnit.Items.AddRange(new object[] {
             "일",
             "분"});
             this.SimulateUnit.Location = new System.Drawing.Point(344, 3);
             this.SimulateUnit.Name = "SimulateUnit";
-            this.SimulateUnit.Size = new System.Drawing.Size(63, 28);
+            this.SimulateUnit.Size = new System.Drawing.Size(63, 29);
             this.SimulateUnit.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.SystemColors.Window;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.label4.Location = new System.Drawing.Point(290, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 34);
             this.label4.TabIndex = 5;
-            this.label4.Text = "단위 : ";
+            this.label4.Text = "단위";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.SystemColors.Window;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.label6.Location = new System.Drawing.Point(445, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 34);
             this.label6.TabIndex = 7;
-            this.label6.Text = "초기자산 : ";
+            this.label6.Text = "초기자산";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InitialAssets
             // 
+            this.InitialAssets.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.InitialAssets.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InitialAssets.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.InitialAssets.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.InitialAssets.Location = new System.Drawing.Point(532, 3);
             this.InitialAssets.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.InitialAssets.Name = "InitialAssets";
-            this.InitialAssets.Size = new System.Drawing.Size(135, 26);
+            this.InitialAssets.Size = new System.Drawing.Size(135, 29);
             this.InitialAssets.TabIndex = 8;
             this.InitialAssets.Text = "10,000,000";
             this.InitialAssets.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -207,8 +203,9 @@ namespace AutoTraderGUI.Forms
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.Window;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.label7.Location = new System.Drawing.Point(667, 0);
             this.label7.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.label7.Name = "label7";
@@ -220,23 +217,25 @@ namespace AutoTraderGUI.Forms
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.SystemColors.Window;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label8.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.label8.Location = new System.Drawing.Point(715, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(67, 34);
             this.label8.TabIndex = 10;
-            this.label8.Text = "수수료 : ";
+            this.label8.Text = "수수료";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Charge
             // 
+            this.Charge.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Charge.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Charge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Charge.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.Charge.Location = new System.Drawing.Point(788, 3);
             this.Charge.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.Charge.Name = "Charge";
-            this.Charge.Size = new System.Drawing.Size(77, 26);
+            this.Charge.Size = new System.Drawing.Size(77, 29);
             this.Charge.TabIndex = 11;
             this.Charge.Text = "0.00015";
             this.Charge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -244,6 +243,7 @@ namespace AutoTraderGUI.Forms
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.SystemColors.Window;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label9.Location = new System.Drawing.Point(865, 0);
@@ -257,8 +257,9 @@ namespace AutoTraderGUI.Forms
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.SystemColors.Window;
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label11.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.label11.Location = new System.Drawing.Point(1082, 0);
             this.label11.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.label11.Name = "label11";
@@ -270,11 +271,11 @@ namespace AutoTraderGUI.Forms
             // Tax
             // 
             this.Tax.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Tax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Tax.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.Tax.Location = new System.Drawing.Point(1003, 3);
             this.Tax.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.Tax.Name = "Tax";
-            this.Tax.Size = new System.Drawing.Size(79, 26);
+            this.Tax.Size = new System.Drawing.Size(79, 29);
             this.Tax.TabIndex = 15;
             this.Tax.Text = "0.00015";
             this.Tax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -282,8 +283,9 @@ namespace AutoTraderGUI.Forms
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.SystemColors.Window;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label10.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.label10.Location = new System.Drawing.Point(934, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(63, 34);
@@ -293,13 +295,16 @@ namespace AutoTraderGUI.Forms
             // 
             // LoadSimulation
             // 
-            this.LoadSimulation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LoadSimulation.BackColor = System.Drawing.SystemColors.Window;
+            this.LoadSimulation.FlatAppearance.BorderSize = 0;
+            this.LoadSimulation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LoadSimulation.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
             this.LoadSimulation.Location = new System.Drawing.Point(1115, 3);
             this.LoadSimulation.Name = "LoadSimulation";
-            this.LoadSimulation.Size = new System.Drawing.Size(160, 28);
+            this.LoadSimulation.Size = new System.Drawing.Size(169, 28);
             this.LoadSimulation.TabIndex = 16;
             this.LoadSimulation.Text = "시뮬레이션 불러오기";
-            this.LoadSimulation.UseVisualStyleBackColor = true;
+            this.LoadSimulation.UseVisualStyleBackColor = false;
             this.LoadSimulation.Click += new System.EventHandler(this.LoadSimulation_Click);
             // 
             // ChartPanel
@@ -326,6 +331,18 @@ namespace AutoTraderGUI.Forms
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // AlgorithmCombo
+            // 
+            this.AlgorithmCombo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AlgorithmCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AlgorithmCombo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.AlgorithmCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.AlgorithmCombo.FormattingEnabled = true;
+            this.AlgorithmCombo.Location = new System.Drawing.Point(84, 3);
+            this.AlgorithmCombo.Name = "AlgorithmCombo";
+            this.AlgorithmCombo.Size = new System.Drawing.Size(174, 28);
+            this.AlgorithmCombo.TabIndex = 4;
+            // 
             // SimulateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -349,7 +366,6 @@ namespace AutoTraderGUI.Forms
         private System.Windows.Forms.ComboBox SimulateUnit;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox AlgorithmCombo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox InitialAssets;
         private System.Windows.Forms.Label label7;
@@ -364,5 +380,6 @@ namespace AutoTraderGUI.Forms
         private System.Windows.Forms.Panel SimulateInfoPanel;
         private System.Windows.Forms.Button LoadSimulation;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ComboBox AlgorithmCombo;
     }
 }

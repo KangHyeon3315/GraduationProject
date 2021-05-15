@@ -38,6 +38,7 @@ namespace AutoTraderGUI
     {
         Forms.SymbolTable SymbolTable { get; }
         void AddSymbol(object symbol);
+        void DeleteSymbol(string name);
     }
     public interface AlgorithmInfoInterface
     {

@@ -66,10 +66,6 @@ namespace AutoTraderGUI.Forms
             Tax.Text = "0.0025";
         }
 
-        private void AlgorithmCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void MonitoringViewer_Tick(object sender, EventArgs e)
         {
             if(AlgorithmCombo.Items.Count == 0)

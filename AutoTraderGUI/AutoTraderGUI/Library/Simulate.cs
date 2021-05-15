@@ -333,6 +333,11 @@ namespace AutoTraderGUI.Library
 
                         BuyAction(dateList, realtime);
 
+                        // 당일 손익절 진행
+                        if (agent.algorithm.sellTiming == TradeTiming.Open)
+                        {
+                            ProfitLossCut();
+                        }
                     }
                     // 정산
                     agent.Settlement();

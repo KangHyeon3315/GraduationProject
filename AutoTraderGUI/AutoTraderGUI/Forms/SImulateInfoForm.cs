@@ -38,6 +38,9 @@ namespace AutoTraderGUI.Forms
 
         private void SimulatingButton_Click(object sender, EventArgs e)
         {
+            if (simulateInterface == null)
+                return;
+
             if (!simulateInterface.isSimulating) //(SimulatingButton.Text == "시뮬레이트 시작"
             {
                 SimulatingButton.Text = "시뮬레이트 중지";

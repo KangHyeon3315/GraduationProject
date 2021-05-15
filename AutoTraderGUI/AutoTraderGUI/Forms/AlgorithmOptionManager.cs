@@ -182,10 +182,6 @@ namespace AutoTraderGUI.Forms
                 Property += algorithmDetailsInterface.TradeFrequencyInfo;
             }
 
-            //item.SubItems.Add(PropertyName);
-            //item.SubItems.Add(Property);
-
-            //symbolInterface.SymbolTable.SymbolsListView.Items.Add(item);
             symbolInterface.AddSymbol(new Symbol(VarName.Text, indicatorName.Text.Replace(" ", ""), int.Parse(OffsetCombo.Text), PropertyName, Property));
             SeparationCombo.Items.Add(VarName.Text);
             Reset();
@@ -464,8 +460,12 @@ namespace AutoTraderGUI.Forms
                 OrderOption = OrderOption.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ", offset, GetTableColumn(indicator), tableType));
 
             }
+            string result;
+            if (tradeType == "buy")
+                 result = firstPart + tableList + baseOption + option + TrendsOption + OrderOption;
+            else
+                result = firstPart + tableList + baseOption + option + TrendsOption;
 
-            string result = firstPart + tableList + baseOption + option + TrendsOption + OrderOption;
             SQLCommand.Text = result;
             OptionWriter.Text.Remove(0, 1);
         }
@@ -535,15 +535,6 @@ namespace AutoTraderGUI.Forms
                 case "외국인매도금액":
                     column = "외국인_매도금액";
                     break;
-                case "기관순매수금액":
-                    column = "기관_순매수금액";
-                    break;
-                case "기관매수금액":
-                    column = "기관_매수금액";
-                    break;
-                case "기관매도금액":
-                    column = "기관_매도금액";
-                    break;
                 case "금융투자순매수금액":
                     column = "금융_투자순매수금액";
                     break;
@@ -589,32 +580,23 @@ namespace AutoTraderGUI.Forms
                 case "은행매도금액":
                     column = "은행_매도금액";
                     break;
-                case "연기금등순매수금액":
-                    column = "연기금등_순매수금액";
+                case "연기금순매수금액":
+                    column = "연기금_순매수금액";
                     break;
-                case "연기금등매수금액":
-                    column = "연기금등_매수금액";
+                case "연기금매수금액":
+                    column = "연기금_매수금액";
                     break;
-                case "연기금등매도금액":
-                    column = "연기금등_매도금액";
+                case "연기금매도금액":
+                    column = "연기금_매도금액";
                     break;
-                case "사모펀드순매수금액":
-                    column = "사모펀드_순매수금액";
+                case "사모순매수금액":
+                    column = "사모_순매수금액";
                     break;
-                case "사모펀드매수금액":
-                    column = "사모펀드_매수금액";
+                case "사모매수금액":
+                    column = "사모_매수금액";
                     break;
-                case "사모펀드매도금액":
-                    column = "사모펀드_매도금액";
-                    break;
-                case "국가순매수금액":
-                    column = "국가_순매수금액";
-                    break;
-                case "국가매수금액":
-                    column = "국가_매수금액";
-                    break;
-                case "국가매도금액":
-                    column = "국가_매도금액";
+                case "사모매도금액":
+                    column = "사모_매도금액";
                     break;
                 case "기타법인순매수금액":
                     column = "기타법인_순매수금액";
@@ -625,14 +607,14 @@ namespace AutoTraderGUI.Forms
                 case "기타법인매도금액":
                     column = "기타법인_매도금액";
                     break;
-                case "내외국인순매수금액":
-                    column = "내외국인_순매수금액";
+                case "기타외국인순매수금액":
+                    column = "기타외국인_순매수금액";
                     break;
-                case "내외국인매수금액":
-                    column = "내외국인_매수금액";
+                case "기타외국인매수금액":
+                    column = "기타외국인_매수금액";
                     break;
-                case "내외국인매도금액":
-                    column = "내외국인_매도금액";
+                case "기타외국인매도금액":
+                    column = "기타외국인_매도금액";
                     break;
                 case "이동평균선5":
                     column = "sma5";
@@ -673,10 +655,10 @@ namespace AutoTraderGUI.Forms
                 case "ParabolicSAR":
                     column = "psar";
                     break;
-                case "ParabolicSAR상승":
+                case "ParabolicSARBull":
                     column = "psar_bull";
                     break;
-                case "ParabolicSAR하락":
+                case "ParabolicSARBear":
                     column = "psar_bear";
                     break;
                 case "DeMarkUP":

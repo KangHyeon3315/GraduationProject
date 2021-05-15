@@ -40,6 +40,17 @@ namespace AutoTraderGUI.Forms
             symbols.Add(tmp);
             symbolTable.AddSymbol(tmp.varName, tmp.indicatorName, tmp.offset, tmp.Parameter, tmp.ParameterValue);
         }
+        public void DeleteSymbol(string name)
+        {
+            for(int i = 0; i < symbols.Count; i++)
+            {
+                if(symbols[i].varName == name)
+                {
+                    symbols.RemoveAt(i);
+                    return;
+                }
+            }
+        }
 
         public string TradeFrequencyInfo
         {
@@ -67,7 +78,7 @@ namespace AutoTraderGUI.Forms
             overWrite = false;
 
             this.algorithmInfoInterface = algorithmInfoInterface;
-            symbolTable = new SymbolTable();
+            symbolTable = new SymbolTable(this as SymbolInterface);
             symbols = new List<Symbol>();
 
             TradeFrequency.SelectedIndex = 1;
@@ -89,7 +100,7 @@ namespace AutoTraderGUI.Forms
 
         public void LoadAlgorithm(string algorithmName)
         {
-            symbolTable = new SymbolTable();
+            symbolTable = new SymbolTable(this as SymbolInterface);
             symbols = new List<Symbol>();
 
             overWrite = true;

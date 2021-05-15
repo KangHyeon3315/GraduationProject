@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Globalization;
 
 namespace AutoTraderGUI.Forms
 {
@@ -58,19 +59,25 @@ namespace AutoTraderGUI.Forms
             string startDate = "";
             string endDate = "";
 
+            startDate = DateTime.ParseExact(tradeinfo.buyDate, "yyyyMMdd", CultureInfo.CurrentCulture).AddMonths(-1).ToString("yyyyMMdd");
+            endDate = DateTime.ParseExact(tradeinfo.sellDate, "yyyyMMdd", CultureInfo.CurrentCulture).AddMonths(1).ToString("yyyyMMdd");
+
+            /*
             int margin = 10;
             for(int i = 0; i < DateList.Count; i++)
             {
-                if(DateList[i] == tradeinfo.buyDate)
+                if (DateList[i] == tradeinfo.buyDate)
                     startDate = i - margin >= 0 ? DateList[i - margin] : DateList[0];
+                    
 
                 if(DateList[i] == tradeinfo.sellDate)
                     endDate = i + margin <= DateList.Count - 1 ? DateList[i + margin] : DateList[DateList.Count - 1];
                     
-                if(startDate != "" && endDate != "")
+
+                if (startDate != "" && endDate != "")
                     break;
             }
-
+            */
             DataTable chartData = DB.SelectTableData("daily_chart", tradeinfo.name, string.Format("date >= {0} and date <= {1}", startDate, endDate));
 
             ChartArea plots = chart1.ChartAreas[0];
