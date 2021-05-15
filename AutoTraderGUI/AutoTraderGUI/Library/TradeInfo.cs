@@ -23,6 +23,7 @@ namespace AutoTraderGUI.Library
         public string sellDate;
         public int sellPrice;
         public int totalSellAmount;
+        public string action;
 
         // 실시간 가격정보
         public int RTopen;

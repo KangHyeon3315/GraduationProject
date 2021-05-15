@@ -14,10 +14,14 @@ namespace AutoTraderGUI.Forms
     public partial class SImulateInfoForm : UserControl
     {
         SimulateInterface simulateInterface;
+        public bool isComplete;
         public SImulateInfoForm(SimulateInterface simulateInterface)
         {
+            isComplete = false;
             this.simulateInterface = simulateInterface;
             InitializeComponent();
+
+            Dock = DockStyle.Fill;
         }
 
         public void Update(int CompleteLength, int TotalLength, string Date, ulong Evaluation, float Yield, int ProfitCount, int LossCount, float ProfitAverage, float LossAverage, float YieldAverage, float MDD)
@@ -28,7 +32,7 @@ namespace AutoTraderGUI.Forms
             EvaluationAssets.Text = Evaluation.ToString("N0");
             WinRate.Text = string.Format("{0}/{1}", ProfitCount, LossCount);
             ProfitLossRatio.Text = string.Format("{0:N2}/{1:N2}", ProfitAverage, LossAverage);
-            AverageYield.Text = string.Format("{0:N2}", YieldAverage);
+            AverageYield.Text = string.Format("{0:N3}", YieldAverage);
             MDDText.Text = string.Format("{0:N2}", MDD);
         }
 
@@ -44,6 +48,12 @@ namespace AutoTraderGUI.Forms
                 SimulatingButton.Text = "시뮬레이트 시작";
                 simulateInterface.SimulateStop();
             }
+        }
+
+        private void AnalyzeButton_Click(object sender, EventArgs e)
+        {
+            if(simulateInterface != null)
+                simulateInterface.ClickAnalyze();
         }
     }
 }

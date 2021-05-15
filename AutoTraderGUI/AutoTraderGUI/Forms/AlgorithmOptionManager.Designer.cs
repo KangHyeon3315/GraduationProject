@@ -251,7 +251,7 @@ namespace AutoTraderGUI.Forms
             // IndicatorViewer
             // 
             this.IndicatorViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.IndicatorViewer.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.IndicatorViewer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.IndicatorViewer.HideSelection = false;
             this.IndicatorViewer.Location = new System.Drawing.Point(3, 3);
             this.IndicatorViewer.Name = "IndicatorViewer";
@@ -536,7 +536,7 @@ namespace AutoTraderGUI.Forms
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(263, 350);
@@ -547,23 +547,23 @@ namespace AutoTraderGUI.Forms
             // OrderCombo
             // 
             this.OrderCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.OrderCombo.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.OrderCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.OrderCombo.FormattingEnabled = true;
             this.OrderCombo.Items.AddRange(new object[] {
             "오름차순",
             "내림차순"});
             this.OrderCombo.Location = new System.Drawing.Point(121, 234);
             this.OrderCombo.Name = "OrderCombo";
-            this.OrderCombo.Size = new System.Drawing.Size(139, 27);
+            this.OrderCombo.Size = new System.Drawing.Size(139, 28);
             this.OrderCombo.TabIndex = 14;
             // 
             // OrderCheck
             // 
             this.OrderCheck.AutoSize = true;
-            this.OrderCheck.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.OrderCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.OrderCheck.Location = new System.Drawing.Point(13, 236);
             this.OrderCheck.Name = "OrderCheck";
-            this.OrderCheck.Size = new System.Drawing.Size(97, 23);
+            this.OrderCheck.Size = new System.Drawing.Size(84, 24);
             this.OrderCheck.TabIndex = 13;
             this.OrderCheck.Text = "우선순위 :";
             this.OrderCheck.UseVisualStyleBackColor = true;
@@ -571,17 +571,17 @@ namespace AutoTraderGUI.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.Location = new System.Drawing.Point(165, 132);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 19);
+            this.label2.Size = new System.Drawing.Size(37, 20);
             this.label2.TabIndex = 12;
             this.label2.Text = "일 전";
             // 
             // OffsetCombo
             // 
             this.OffsetCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.OffsetCombo.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.OffsetCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.OffsetCombo.FormattingEnabled = true;
             this.OffsetCombo.Items.AddRange(new object[] {
             "0",
@@ -592,13 +592,13 @@ namespace AutoTraderGUI.Forms
             "5"});
             this.OffsetCombo.Location = new System.Drawing.Point(76, 129);
             this.OffsetCombo.Name = "OffsetCombo";
-            this.OffsetCombo.Size = new System.Drawing.Size(83, 27);
+            this.OffsetCombo.Size = new System.Drawing.Size(83, 28);
             this.OffsetCombo.Sorted = true;
             this.OffsetCombo.TabIndex = 11;
             // 
             // VarName
             // 
-            this.VarName.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.VarName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.VarName.Location = new System.Drawing.Point(76, 78);
             this.VarName.Name = "VarName";
             this.VarName.Size = new System.Drawing.Size(184, 26);
@@ -607,10 +607,10 @@ namespace AutoTraderGUI.Forms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.Location = new System.Drawing.Point(9, 81);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 19);
+            this.label3.Size = new System.Drawing.Size(61, 20);
             this.label3.TabIndex = 9;
             this.label3.Text = "변수명  : ";
             // 
@@ -626,7 +626,7 @@ namespace AutoTraderGUI.Forms
             // indicatorName
             // 
             this.indicatorName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.indicatorName.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.indicatorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.indicatorName.Location = new System.Drawing.Point(0, 0);
             this.indicatorName.Name = "indicatorName";
             this.indicatorName.Size = new System.Drawing.Size(257, 37);
@@ -637,27 +637,28 @@ namespace AutoTraderGUI.Forms
             // SeparationCombo
             // 
             this.SeparationCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SeparationCombo.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.SeparationCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.SeparationCombo.FormattingEnabled = true;
             this.SeparationCombo.Location = new System.Drawing.Point(121, 183);
             this.SeparationCombo.Name = "SeparationCombo";
-            this.SeparationCombo.Size = new System.Drawing.Size(139, 27);
+            this.SeparationCombo.Size = new System.Drawing.Size(139, 28);
             this.SeparationCombo.TabIndex = 7;
             // 
             // SeparationCheck
             // 
             this.SeparationCheck.AutoSize = true;
-            this.SeparationCheck.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.SeparationCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.SeparationCheck.Location = new System.Drawing.Point(13, 185);
             this.SeparationCheck.Name = "SeparationCheck";
-            this.SeparationCheck.Size = new System.Drawing.Size(115, 23);
+            this.SeparationCheck.Size = new System.Drawing.Size(100, 24);
             this.SeparationCheck.TabIndex = 6;
             this.SeparationCheck.Text = "이격도 with ";
             this.SeparationCheck.UseVisualStyleBackColor = true;
+            this.SeparationCheck.CheckedChanged += new System.EventHandler(this.SeparationCheck_CheckedChanged);
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button1.Location = new System.Drawing.Point(4, 314);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(253, 30);
@@ -669,10 +670,10 @@ namespace AutoTraderGUI.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.Location = new System.Drawing.Point(9, 132);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 19);
+            this.label1.Size = new System.Drawing.Size(57, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "오프셋 : ";
             // 

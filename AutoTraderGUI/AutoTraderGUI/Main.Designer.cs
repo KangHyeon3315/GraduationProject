@@ -30,159 +30,20 @@ namespace AutoTraderGUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.작업ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aPICollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dartCollectorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.설정ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.정보입력ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.과거로그보기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TabMenu = new System.Windows.Forms.ToolStrip();
-            this.MainToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.AnalyzeToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.SimulationToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.TradeToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.menuStrip1.SuspendLayout();
-            this.TabMenu.SuspendLayout();
+            this.ButtonPanel = new System.Windows.Forms.Panel();
+            this.SettingsButton = new System.Windows.Forms.Button();
+            this.FSCollectButton = new System.Windows.Forms.Button();
+            this.PriceCollectButton = new System.Windows.Forms.Button();
+            this.CollectButton = new System.Windows.Forms.Button();
+            this.ButtonMarginPanel = new System.Windows.Forms.Panel();
+            this.TradeButton = new System.Windows.Forms.Button();
+            this.SimulationButton = new System.Windows.Forms.Button();
+            this.AnalyzeButton = new System.Windows.Forms.Button();
+            this.HomeButton = new System.Windows.Forms.Button();
+            this.ButtonPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.작업ToolStripMenuItem,
-            this.설정ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 25);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // 작업ToolStripMenuItem
-            // 
-            this.작업ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aPICollectorToolStripMenuItem,
-            this.dartCollectorToolStripMenuItem});
-            this.작업ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.작업ToolStripMenuItem.Name = "작업ToolStripMenuItem";
-            this.작업ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.작업ToolStripMenuItem.Text = "작업";
-            // 
-            // aPICollectorToolStripMenuItem
-            // 
-            this.aPICollectorToolStripMenuItem.Name = "aPICollectorToolStripMenuItem";
-            this.aPICollectorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.aPICollectorToolStripMenuItem.Text = "API Collector";
-            this.aPICollectorToolStripMenuItem.Click += new System.EventHandler(this.APICollectorToolStripMenuItem_Click);
-            // 
-            // dartCollectorToolStripMenuItem
-            // 
-            this.dartCollectorToolStripMenuItem.Name = "dartCollectorToolStripMenuItem";
-            this.dartCollectorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.dartCollectorToolStripMenuItem.Text = "Dart Collector";
-            this.dartCollectorToolStripMenuItem.Click += new System.EventHandler(this.DartCollectorToolStripMenuItem_Click);
-            // 
-            // 설정ToolStripMenuItem
-            // 
-            this.설정ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.정보입력ToolStripMenuItem,
-            this.과거로그보기ToolStripMenuItem});
-            this.설정ToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.설정ToolStripMenuItem.Name = "설정ToolStripMenuItem";
-            this.설정ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.설정ToolStripMenuItem.Text = "도구";
-            // 
-            // 정보입력ToolStripMenuItem
-            // 
-            this.정보입력ToolStripMenuItem.Name = "정보입력ToolStripMenuItem";
-            this.정보입력ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.정보입력ToolStripMenuItem.Text = "정보입력";
-            this.정보입력ToolStripMenuItem.Click += new System.EventHandler(this.SettingsClick);
-            // 
-            // 과거로그보기ToolStripMenuItem
-            // 
-            this.과거로그보기ToolStripMenuItem.Name = "과거로그보기ToolStripMenuItem";
-            this.과거로그보기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.과거로그보기ToolStripMenuItem.Text = "과거 로그보기";
-            this.과거로그보기ToolStripMenuItem.Click += new System.EventHandler(this.HistoricalLogClick);
-            // 
-            // TabMenu
-            // 
-            this.TabMenu.AutoSize = false;
-            this.TabMenu.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TabMenu.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.TabMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MainToolStripLabel,
-            this.toolStripSeparator1,
-            this.AnalyzeToolStripLabel,
-            this.toolStripSeparator4,
-            this.SimulationToolStripLabel,
-            this.toolStripSeparator3,
-            this.TradeToolStripLabel,
-            this.toolStripSeparator2});
-            this.TabMenu.Location = new System.Drawing.Point(0, 25);
-            this.TabMenu.Name = "TabMenu";
-            this.TabMenu.Size = new System.Drawing.Size(800, 25);
-            this.TabMenu.TabIndex = 1;
-            this.TabMenu.Text = "toolStrip1";
-            // 
-            // MainToolStripLabel
-            // 
-            this.MainToolStripLabel.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.MainToolStripLabel.Name = "MainToolStripLabel";
-            this.MainToolStripLabel.Size = new System.Drawing.Size(31, 22);
-            this.MainToolStripLabel.Text = "메인";
-            this.MainToolStripLabel.Click += new System.EventHandler(this.ClickHome);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // AnalyzeToolStripLabel
-            // 
-            this.AnalyzeToolStripLabel.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.AnalyzeToolStripLabel.Name = "AnalyzeToolStripLabel";
-            this.AnalyzeToolStripLabel.Size = new System.Drawing.Size(31, 22);
-            this.AnalyzeToolStripLabel.Text = "분석";
-            this.AnalyzeToolStripLabel.Click += new System.EventHandler(this.ClickAnalyze);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // SimulationToolStripLabel
-            // 
-            this.SimulationToolStripLabel.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.SimulationToolStripLabel.Name = "SimulationToolStripLabel";
-            this.SimulationToolStripLabel.Size = new System.Drawing.Size(67, 22);
-            this.SimulationToolStripLabel.Text = "시뮬레이션";
-            this.SimulationToolStripLabel.Click += new System.EventHandler(this.ClickSimulate);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // TradeToolStripLabel
-            // 
-            this.TradeToolStripLabel.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.TradeToolStripLabel.Name = "TradeToolStripLabel";
-            this.TradeToolStripLabel.Size = new System.Drawing.Size(31, 22);
-            this.TradeToolStripLabel.Text = "거래";
-            this.TradeToolStripLabel.Click += new System.EventHandler(this.ClickTrade);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // MainPanel
             // 
@@ -190,58 +51,212 @@ namespace AutoTraderGUI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainPanel.AutoSize = true;
-            this.MainPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.MainPanel.Location = new System.Drawing.Point(0, 50);
+            this.MainPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.MainPanel.Location = new System.Drawing.Point(198, 0);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(800, 400);
+            this.MainPanel.Size = new System.Drawing.Size(917, 581);
             this.MainPanel.TabIndex = 2;
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.CheckSystem);
             // 
+            // ButtonPanel
+            // 
+            this.ButtonPanel.AutoScroll = true;
+            this.ButtonPanel.Controls.Add(this.SettingsButton);
+            this.ButtonPanel.Controls.Add(this.FSCollectButton);
+            this.ButtonPanel.Controls.Add(this.PriceCollectButton);
+            this.ButtonPanel.Controls.Add(this.CollectButton);
+            this.ButtonPanel.Controls.Add(this.ButtonMarginPanel);
+            this.ButtonPanel.Controls.Add(this.TradeButton);
+            this.ButtonPanel.Controls.Add(this.SimulationButton);
+            this.ButtonPanel.Controls.Add(this.AnalyzeButton);
+            this.ButtonPanel.Controls.Add(this.HomeButton);
+            this.ButtonPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ButtonPanel.Location = new System.Drawing.Point(0, 0);
+            this.ButtonPanel.Name = "ButtonPanel";
+            this.ButtonPanel.Size = new System.Drawing.Size(200, 581);
+            this.ButtonPanel.TabIndex = 3;
+            // 
+            // SettingsButton
+            // 
+            this.SettingsButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.SettingsButton.FlatAppearance.BorderSize = 0;
+            this.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SettingsButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.SettingsButton.Location = new System.Drawing.Point(0, 480);
+            this.SettingsButton.Margin = new System.Windows.Forms.Padding(5);
+            this.SettingsButton.Name = "SettingsButton";
+            this.SettingsButton.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.SettingsButton.Size = new System.Drawing.Size(200, 60);
+            this.SettingsButton.TabIndex = 9;
+            this.SettingsButton.Text = "설정";
+            this.SettingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SettingsButton.UseVisualStyleBackColor = true;
+            this.SettingsButton.Click += new System.EventHandler(this.SettingClick);
+            // 
+            // FSCollectButton
+            // 
+            this.FSCollectButton.BackColor = System.Drawing.SystemColors.Control;
+            this.FSCollectButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.FSCollectButton.FlatAppearance.BorderSize = 0;
+            this.FSCollectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FSCollectButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.FSCollectButton.Location = new System.Drawing.Point(0, 420);
+            this.FSCollectButton.Margin = new System.Windows.Forms.Padding(5);
+            this.FSCollectButton.Name = "FSCollectButton";
+            this.FSCollectButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.FSCollectButton.Size = new System.Drawing.Size(200, 60);
+            this.FSCollectButton.TabIndex = 8;
+            this.FSCollectButton.Text = "재무제표 수집";
+            this.FSCollectButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.FSCollectButton.UseVisualStyleBackColor = false;
+            this.FSCollectButton.Visible = false;
+            this.FSCollectButton.Click += new System.EventHandler(this.FSClick);
+            // 
+            // PriceCollectButton
+            // 
+            this.PriceCollectButton.BackColor = System.Drawing.SystemColors.Control;
+            this.PriceCollectButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PriceCollectButton.FlatAppearance.BorderSize = 0;
+            this.PriceCollectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PriceCollectButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.PriceCollectButton.Location = new System.Drawing.Point(0, 360);
+            this.PriceCollectButton.Margin = new System.Windows.Forms.Padding(5);
+            this.PriceCollectButton.Name = "PriceCollectButton";
+            this.PriceCollectButton.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.PriceCollectButton.Size = new System.Drawing.Size(200, 60);
+            this.PriceCollectButton.TabIndex = 7;
+            this.PriceCollectButton.Text = "가격 지표 수집";
+            this.PriceCollectButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.PriceCollectButton.UseVisualStyleBackColor = false;
+            this.PriceCollectButton.Visible = false;
+            this.PriceCollectButton.Click += new System.EventHandler(this.PriceCollectClick);
+            // 
+            // CollectButton
+            // 
+            this.CollectButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CollectButton.FlatAppearance.BorderSize = 0;
+            this.CollectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CollectButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.CollectButton.Location = new System.Drawing.Point(0, 300);
+            this.CollectButton.Margin = new System.Windows.Forms.Padding(5);
+            this.CollectButton.Name = "CollectButton";
+            this.CollectButton.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.CollectButton.Size = new System.Drawing.Size(200, 60);
+            this.CollectButton.TabIndex = 6;
+            this.CollectButton.Text = "데이터 수집";
+            this.CollectButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CollectButton.UseVisualStyleBackColor = true;
+            this.CollectButton.Click += new System.EventHandler(this.CollectClick);
+            // 
+            // ButtonMarginPanel
+            // 
+            this.ButtonMarginPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ButtonMarginPanel.Location = new System.Drawing.Point(0, 240);
+            this.ButtonMarginPanel.Name = "ButtonMarginPanel";
+            this.ButtonMarginPanel.Size = new System.Drawing.Size(200, 60);
+            this.ButtonMarginPanel.TabIndex = 5;
+            // 
+            // TradeButton
+            // 
+            this.TradeButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TradeButton.FlatAppearance.BorderSize = 0;
+            this.TradeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TradeButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.TradeButton.Location = new System.Drawing.Point(0, 180);
+            this.TradeButton.Margin = new System.Windows.Forms.Padding(5);
+            this.TradeButton.Name = "TradeButton";
+            this.TradeButton.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.TradeButton.Size = new System.Drawing.Size(200, 60);
+            this.TradeButton.TabIndex = 4;
+            this.TradeButton.Text = "실전거래";
+            this.TradeButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TradeButton.UseVisualStyleBackColor = true;
+            this.TradeButton.Click += new System.EventHandler(this.TradeClick);
+            // 
+            // SimulationButton
+            // 
+            this.SimulationButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.SimulationButton.FlatAppearance.BorderSize = 0;
+            this.SimulationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SimulationButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.SimulationButton.Location = new System.Drawing.Point(0, 120);
+            this.SimulationButton.Margin = new System.Windows.Forms.Padding(5);
+            this.SimulationButton.Name = "SimulationButton";
+            this.SimulationButton.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.SimulationButton.Size = new System.Drawing.Size(200, 60);
+            this.SimulationButton.TabIndex = 3;
+            this.SimulationButton.Text = "시뮬레이션";
+            this.SimulationButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SimulationButton.UseVisualStyleBackColor = true;
+            this.SimulationButton.Click += new System.EventHandler(this.SimulateClick);
+            // 
+            // AnalyzeButton
+            // 
+            this.AnalyzeButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AnalyzeButton.FlatAppearance.BorderSize = 0;
+            this.AnalyzeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnalyzeButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.AnalyzeButton.Location = new System.Drawing.Point(0, 60);
+            this.AnalyzeButton.Margin = new System.Windows.Forms.Padding(5);
+            this.AnalyzeButton.Name = "AnalyzeButton";
+            this.AnalyzeButton.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.AnalyzeButton.Size = new System.Drawing.Size(200, 60);
+            this.AnalyzeButton.TabIndex = 2;
+            this.AnalyzeButton.Text = "분석화면";
+            this.AnalyzeButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AnalyzeButton.UseVisualStyleBackColor = true;
+            this.AnalyzeButton.Click += new System.EventHandler(this.AnalyzeClick);
+            // 
+            // HomeButton
+            // 
+            this.HomeButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.HomeButton.FlatAppearance.BorderSize = 0;
+            this.HomeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HomeButton.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.HomeButton.Location = new System.Drawing.Point(0, 0);
+            this.HomeButton.Margin = new System.Windows.Forms.Padding(5);
+            this.HomeButton.Name = "HomeButton";
+            this.HomeButton.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.HomeButton.Size = new System.Drawing.Size(200, 60);
+            this.HomeButton.TabIndex = 1;
+            this.HomeButton.Text = "홈화면";
+            this.HomeButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.HomeButton.UseVisualStyleBackColor = true;
+            this.HomeButton.Click += new System.EventHandler(this.HomeClick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(1115, 581);
+            this.Controls.Add(this.ButtonPanel);
             this.Controls.Add(this.MainPanel);
-            this.Controls.Add(this.TabMenu);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
             this.Text = "AutoTrader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormClosing);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.TabMenu.ResumeLayout(false);
-            this.TabMenu.PerformLayout();
+            this.ButtonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 작업ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aPICollectorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 설정ToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip TabMenu;
         private System.Windows.Forms.Panel MainPanel;
-        private System.Windows.Forms.ToolStripMenuItem dartCollectorToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ToolStripMenuItem 정보입력ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 과거로그보기ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel TradeToolStripLabel;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel AnalyzeToolStripLabel;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripLabel SimulationToolStripLabel;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripLabel MainToolStripLabel;
+        private System.Windows.Forms.Panel ButtonPanel;
+        private System.Windows.Forms.Button TradeButton;
+        private System.Windows.Forms.Button SimulationButton;
+        private System.Windows.Forms.Button AnalyzeButton;
+        private System.Windows.Forms.Button HomeButton;
+        private System.Windows.Forms.Button FSCollectButton;
+        private System.Windows.Forms.Button PriceCollectButton;
+        private System.Windows.Forms.Button CollectButton;
+        private System.Windows.Forms.Panel ButtonMarginPanel;
+        private System.Windows.Forms.Button SettingsButton;
     }
 }
 

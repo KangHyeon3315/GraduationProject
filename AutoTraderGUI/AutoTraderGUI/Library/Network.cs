@@ -28,15 +28,22 @@ namespace AutoTraderGUI.Library
             this.logInterface = logInterface;
             this.progressInterface = progressInterface;
 
-            serverTh = new Thread(new ThreadStart(RunServer));
-            serverTh.Start();
         }
-
-        public void RebootServer()
+        public void close()
         {
+            if(apiCollector != null)
+                apiCollector.Close();
+            if(dartCollector != null)
+                dartCollector.Close();
             server.Close();
             serverTh.Abort();
-
+        }
+        public void open()
+        {
+            if(server != null)
+            {
+                server.Close();
+            }
             serverTh = new Thread(new ThreadStart(RunServer));
             serverTh.Start();
         }

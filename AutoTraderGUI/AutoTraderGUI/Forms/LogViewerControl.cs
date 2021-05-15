@@ -48,7 +48,7 @@ namespace AutoTraderGUI.Forms
             lastLogTime = "";
             InitializeComponent();
             scrollToEnd = true;
-            Debug = false;
+            Debug = true;
             Dock = DockStyle.Fill;
 
             logs = new Library.Log();

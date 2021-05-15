@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace AutoTraderGUI.Library
 {
@@ -87,7 +88,7 @@ namespace AutoTraderGUI.Library
         public void LoadChart()
         {
             chart = new Forms.SimulateChart();
-            for (int i = 0; i < TradeInfo.Count; i++)
+            for (int i = 0; i < EvaluationAssets.Count; i++)
             {
                 chart.AddData(EvaluationAssets[i], Yield[i], ProfitCount[i] + LossCount[i], AlgorithmMDDList[i], Profit[i], Loss[i], MFE[i], MAE[i]);
             }
@@ -96,17 +97,17 @@ namespace AutoTraderGUI.Library
         public void LoadInfo(SimulateInterface simulateInterface)
         {
             info = new Forms.SImulateInfoForm(simulateInterface);
-            for (int i = 0; i < TradeInfo.Count; i++)
+            for (int i = 0; i < EvaluationAssets.Count; i++)
             {
                 info.Update(CompleteDateLength, DateLength, Date, EvaluationAssets[i], Yield[i], ProfitCount.Sum(), LossCount.Sum(), Profit.Average(), Loss.Average(), Yield.Average(), AlgorithmMDD);
             }
         }
 
-        public bool isOwn(string code)
+        public bool isOwn(string name)
         {
             for (int i = 0; i < OwnList.Count; i++)
             {
-                if (OwnList[i].code == code)
+                if (OwnList[i].name == name)
                 {
                     return true;
                 }
@@ -121,13 +122,12 @@ namespace AutoTraderGUI.Library
 
             for (int i = 0; i < OwnList.Count; i++)
             {
-                string code = OwnList[i].code;
+                string name = OwnList[i].name;
 
                 for (int j = 0; j < data.Rows.Count; j++)
                 {
-                    if (data.Rows[j]["code"].ToString() == code)
+                    if (data.Rows[j]["name"].ToString() == name)
                     {
-                        string name = data.Rows[j]["name"].ToString();
                         int open = int.Parse(data.Rows[j]["open"].ToString());
                         int high = int.Parse(data.Rows[j]["high"].ToString());
                         int low = int.Parse(data.Rows[j]["low"].ToString());
@@ -136,7 +136,6 @@ namespace AutoTraderGUI.Library
 
                         DataRow row = result.NewRow();
                         row["name"] = name;
-                        row["code"] = code;
                         row["open"] = open;
                         row["high"] = high;
                         row["low"] = low;
@@ -153,11 +152,11 @@ namespace AutoTraderGUI.Library
             return result;
         }
 
-        public int GetTradeInfo(string code)
+        public int GetTradeInfo(string name)
         {
             for (int i = 0; i < OwnList.Count; i++)
             {
-                if (OwnList[i].code == code)
+                if (OwnList[i].name == name)
                 {
                     return i;
                 }
@@ -199,10 +198,10 @@ namespace AutoTraderGUI.Library
 
         public string GetTodayDateSQL()
         {
-            string todaySQL = string.Format("SELECT name, code, open, high, low, close, volume FROM `{0}` WHERE ", Date);
+            string todaySQL = string.Format("SELECT name, open, high, low, close, volume FROM `{0}` WHERE ", Date);
             for (int k = 0; k < OwnList.Count; k++)
             {
-                todaySQL += string.Format("code='{0}' ", OwnList[k].code);
+                todaySQL += string.Format("name='{0}' ", OwnList[k].name);
 
                 if (k < OwnList.Count - 1)
                 {
@@ -215,13 +214,15 @@ namespace AutoTraderGUI.Library
 
         public int CalculateSellPrice(int price)
         {
-            return (int)(price * (1 - Charge - Tax));
+            return (int)(price * (1f - Charge - Tax));
+            //return price;
         }
         public int CalculateBuyPrice(int price)
         {
-            return (int)(price * (1 + Charge));
+            return (int)(price * (1f + Charge));
+            //return price;
         }
-        public void Sell(int index, int price)
+        public void Sell(int index, int price, string action)
         {
             TradeInfo tradeinfo = OwnList[index];
             OwnList.RemoveAt(index);
@@ -233,11 +234,12 @@ namespace AutoTraderGUI.Library
             tradeinfo.sellPrice = price;
             tradeinfo.totalSellAmount = sellAmount;
             tradeinfo.Yield = (float)(sellAmount - tradeinfo.totalBuyAmount) / tradeinfo.totalBuyAmount * 100;
+            tradeinfo.action = action;
             Assets += (ulong)sellAmount;
             sellTradeInfo.Add(tradeinfo);
         }
 
-        public void Buy(string name, string code, ulong purchaseAssets, int price)
+        public void Buy(string name, ulong purchaseAssets, int price, int open, int high, int low, int close)
         {
             int buyNum = (int)(purchaseAssets / (ulong)price);
             int buyAmount = price * buyNum;
@@ -245,12 +247,16 @@ namespace AutoTraderGUI.Library
 
             TradeInfo tradeInfo = new TradeInfo();
             tradeInfo.name = name;
-            tradeInfo.code = code;
 
             tradeInfo.buyDate = Date;
             tradeInfo.buyPrice = price;
             tradeInfo.Volume = buyNum;
             tradeInfo.totalBuyAmount = buyAmount;
+
+            tradeInfo.RTopen = open;
+            tradeInfo.RThigh = high;
+            tradeInfo.RTlow = low;
+            tradeInfo.RTclose = close;
 
             OwnList.Add(tradeInfo);
         }
@@ -343,8 +349,23 @@ namespace AutoTraderGUI.Library
 
             // 차트 최신화
 
-            chart.AddData(Evaluation, todayYield, OwnList.Count, AlgorithmMDD, todayProfit, todayLoss, todayMFE, todayMAE);
-            info.Update(CompleteDateLength, DateLength, Date, Evaluation, todayYield, ProfitCount.Sum(), LossCount.Sum(), Profit.Average(), Loss.Average(), Yield.Average(), AlgorithmMDD); ;
+            try
+            {
+                chart.AddData(Evaluation, todayYield, OwnList.Count, AlgorithmMDD, todayProfit, todayLoss, todayMFE, todayMAE);
+                info.Update(CompleteDateLength, DateLength, Date, Evaluation, todayYield, ProfitCount.Sum(), LossCount.Sum(), Profit.Average(), Loss.Average(), Yield.Average(), AlgorithmMDD); ;
+            }
+            catch
+            {
+
+            }
+            
+
+            if(CompleteDateLength == DateLength)
+            {
+                info.SimulatingButton.Text = "거래기록 분석하기";
+                info.isComplete = true;
+            }
+
         }
     }
 }

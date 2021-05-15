@@ -29,12 +29,6 @@ namespace AutoTraderGUI.Library
 
         }
 
-        public void IndicatorCalculate()
-        {
-            IndicatorProcessor indicator = new IndicatorProcessor(logInterface, progressInterface, settings);
-            SimulateDataRecollect recollect = new SimulateDataRecollect(settings, logInterface, progressInterface);
-        }
-
         public void Close()
         {
             sock.Close();
@@ -42,6 +36,7 @@ namespace AutoTraderGUI.Library
                 LogTh.Abort();
             if (ReceiveTh.IsAlive)
                 ReceiveTh.Abort();
+            Complete = false;
         }
 
         void LogManaging()
@@ -66,7 +61,6 @@ namespace AutoTraderGUI.Library
                         progressInterface.Company = data[1];
                         break;
                     case "Complete":
-                        IndicatorCalculate();
                         Complete = true;
                         break;
                     case "CompanyCount":

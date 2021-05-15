@@ -17,15 +17,20 @@ namespace AutoTraderGUI.Forms
         Forms.AlgorithmManager algorithmManager;
         List<Library.Simulate> simulates;
 
+        SimulateChart emptyChart = new SimulateChart();
+        SImulateInfoForm emptyInfo = new SImulateInfoForm(null);
         int chartIdx = -1;
-        public SimulateForm()
+        SettingsInterface settings;
+        public SimulateForm(SettingsInterface settings)
         {
+            this.settings = settings;
             InitializeComponent();
             Dock = DockStyle.Fill;
             simulates = new List<Library.Simulate>();
 
             initializeInfo();
-
+            ChartPanel.Controls.Add(emptyChart);
+            SimulateInfoPanel.Controls.Add(emptyInfo);
             MonitoringViewer.Start();
         }
         
@@ -38,7 +43,7 @@ namespace AutoTraderGUI.Forms
             if (selectedAlgorithm == null || selectedAlgorithm.Trim() == "")
                 return;
 
-            Library.Simulate simulate = new Library.Simulate(selectedAlgorithm, SimulateUnit.Text, int.Parse(InitialAssets.Text.Replace(",", "")) ,float.Parse(Tax.Text), float.Parse(Charge.Text));
+            Library.Simulate simulate = new Library.Simulate(settings, selectedAlgorithm, SimulateUnit.Text, int.Parse(InitialAssets.Text.Replace(",", "")) ,float.Parse(Tax.Text), float.Parse(Charge.Text));
 
             AlgorithmCombo.Items.Add(selectedAlgorithm);
             AlgorithmCombo.SelectedIndex = AlgorithmCombo.Items.Count - 1;
@@ -115,8 +120,6 @@ namespace AutoTraderGUI.Forms
             
         }
 
-        
-
         private void InitialAssets_Leave(object sender, EventArgs e)
         {
             InitialAssets.Text = string.Format("{0:N0}", int.Parse(InitialAssets.Text));
@@ -136,7 +139,7 @@ namespace AutoTraderGUI.Forms
                 simulAgent = (Library.SimulateAgent)bf.Deserialize(fs);
                 fs.Close();
 
-                Library.Simulate simul= new Library.Simulate(simulAgent.algorithm.AlgorithmName, simulAgent.SimulateUnit, (int)simulAgent.Assets, simulAgent.Tax, simulAgent.Charge);
+                Library.Simulate simul= new Library.Simulate(settings, simulAgent.algorithm.AlgorithmName, simulAgent.SimulateUnit, (int)simulAgent.Assets, simulAgent.Tax, simulAgent.Charge);
                 simul.agent = simulAgent;
                 simulAgent.LoadChart();
                 simulAgent.LoadInfo(simul.simulInterface);

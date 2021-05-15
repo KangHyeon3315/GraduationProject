@@ -51,10 +51,11 @@ namespace AutoTraderGUI.Forms
         {
             int totalWidth = AlgorithmInfo.Size.Width;
             int restWidth = totalWidth;
-            AlgorithmInfo.Columns[0].Width = 90;            // Algorithm Number
-            restWidth -= AlgorithmInfo.Columns[0].Width;
+            
+            int temp = restWidth / 6;
 
-            int temp = restWidth / 5;
+            AlgorithmInfo.Columns[0].Width = temp;
+            restWidth -= AlgorithmInfo.Columns[0].Width;
 
             AlgorithmInfo.Columns[1].Width = temp;
             restWidth -= AlgorithmInfo.Columns[1].Width;
@@ -68,7 +69,7 @@ namespace AutoTraderGUI.Forms
             AlgorithmInfo.Columns[4].Width = temp;
             restWidth -= AlgorithmInfo.Columns[4].Width;
 
-            AlgorithmInfo.Columns[5].Width = restWidth;
+            AlgorithmInfo.Columns[5].Width = restWidth - 5; 
         }
 
         public void refreshAlgorithmInfo()

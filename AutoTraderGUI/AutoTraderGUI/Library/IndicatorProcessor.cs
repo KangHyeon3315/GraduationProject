@@ -27,12 +27,13 @@ namespace AutoTraderGUI.Library
 
             calc = new Calculate();
 
+            /*
             if (!DB.SchemaCheck("indicator"))
             {
                 DB.CreateSchema("indicator");
             }
-
-
+            */
+            
             process();
         }
 

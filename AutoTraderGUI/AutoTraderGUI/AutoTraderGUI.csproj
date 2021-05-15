@@ -96,11 +96,11 @@
     <Compile Include="Forms\EmptyControl.Designer.cs">
       <DependentUpon>EmptyControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\HistoricalLogViewer.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Forms\SettingsControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\HistoricalLogViewer.Designer.cs">
-      <DependentUpon>HistoricalLogViewer.cs</DependentUpon>
+    <Compile Include="Forms\SettingsControl.Designer.cs">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SimulateChart.cs">
       <SubType>UserControl</SubType>
@@ -113,6 +113,12 @@
     </Compile>
     <Compile Include="Forms\SImulateInfoForm.Designer.cs">
       <DependentUpon>SImulateInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SimulateTradeInfoViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SimulateTradeInfoViewer.Designer.cs">
+      <DependentUpon>SimulateTradeInfoViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SymbolTable.cs">
       <SubType>UserControl</SubType>
@@ -137,12 +143,6 @@
     </Compile>
     <Compile Include="Forms\LogViewerControl.Designer.cs">
       <DependentUpon>LogViewerControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SimulateForm.cs">
       <SubType>UserControl</SubType>
@@ -174,12 +174,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="tmp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="tmp.Designer.cs">
-      <DependentUpon>tmp.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Forms\AlgorithmEdit.resx">
       <DependentUpon>AlgorithmEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,14 +198,17 @@
     <EmbeddedResource Include="Forms\EmptyControl.resx">
       <DependentUpon>EmptyControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\HistoricalLogViewer.resx">
-      <DependentUpon>HistoricalLogViewer.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SettingsControl.resx">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SimulateChart.resx">
       <DependentUpon>SimulateChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SImulateInfoForm.resx">
       <DependentUpon>SImulateInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SimulateTradeInfoViewer.resx">
+      <DependentUpon>SimulateTradeInfoViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SymbolTable.resx">
       <DependentUpon>SymbolTable.cs</DependentUpon>
@@ -224,9 +221,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LogViewerControl.resx">
       <DependentUpon>LogViewerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SimulateForm.resx">
       <DependentUpon>SimulateForm.cs</DependentUpon>
@@ -243,9 +237,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="tmp.resx">
-      <DependentUpon>tmp.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

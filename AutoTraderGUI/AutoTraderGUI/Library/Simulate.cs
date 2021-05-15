@@ -15,11 +15,12 @@ namespace AutoTraderGUI.Library
     {
         Thread SimulateTh;
         Library.DBController DB;
-        Settings settings;
-
+        //Settings settings;
+        Forms.SimulateTradeInfoViewer infoViewer;
         public SimulateAgent agent;
         string AlgorithmName;
         bool stopFlag;
+        
         public bool isSimulating
         {
             get
@@ -37,8 +38,10 @@ namespace AutoTraderGUI.Library
                 return this as SimulateInterface;
             }
         }
-        public Simulate(string AlgorithmName, string Unit, int InitialAsset, float Tax, float Charge)
+        SettingsInterface settings;
+        public Simulate(SettingsInterface settings, string AlgorithmName, string Unit, int InitialAsset, float Tax, float Charge)
         {
+            
             agent = new SimulateAgent(this as SimulateInterface);
             agent.SimulateUnit = Unit;
             agent.Assets = (ulong)InitialAsset;
@@ -53,16 +56,16 @@ namespace AutoTraderGUI.Library
             fs.Close();
 
             
-            settings = new Settings();
+            //settings = new Settings();
             
 
-            if (settings.info.DBID == "" || settings.info.DBIP == "" || settings.info.DBPort == 0 || settings.info.DBPW == "")
+            if (settings.DBID == "" || settings.DBIP == "" || settings.DBPort == 0 || settings.DBPW == "")
             {
                 MessageBox.Show("DB 정보를 먼저 입력하세요.");
                 return;
             }
-
-            DB = new Library.DBController(settings.info.DBIP, settings.info.DBID, settings.info.DBPW);
+            
+            DB = new Library.DBController(settings.DBIP, settings.DBID, settings.DBPW);
         }
 
         public void SimulateStart()
@@ -84,7 +87,7 @@ namespace AutoTraderGUI.Library
         public void SimulateStop()
         {
             stopFlag = true;
-            // 나중에 중단지점 정보 저장하기
+            
             if (!Directory.Exists(Application.StartupPath + "\\Simulate"))
             {
                 Directory.CreateDirectory(Application.StartupPath + "\\Simulate");
@@ -94,6 +97,202 @@ namespace AutoTraderGUI.Library
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(fs, agent);
             fs.Close();
+        }
+
+        void UpdateRealTimeData()
+        {
+            DataTable TodayPriceTable = DB.SelectSQLData("daily_simulate", agent.GetTodayDateSQL());
+
+            for (int k = 0; k < TodayPriceTable.Rows.Count; k++)
+            {
+                string name = TodayPriceTable.Rows[k]["name"].ToString();
+                int open = int.Parse(TodayPriceTable.Rows[k]["open"].ToString());
+                int high = int.Parse(TodayPriceTable.Rows[k]["high"].ToString());
+                int low = int.Parse(TodayPriceTable.Rows[k]["low"].ToString());
+                int close = int.Parse(TodayPriceTable.Rows[k]["close"].ToString());
+                int volume = int.Parse(TodayPriceTable.Rows[k]["volume"].ToString());
+
+                int index = agent.GetTradeInfo(name);
+
+                if (index == -1)
+                {
+                    continue;
+                }
+
+                agent.OwnList[index].ownDate++;
+                agent.OwnList[index].SetRealTimeData(open, high, low, close, volume);
+            }
+        }
+
+        void ProfitLossCut()
+        {
+            // 여기서 가격정보가 잘못 정해져있음 -> 수정할것
+            for (int k = 0; k < agent.OwnList.Count; k++)
+            {
+                // 손절
+                if (agent.algorithm.lossCut != 0f && (float)(agent.OwnList[k].RTlow - agent.OwnList[k].buyPrice) / agent.OwnList[k].buyPrice <= -agent.algorithm.lossCut / 100)
+                {
+                    int price = (int)(agent.OwnList[k].buyPrice * (1 - (agent.algorithm.lossCut / 100)));
+
+                    if(price > agent.OwnList[k].RTopen)
+                    {
+                        price = agent.OwnList[k].RTopen;
+                    }
+
+                    agent.Sell(k, agent.CalculateSellPrice(price), "손절");
+                }
+                // 익절
+                else if (agent.algorithm.profitCut != 0f && (float)(agent.OwnList[k].RThigh - agent.OwnList[k].buyPrice) / agent.OwnList[k].buyPrice >= agent.algorithm.profitCut / 100)
+                {
+                    int price = (int)(agent.OwnList[k].buyPrice * (1 + (agent.algorithm.profitCut / 100)));
+
+                    if (price < agent.OwnList[k].RTopen)
+                    {
+                        price = agent.OwnList[k].RTopen;
+                    }
+
+                    agent.Sell(k, agent.CalculateSellPrice(price), "익절");
+                }
+            }
+        }
+
+        void DateCut()
+        {
+            if (agent.algorithm.MaxOwnDate != -1)
+            {
+                for (int j = agent.OwnList.Count - 1; j >= 0; j--)
+                {
+                    if (agent.OwnList[j].ownDate >= agent.algorithm.MaxOwnDate)
+                    {
+                        // 판매 가격 지정
+                        int price = 0;
+                        if (agent.algorithm.sellTiming == TradeTiming.Open)
+                        {
+                            price = agent.OwnList[j].RTopen;
+                        }
+                        else if (agent.algorithm.sellTiming == TradeTiming.Close)
+                        {
+                            price = agent.OwnList[j].RTclose;
+                        }
+                        else
+                        {
+                            MessageBox.Show("해당 알고리즘은 일별 시뮬레이션으로 진행이 불가능 합니다.");
+                            return;
+                        }
+
+                        agent.Sell(j, agent.CalculateSellPrice(price), "최대보유일에 의한 청산");
+                    }
+                }
+            }
+        }
+
+        void SellAction(List<string> dateList, List<string> realtime)
+        {
+            string sellSQL = agent.GetSellSQL(dateList, realtime);
+            DataTable sellTable = DB.SelectSQLData("daily_simulate", sellSQL);
+
+            // 매도 타이밍이 종가일 경우 손익절을 매도 전에 수행
+            if (agent.algorithm.sellTiming == TradeTiming.Close)
+            {
+                ProfitLossCut();
+            }
+
+            // 매도 진행
+            sellTable = agent.GetOnlyOwnData(sellTable);              // 보유중인 종목만 가져오기
+
+            for (int k = 0; k < sellTable.Rows.Count; k++)
+            {
+                string name = sellTable.Rows[k]["name"].ToString();
+
+                int index = agent.GetTradeInfo(name);
+
+                if (index == -1)
+                {
+                    continue;
+                }
+
+                int price = 0;
+                // 판매 가격 지정
+                if (agent.algorithm.sellTiming == TradeTiming.Open)
+                {
+                    price = agent.OwnList[index].RTopen;
+                }
+                else if (agent.algorithm.sellTiming == TradeTiming.Close)
+                {
+                    price = agent.OwnList[index].RTclose;
+                }
+                else
+                {
+                    MessageBox.Show("해당 알고리즘은 일별 시뮬레이션으로 진행이 불가능 합니다.");
+                    return;
+                }
+
+                agent.Sell(index, agent.CalculateSellPrice(price), "조건식에 의한 판매");
+            }
+
+            if (agent.algorithm.sellTiming == TradeTiming.Open)
+            {
+                ProfitLossCut();
+            }
+
+            // 최대 보유일이 지난경우 매도
+            DateCut();
+        }
+
+        void BuyAction(List<string> dateList, List<string> realtime)
+        {
+            
+            string buySQL = agent.GetBuySQL(dateList, realtime);
+            DataTable buyTable = DB.SelectSQLData("daily_simulate", buySQL);
+
+            // 매수 진행
+            int purchasableCount = agent.algorithm.DistributeNum;
+            purchasableCount = agent.algorithm.DistributeNum - agent.OwnList.Count;       // 구매 가능 개수
+            if (purchasableCount > 0)
+            {
+                ulong purchaseAssets = (agent.Assets / (ulong)purchasableCount);         // 구매 가능 예산
+
+                for (int k = 0; k < buyTable.Rows.Count; k++)
+                {
+                    if (agent.OwnList.Count >= agent.algorithm.DistributeNum)
+                    {
+                        break;
+                    }
+
+                    string name = buyTable.Rows[k]["name"].ToString();
+
+                    int open = int.Parse(buyTable.Rows[k]["open"].ToString());
+                    int high = int.Parse(buyTable.Rows[k]["high"].ToString());
+                    int low = int.Parse(buyTable.Rows[k]["low"].ToString());
+                    int close = int.Parse(buyTable.Rows[k]["close"].ToString());
+                    int volume = int.Parse(buyTable.Rows[k]["volume"].ToString());
+
+                    if (agent.isOwn(name))               // 이미 보유하고 있는 종목인 경우 중복구매 X
+                        continue;
+
+                    int price = 0;
+                    // 구매 가격 지정
+                    if (agent.algorithm.buyTiming == TradeTiming.Open)
+                    {
+                        price = open;
+                    }
+                    else if (agent.algorithm.buyTiming == TradeTiming.Close)
+                    {
+                        price = close;
+                    }
+                    else
+                    {
+                        MessageBox.Show("해당 알고리즘은 일별 시뮬레이션으로 진행이 불가능 합니다.");
+                        return;
+                    }
+
+                    // 구매 가능 예산이 1주도 사기 힘든경우
+                    if (purchaseAssets < (ulong)agent.CalculateBuyPrice(price))
+                        continue;
+
+                    agent.Buy(name, purchaseAssets, agent.CalculateBuyPrice(price), open, high, low, close);
+                }
+            }
         }
 
         void Daily_Simulating()
@@ -106,7 +305,7 @@ namespace AutoTraderGUI.Library
             List<string> dateList = new List<string>();
             List<string> realtime = new List<string>();
 
-            int purchasableCount = agent.algorithm.DistributeNum;
+            
             for (int i = agent.CompleteDateLength; i < simulatedateList.Count; i++)
             {
                 if (stopFlag)
@@ -122,191 +321,17 @@ namespace AutoTraderGUI.Library
 
                     if (dateList.Count > agent.algorithm.DateCount + 2)
                     {
-                        dateList.RemoveAt(0);
-                        string buySQL = agent.GetBuySQL(dateList, realtime);
-                        string sellSQL = agent.GetSellSQL(dateList, realtime);
-                                                
-                        // 해당 대상의 가격정보 가져오기
-                        DataTable buyTable = DB.SelectSQLData("daily_simulate", buySQL);
-                        DataTable sellTable = DB.SelectSQLData("daily_simulate", sellSQL);
-
-                        // 매도 진행
+                        //dateList.RemoveAt(0);
+                        
                         if (agent.OwnList.Count > 0)
                         {
-                            DataTable TodayPriceTable = DB.SelectSQLData("daily_simulate", agent.GetTodayDateSQL());
+                            // 금일 가격정보 최신화
+                            UpdateRealTimeData();
 
-                            // 리얼타임 가격정보 최신화
-                            for (int k = 0; k < TodayPriceTable.Rows.Count; k++)
-                            {
-                                string code = TodayPriceTable.Rows[k]["code"].ToString();
-                                int open = int.Parse(TodayPriceTable.Rows[k]["open"].ToString());
-                                int high = int.Parse(TodayPriceTable.Rows[k]["high"].ToString());
-                                int low = int.Parse(TodayPriceTable.Rows[k]["low"].ToString());
-                                int close = int.Parse(TodayPriceTable.Rows[k]["close"].ToString());
-                                int volume = int.Parse(TodayPriceTable.Rows[k]["volume"].ToString());
-
-                                int index = agent.GetTradeInfo(code);
-
-                                if (index == -1)
-                                {
-                                    continue;
-                                }
-
-                                agent.OwnList[index].ownDate++;
-                                agent.OwnList[index].SetRealTimeData(open, high, low, close, volume);
-                            }
-                            // 매도 타이밍이 종가일 경우 손익절을 매도 전에 수행
-                            if (agent.algorithm.sellTiming == TradeTiming.Close)
-                            {
-                                for (int k = 0; k < agent.OwnList.Count; k++)
-                                {
-                                    // 손절
-                                    if ((float)(agent.OwnList[k].RTlow - agent.OwnList[k].buyPrice) / agent.OwnList[k].buyPrice <= -agent.algorithm.lossCut)
-                                    {
-                                        int price = (int)(agent.OwnList[k].buyPrice * (1 - (agent.algorithm.lossCut / 100)));
-
-                                        agent.Sell(k, agent.CalculateSellPrice(price));
-                                    }
-                                    // 익절
-                                    else if ((float)(agent.OwnList[k].RThigh - agent.OwnList[k].buyPrice) / agent.OwnList[k].buyPrice >= agent.algorithm.profitCut)
-                                    {
-                                        int price = (int)(agent.OwnList[k].buyPrice * (1 + (agent.algorithm.profitCut / 100)));
-
-                                        agent.Sell(k, agent.CalculateSellPrice(price));
-                                    }
-                                }
-                            }
-
-                            // 매도 진행
-                            sellTable = agent.GetOnlyOwnData(sellTable);              // 보유중인 종목만 가져오기
-
-                            for (int k = 0; k < sellTable.Rows.Count; k++)
-                            {
-                                string code = sellTable.Rows[k]["code"].ToString();
-
-                                int index = agent.GetTradeInfo(code);
-
-                                if (index == -1)
-                                {
-                                    continue;
-                                }
-
-                                int price = 0;
-                                // 판매 가격 지정
-                                if (agent.algorithm.sellTiming == TradeTiming.Open)
-                                {
-                                    price = agent.OwnList[index].RTopen;
-                                }
-                                else if (agent.algorithm.sellTiming == TradeTiming.Close)
-                                {
-                                    price = agent.OwnList[index].RTclose;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("해당 알고리즘은 일별 시뮬레이션으로 진행이 불가능 합니다.");
-                                    return;
-                                }
-
-                                agent.Sell(index, agent.CalculateSellPrice(price));
-                            }
-
-                            if (agent.algorithm.sellTiming == TradeTiming.Open)
-                            {
-                                for (int k = 0; k < agent.OwnList.Count; k++)
-                                {
-                                    // 손절
-                                    if ((float)(agent.OwnList[k].RTlow - agent.OwnList[k].buyPrice) / agent.OwnList[k].buyPrice <= -agent.algorithm.lossCut)
-                                    {
-                                        int price = (int)(agent.OwnList[k].buyPrice * (1 - (agent.algorithm.lossCut / 100)));
-
-                                        agent.Sell(k, agent.CalculateSellPrice(price));
-                                    }
-                                    // 익절
-                                    else if ((float)(agent.OwnList[k].RThigh - agent.OwnList[k].buyPrice) / agent.OwnList[k].buyPrice >= agent.algorithm.profitCut)
-                                    {
-                                        int price = (int)(agent.OwnList[k].buyPrice * (1 + (agent.algorithm.profitCut / 100)));
-
-                                        agent.Sell(k, agent.CalculateSellPrice(price));
-                                    }
-                                }
-                            }
-
-                            // 최대 보유일이 지난경우 매도
-                            if(agent.algorithm.MaxOwnDate != 0)
-                            {
-                                for (int j = agent.OwnList.Count - 1; j >= 0; j--)
-                                {
-                                    if (agent.OwnList[j].ownDate >= agent.algorithm.MaxOwnDate)
-                                    {
-                                        // 판매 가격 지정
-                                        int price = 0;
-                                        if (agent.algorithm.sellTiming == TradeTiming.Open)
-                                        {
-                                            price = agent.OwnList[j].RTopen;
-                                        }
-                                        else if (agent.algorithm.sellTiming == TradeTiming.Close)
-                                        {
-                                            price = agent.OwnList[j].RTclose;
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("해당 알고리즘은 일별 시뮬레이션으로 진행이 불가능 합니다.");
-                                            return;
-                                        }
-
-                                        agent.Sell(j, agent.CalculateSellPrice(price));
-                                    }
-                                }
-                            }
+                            SellAction(dateList, realtime);
                         }
 
-                        // 매수 진행
-                        purchasableCount = agent.algorithm.DistributeNum - agent.OwnList.Count;       // 구매 가능 개수
-                        if(purchasableCount > 0)
-                        {
-                            ulong purchaseAssets = (agent.Assets / (ulong)purchasableCount);         // 구매 가능 예산
-
-                            for (int k = 0; k < buyTable.Rows.Count; k++)
-                            {
-                                if (agent.OwnList.Count >= agent.algorithm.DistributeNum)
-                                {
-                                    break;
-                                }
-
-                                string name = buyTable.Rows[k]["name"].ToString();
-                                string code = buyTable.Rows[k]["code"].ToString();
-                                int open = int.Parse(buyTable.Rows[k]["open"].ToString());
-                                int high = int.Parse(buyTable.Rows[k]["high"].ToString());
-                                int low = int.Parse(buyTable.Rows[k]["low"].ToString());
-                                int close = int.Parse(buyTable.Rows[k]["close"].ToString());
-                                int volume = int.Parse(buyTable.Rows[k]["volume"].ToString());
-
-                                if (agent.isOwn(code))               // 이미 보유하고 있는 종목인 경우 중복구매 X
-                                    continue;
-
-                                int price = 0;
-                                // 구매 가격 지정
-                                if (agent.algorithm.buyTiming == TradeTiming.Open)
-                                {
-                                    price = open;
-                                }
-                                else if (agent.algorithm.buyTiming == TradeTiming.Close)
-                                {
-                                    price = close;
-                                }
-                                else
-                                {
-                                    MessageBox.Show("해당 알고리즘은 일별 시뮬레이션으로 진행이 불가능 합니다.");
-                                    return;
-                                }
-
-                                // 구매 가능 예산이 1주도 사기 힘든경우
-                                if (purchaseAssets < (ulong)agent.CalculateBuyPrice(price))
-                                    continue;
-
-                                agent.Buy(name, code, purchaseAssets, agent.CalculateBuyPrice(price));
-                            }
-                        }
+                        BuyAction(dateList, realtime);
 
                     }
                     // 정산
@@ -319,6 +344,13 @@ namespace AutoTraderGUI.Library
                 }
             }
             agent.CompleteDateLength = agent.DateLength;
+            agent.Settlement();
+        }
+
+        public void ClickAnalyze()
+        {
+            infoViewer = new Forms.SimulateTradeInfoViewer(DB, agent.TradeInfo);
+            infoViewer.Show();
         }
     }
 }

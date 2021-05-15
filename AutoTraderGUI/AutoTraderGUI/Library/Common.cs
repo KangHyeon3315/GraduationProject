@@ -8,11 +8,26 @@ using System.Windows.Forms;
 
 namespace AutoTraderGUI
 {
+    public interface SettingsInterface
+    {
+        string InterpreterPath { get; set; }
+        string APICollectorPath { get; set; }
+        string DartCollectorPath { get; set; }
+        float RequestsInterval { get; set; }
+        int MaxRequests { get; set; }
+        string DartAPIKey { get; set; }
+        string DBIP { get; set; }
+        int DBPort { get; set; }
+        string DBID { get; set; }
+        string DBPW { get; set; }
+        void SaveSetting();
+    }
     public interface SimulateInterface
     {
         bool isSimulating { get; }
         void SimulateStart();
         void SimulateStop();
+        void ClickAnalyze();
     }
     public interface AlgorithmDetailsInterface
     {

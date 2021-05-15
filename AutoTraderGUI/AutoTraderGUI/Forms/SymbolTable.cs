@@ -31,7 +31,7 @@ namespace AutoTraderGUI.Forms
             SymbolsListView.Items.Add(item);
         }
 
-        private void DeleteSymbolClick(object sender, EventArgs e)
+        public void DeleteSymbolClick(object sender, EventArgs e)
         {
             for(int i = SymbolsListView.SelectedIndices.Count - 1; i >= 0; i--)
             {

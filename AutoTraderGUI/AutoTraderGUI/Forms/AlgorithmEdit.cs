@@ -256,7 +256,10 @@ namespace AutoTraderGUI.Forms
             algorithmInfo.sellSQLFormat = sellOption.SQL;
             algorithmInfo.symbols = symbols;
 
-            if(!overWrite && File.Exists(Application.StartupPath + "\\Algorithm\\" + algorithmInfo.AlgorithmName + ".trstr"))
+            algorithmInfo.lossCut = float.Parse(LosscutTextBox.Text != "" ? LosscutTextBox.Text : "0");
+            algorithmInfo.profitCut = float.Parse(ProfitcutTextBox.Text != "" ? ProfitcutTextBox.Text : "0");
+
+            if (!overWrite && File.Exists(Application.StartupPath + "\\Algorithm\\" + algorithmInfo.AlgorithmName + ".trstr"))
             {
                 MessageBox.Show("해당 이름의 알고리즘이 존재합니다 ");
                 return;

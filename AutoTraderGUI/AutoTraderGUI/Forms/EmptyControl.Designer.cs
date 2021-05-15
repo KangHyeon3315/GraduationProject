@@ -46,7 +46,7 @@ namespace AutoTraderGUI.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.label1);
             this.Name = "EmptyControl";
             this.ResumeLayout(false);

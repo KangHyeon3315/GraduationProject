@@ -168,22 +168,15 @@ namespace AutoTraderGUI.Forms
             }
         }
 
-        public Size ControlSize
-        {
-            get
-            {
-                return groupBox1.Size;
-            }
-        }
         public string Title
         {
             get
             {
-                return groupBox1.Text;
+                return TitleText.Text;
             }
             set
             {
-                if (this.groupBox1.InvokeRequired)
+                if (this.TitleText.InvokeRequired)
                 {
                     SetTextCallback d = new SetTextCallback(SetTitle);
                     this.Invoke(d, new object[] { value });
@@ -197,11 +190,13 @@ namespace AutoTraderGUI.Forms
         }
         void SetTitle(string text)
         {
-            groupBox1.Text = text;
+            TitleText.Text = text;
         }
         public CollectorProgressControl()
         {
             InitializeComponent();
+
+            Dock = DockStyle.Fill;
         }
     }
 }

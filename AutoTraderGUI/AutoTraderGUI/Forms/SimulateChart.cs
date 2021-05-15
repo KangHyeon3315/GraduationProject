@@ -16,6 +16,8 @@ namespace AutoTraderGUI.Forms
         ulong EvaluationMax = 0;
         ulong EvaluationMin = 999999999999999;
 
+        delegate void SetTextCallback(ulong Evaluation, float Yield, int DistNum, float MDD, float Profit, float Loss, float MFE, float MAE);
+
         public SimulateChart()
         {
             InitializeComponent();
@@ -44,12 +46,17 @@ namespace AutoTraderGUI.Forms
             MFEMAEChart.Titles.Add("MFE / MDD");
             MFEMAEChart.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.Gainsboro;
             MFEMAEChart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-
         }
-
+        /*
         public void AddData(ulong Evaluation, float Yield, int DistNum, float MDD, float Profit, float Loss, float MFE, float MAE)
         {
-            lock (this)
+            
+            if (this.EvaluationChart.InvokeRequired || this.YieldChart.InvokeRequired || this.DistChart.InvokeRequired || this.MDDChart.InvokeRequired || this.ProfitLossChart.InvokeRequired || this.MFEMAEChart.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(AddData);
+                this.Invoke(d, new object[] { Evaluation, Yield, DistNum, MDD, Profit, Loss, MFE, MAE });
+            }
+            else
             {
                 ulong Eval = Evaluation / 10000;
                 EvaluationChart.Series["Series1"].Points.Add(Eval);
@@ -74,5 +81,40 @@ namespace AutoTraderGUI.Forms
                 MFEMAEChart.Series["MAE"].Points.Add(MAE);
             }
         }
+        
+        void SetTask(string text)
+        {
+            TaskInfoText.Text = text;
+        }
+        */
+        
+        public void AddData(ulong Evaluation, float Yield, int DistNum, float MDD, float Profit, float Loss, float MFE, float MAE)
+        {
+            lock (EvaluationChart)
+            {
+                ulong Eval = Evaluation / 10000;
+                EvaluationChart.Series["Series1"].Points.Add(Eval);
+                EvaluationMax = EvaluationMax > Eval ? EvaluationMax : Eval;
+                EvaluationMin = EvaluationMin < Eval ? EvaluationMin : Eval;
+
+                if (EvaluationMax == EvaluationMin)
+                {
+                    EvaluationMax += 100;
+                    EvaluationMin -= 100;
+                }
+
+                this.EvaluationChart.ChartAreas[0].AxisY.Maximum = EvaluationMax;
+                this.EvaluationChart.ChartAreas[0].AxisY.Minimum = EvaluationMin;
+
+                YieldChart.Series["Series1"].Points.Add(Yield);
+                DistChart.Series["Series1"].Points.Add(DistNum);
+                MDDChart.Series["Series1"].Points.Add(MDD);
+                ProfitLossChart.Series["Profit"].Points.Add(Profit);
+                ProfitLossChart.Series["Loss"].Points.Add(Loss);
+                MFEMAEChart.Series["MFE"].Points.Add(MFE);
+                MFEMAEChart.Series["MAE"].Points.Add(MAE);
+            }
+        }
+        
     }
 }

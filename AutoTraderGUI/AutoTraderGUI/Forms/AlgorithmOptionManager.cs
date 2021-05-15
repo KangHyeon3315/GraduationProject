@@ -61,7 +61,7 @@ namespace AutoTraderGUI.Forms
             OptionInputLayout.Controls.Add(groupBox3);
             OptionInputLayout.Controls.Add(groupBox4);
         }
-
+        
         private void itemClick(object sender, TreeViewEventArgs e)
         {
             OffsetCombo.Items.Clear();
@@ -353,7 +353,7 @@ namespace AutoTraderGUI.Forms
 
                         if(firstPart == "")
                         {
-                            firstPart = string.Format("SELECT r0.name, r0.code, r0.open, r0.high, r0.low, r0.close, r0.volume FROM ", i);
+                            firstPart = string.Format("SELECT r0.name, r0.open, r0.high, r0.low, r0.close, r0.volume FROM ", i);
                             standardTable = string.Format("t{0}", i);
 
 
@@ -386,7 +386,7 @@ namespace AutoTraderGUI.Forms
 
                         if (firstPart == "")
                         {
-                            firstPart = string.Format("SELECT r0.name, r0.code, r0.open, r0.high, r0.low, r0.close, r0.volume FROM ", i);
+                            firstPart = string.Format("SELECT r0.name, r0.open, r0.high, r0.low, r0.close, r0.volume FROM ", i);
                             standardTable = string.Format("r{0}", i);
                         }
                         if(i > 0)
@@ -409,51 +409,60 @@ namespace AutoTraderGUI.Forms
                 if (t == "r0")
                     continue;
 
-                baseOption += string.Format("r0.code = {0}.code and ", t);
+                baseOption += string.Format("r0.name = {0}.name and ", t);
             }
 
             string option = string.Format(" ( {0} )", OptionWriter.Text);
 
             for (int i = symbolInterface.SymbolTable.SymbolsListView.Items.Count - 1; i >= 0 ; i--)
             {
-                string keyword = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[1].Text;
-                int offset = int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text);
-                string indicator = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[2].Text;
+                string keyword = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[1].Text; // 변수
+                int offset = int.Parse(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[3].Text); // 오프셋
+                string indicator = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[2].Text; // 지표
+                string Parameter = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[4].Text;
+                string ParameterValue = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[5].Text;
                 string tableType = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[4].Text.Contains("실시간") ? "r" : "t";
 
-                if (symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[4].Text.Trim() != "")
+                if (Parameter.Trim() != "")
                 {
-                    string[] Parameter = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[4].Text.Split(',');
-                    string[] ParameterValue = symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[5].Text.Split(',');
-                    for(int j = 0; j < Parameter.Length; j++)
+                    if (Parameter.Contains("거래 우선순위"))
                     {
-                        if(Parameter[j].Trim() == "이격도")
+                        if (ParameterValue.Contains("오름차순"))
                         {
-                            option = option.Replace(keyword, string.Format("{3}{0}.{1} / {2} * 100", offset, GetTableColumn(indicator), ParameterValue[j].Trim(), tableType));
+                            OrderOption += string.Format(" ORDER BY {0} ", keyword);
                         }
-                        else if(Parameter[j].Trim() == "거래 우선순위")
+                        else
                         {
-                            if(ParameterValue[j] == "오름차순")
-                            {
-                                OrderOption = string.Format(" ORDER BY {2}{0}.{1}", offset, GetTableColumn(indicator), tableType);
-                            }
-                            else if(ParameterValue[j] == "내림차순")
-                            {
-                                OrderOption = string.Format(" ORDER BY {2}{0}.{1} DESC", offset, GetTableColumn(indicator), tableType);
-                            }
-                            
+                            OrderOption += string.Format(" ORDER BY {0} DESC", keyword);
                         }
-                        else if(Parameter[j].Trim() == "실시간")
+
+                    }
+
+                    if (Parameter.Contains("이격도"))
+                    {
+                        string[] splitedParam = Parameter.Split(',');
+                        string[] splitedParamValue = ParameterValue.Split(',');
+                        //option = option.Replace(keyword, string.Format("{3}{0}.{1} / {2} * 100", offset, GetTableColumn(indicator), ParameterValue[j].Trim(), tableType));
+
+                        for(int j = 0; j < splitedParam.Length; j++)
                         {
-                            option = option.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ", offset, GetTableColumn(indicator), tableType));
+                            if (splitedParam[j].Contains("이격도"))
+                            {
+                                option = option.Replace(keyword, string.Format("{0}{1}.{2} / {3} * 100", tableType, offset, GetTableColumn(indicator), splitedParamValue[j].Trim()));
+                                OrderOption = OrderOption.Replace(keyword, string.Format("{0}{1}.{2} / {3} * 100", tableType, offset, GetTableColumn(indicator), splitedParamValue[j].Trim()));
+                            }
                         }
                     }
+
+                    //option = option.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ", offset, GetTableColumn(indicator), tableType));
+
+
                 }
-                else
-                {
+                
                     // 단순 지표
-                    option = option.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ",offset ,GetTableColumn(indicator), tableType));
-                }
+                option = option.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ",offset ,GetTableColumn(indicator), tableType));
+                OrderOption = OrderOption.Replace(string.Format(" {0} ", keyword), string.Format(" {2}{0}.{1} ", offset, GetTableColumn(indicator), tableType));
+
             }
 
             string result = firstPart + tableList + baseOption + option + TrendsOption + OrderOption;
@@ -738,6 +747,18 @@ namespace AutoTraderGUI.Forms
             Reset();
             SQLCommand.Text = "";
             OptionWriter.Text = "";
+        }
+
+        private void SeparationCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (SeparationCheck.Checked)
+            {
+                SeparationCombo.Items.Clear();
+                for(int i = 0; i < symbolInterface.SymbolTable.SymbolsListView.Items.Count; i++)
+                {
+                    SeparationCombo.Items.Add(symbolInterface.SymbolTable.SymbolsListView.Items[i].SubItems[1].Text);
+                }
+            }
         }
 
     }

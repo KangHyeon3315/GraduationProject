@@ -99,6 +99,7 @@ namespace AutoTraderGUI.Forms
             // columnHeader6
             // 
             this.columnHeader6.Text = "최대 미실현 손실";
+            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader6.Width = 180;
             // 
             // contextMenuStrip1

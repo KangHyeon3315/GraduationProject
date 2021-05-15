@@ -28,6 +28,31 @@ namespace AutoTraderGUI.Library
 
         }
 
+        bool DBCheck()
+        {
+            using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
+            {
+                try
+                {
+                    conn.Open();
+                    string command = string.Format("SELECT null FROM information_schema.SCHEMATA where SCHEMA_NAME = '{0}'", "collector");
+
+                    MySqlCommand cmd = new MySqlCommand(command, conn);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    
+                    rdr.Close();
+                    conn.Close();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+        }
+
         string SchemaSelect(string schema)
         {
             return string.Format("Server={0};Database={3};Uid={1};Pwd={2}", DBIP, DBID, DBPW, schema);
@@ -232,6 +257,7 @@ namespace AutoTraderGUI.Library
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                MessageBox.Show(sql);
                 Console.WriteLine(ex.ToString());
                 return null;
             }
@@ -314,9 +340,10 @@ namespace AutoTraderGUI.Library
         public bool SchemaCheck(string schema)
         {
             bool result = false;
-            using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
+
+            try
             {
-                try
+                using (MySqlConnection conn = new MySqlConnection(collectorStrConn))
                 {
                     conn.Open();
                     string command = string.Format("SELECT null FROM information_schema.SCHEMATA where SCHEMA_NAME = '{0}'", schema);
@@ -326,14 +353,15 @@ namespace AutoTraderGUI.Library
                     result = rdr.Read();
                     rdr.Close();
                     conn.Close();
-                    return result;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    return false;
+                    return true;
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+            
         }
 
         public bool DataCheck(string schema, string table, string column, string data)
@@ -361,7 +389,7 @@ namespace AutoTraderGUI.Library
             }
         }
 
-        public void CreateSchema(string schema)
+        public bool CreateSchema(string schema)
         {
             string SQL = string.Format("create schema {0};", schema);
             try
@@ -378,12 +406,15 @@ namespace AutoTraderGUI.Library
 
                     trans.Commit();
                     conn.Close();
+
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                MessageBox.Show(SQL);
+                //MessageBox.Show(ex.ToString());
+                //MessageBox.Show(SQL);
+                return false;
             }
         }
 
