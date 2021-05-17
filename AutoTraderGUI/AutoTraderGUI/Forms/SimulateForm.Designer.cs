@@ -34,6 +34,7 @@ namespace AutoTraderGUI.Forms
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.AlgorithmCombo = new System.Windows.Forms.ComboBox();
             this.SimulateUnit = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@ namespace AutoTraderGUI.Forms
             this.SimulateInfoPanel = new System.Windows.Forms.Panel();
             this.MonitoringViewer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.AlgorithmCombo = new System.Windows.Forms.ComboBox();
             this.BasicLayout.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -144,6 +144,18 @@ namespace AutoTraderGUI.Forms
             this.label1.TabIndex = 1;
             this.label1.Text = "알고리즘";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // AlgorithmCombo
+            // 
+            this.AlgorithmCombo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AlgorithmCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AlgorithmCombo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.AlgorithmCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.AlgorithmCombo.FormattingEnabled = true;
+            this.AlgorithmCombo.Location = new System.Drawing.Point(84, 3);
+            this.AlgorithmCombo.Name = "AlgorithmCombo";
+            this.AlgorithmCombo.Size = new System.Drawing.Size(174, 28);
+            this.AlgorithmCombo.TabIndex = 4;
             // 
             // SimulateUnit
             // 
@@ -330,18 +342,6 @@ namespace AutoTraderGUI.Forms
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // AlgorithmCombo
-            // 
-            this.AlgorithmCombo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AlgorithmCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AlgorithmCombo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.AlgorithmCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.AlgorithmCombo.FormattingEnabled = true;
-            this.AlgorithmCombo.Location = new System.Drawing.Point(84, 3);
-            this.AlgorithmCombo.Name = "AlgorithmCombo";
-            this.AlgorithmCombo.Size = new System.Drawing.Size(174, 28);
-            this.AlgorithmCombo.TabIndex = 4;
             // 
             // SimulateForm
             // 

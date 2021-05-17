@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace AutoTraderGUI.Library
 {
@@ -53,6 +54,22 @@ namespace AutoTraderGUI.Library
             }
         }
 
+        public bool WaitAdapt(MySqlDataAdapter adpt)
+        {
+            int count = 0;
+            while (adpt.AcceptChangesDuringFill)
+            {
+                Thread.Sleep(50);
+                count++;
+
+                if (count > 20)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         string SchemaSelect(string schema)
         {
             return string.Format("Server={0};Database={3};Uid={1};Pwd={2}", DBIP, DBID, DBPW, schema);
@@ -71,6 +88,7 @@ namespace AutoTraderGUI.Library
 
                     MySqlDataAdapter adpt = new MySqlDataAdapter(command, collectorStrConn);
                     adpt.Fill(ds, "result");
+                    //WaitAdapt(adpt);
                     conn.Close();
                 }
             }
@@ -197,6 +215,7 @@ namespace AutoTraderGUI.Library
 
                     MySqlDataAdapter adpt = new MySqlDataAdapter(command, collectorStrConn);
                     adpt.Fill(ds, "result");
+                    //WaitAdapt(adpt);
                     conn.Close();
                 }
             }
@@ -225,6 +244,7 @@ namespace AutoTraderGUI.Library
 
                     MySqlDataAdapter adpt = new MySqlDataAdapter(command, collectorStrConn);
                     adpt.Fill(ds, "result");
+                    //WaitAdapt(adpt);
                     conn.Close();
                 }
             }
@@ -251,6 +271,7 @@ namespace AutoTraderGUI.Library
 
                     MySqlDataAdapter adpt = new MySqlDataAdapter(command, collectorStrConn);
                     adpt.Fill(ds, "result");
+                    //WaitAdapt(adpt);
                     conn.Close();
                 }
             }

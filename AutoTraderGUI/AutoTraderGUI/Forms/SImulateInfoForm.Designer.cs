@@ -30,6 +30,8 @@ namespace AutoTraderGUI.Forms
         private void InitializeComponent()
         {
             this.DatePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.DateText = new System.Windows.Forms.Label();
+            this.SimulateProgressText = new System.Windows.Forms.Label();
             this.EvaluationPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label14 = new System.Windows.Forms.Label();
             this.EvaluationAssets = new System.Windows.Forms.Label();
@@ -49,12 +51,10 @@ namespace AutoTraderGUI.Forms
             this.ProgressPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SimulateProgress = new System.Windows.Forms.ProgressBar();
             this.AnalyzeButton = new System.Windows.Forms.Button();
-            this.DateText = new System.Windows.Forms.Label();
-            this.SimulateProgressText = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.MDDText = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.MDDPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.MDDText = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.DatePanel.SuspendLayout();
             this.EvaluationPanel.SuspendLayout();
             this.AverageYieldPanel.SuspendLayout();
@@ -80,6 +80,30 @@ namespace AutoTraderGUI.Forms
             this.DatePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.DatePanel.Size = new System.Drawing.Size(297, 44);
             this.DatePanel.TabIndex = 2;
+            // 
+            // DateText
+            // 
+            this.DateText.AutoSize = true;
+            this.DateText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DateText.Font = new System.Drawing.Font("맑은 고딕", 12F);
+            this.DateText.Location = new System.Drawing.Point(6, 3);
+            this.DateText.Name = "DateText";
+            this.DateText.Size = new System.Drawing.Size(112, 38);
+            this.DateText.TabIndex = 6;
+            this.DateText.Text = "0000-00-00";
+            this.DateText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // SimulateProgressText
+            // 
+            this.SimulateProgressText.AutoSize = true;
+            this.SimulateProgressText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SimulateProgressText.Font = new System.Drawing.Font("맑은 고딕", 12F);
+            this.SimulateProgressText.Location = new System.Drawing.Point(191, 3);
+            this.SimulateProgressText.Name = "SimulateProgressText";
+            this.SimulateProgressText.Size = new System.Drawing.Size(100, 38);
+            this.SimulateProgressText.TabIndex = 10;
+            this.SimulateProgressText.Text = "0000/0000";
+            this.SimulateProgressText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // EvaluationPanel
             // 
@@ -134,13 +158,13 @@ namespace AutoTraderGUI.Forms
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(111, 38);
             this.label12.TabIndex = 6;
-            this.label12.Text = "평가금 : ";
+            this.label12.Text = "평가금";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AverageYieldPanel
             // 
             this.AverageYieldPanel.ColumnCount = 3;
-            this.AverageYieldPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            this.AverageYieldPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
             this.AverageYieldPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.AverageYieldPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.AverageYieldPanel.Controls.Add(this.label1, 0, 0);
@@ -173,10 +197,10 @@ namespace AutoTraderGUI.Forms
             this.AverageYield.AutoSize = true;
             this.AverageYield.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AverageYield.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.AverageYield.Location = new System.Drawing.Point(123, 3);
+            this.AverageYield.Location = new System.Drawing.Point(150, 3);
             this.AverageYield.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.AverageYield.Name = "AverageYield";
-            this.AverageYield.Size = new System.Drawing.Size(143, 38);
+            this.AverageYield.Size = new System.Drawing.Size(116, 38);
             this.AverageYield.TabIndex = 10;
             this.AverageYield.Text = "0";
             this.AverageYield.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -188,9 +212,9 @@ namespace AutoTraderGUI.Forms
             this.label3.Font = new System.Drawing.Font("맑은 고딕", 12F);
             this.label3.Location = new System.Drawing.Point(6, 3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 38);
+            this.label3.Size = new System.Drawing.Size(138, 38);
             this.label3.TabIndex = 6;
-            this.label3.Text = "거래 평균 수익률 : ";
+            this.label3.Text = "거래 평균 수익률";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
@@ -230,7 +254,7 @@ namespace AutoTraderGUI.Forms
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(111, 38);
             this.label5.TabIndex = 6;
-            this.label5.Text = "거래 승률 : ";
+            this.label5.Text = "거래 승률";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ProfitLossRatePanel
@@ -270,7 +294,7 @@ namespace AutoTraderGUI.Forms
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 38);
             this.label4.TabIndex = 6;
-            this.label4.Text = "거래 손익비 : ";
+            this.label4.Text = "거래 손익비";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BasicPanel
@@ -360,68 +384,6 @@ namespace AutoTraderGUI.Forms
             this.AnalyzeButton.UseVisualStyleBackColor = true;
             this.AnalyzeButton.Click += new System.EventHandler(this.AnalyzeButton_Click);
             // 
-            // DateText
-            // 
-            this.DateText.AutoSize = true;
-            this.DateText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DateText.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.DateText.Location = new System.Drawing.Point(6, 3);
-            this.DateText.Name = "DateText";
-            this.DateText.Size = new System.Drawing.Size(112, 38);
-            this.DateText.TabIndex = 6;
-            this.DateText.Text = "0000-00-00";
-            this.DateText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // SimulateProgressText
-            // 
-            this.SimulateProgressText.AutoSize = true;
-            this.SimulateProgressText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SimulateProgressText.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.SimulateProgressText.Location = new System.Drawing.Point(191, 3);
-            this.SimulateProgressText.Name = "SimulateProgressText";
-            this.SimulateProgressText.Size = new System.Drawing.Size(100, 38);
-            this.SimulateProgressText.TabIndex = 10;
-            this.SimulateProgressText.Text = "0000/0000";
-            this.SimulateProgressText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label6.Location = new System.Drawing.Point(6, 3);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(111, 38);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "MDD : ";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // MDDText
-            // 
-            this.MDDText.AutoSize = true;
-            this.MDDText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MDDText.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.MDDText.Location = new System.Drawing.Point(123, 3);
-            this.MDDText.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.MDDText.Name = "MDDText";
-            this.MDDText.Size = new System.Drawing.Size(143, 38);
-            this.MDDText.TabIndex = 17;
-            this.MDDText.Text = "0";
-            this.MDDText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label24.Font = new System.Drawing.Font("맑은 고딕", 12F);
-            this.label24.Location = new System.Drawing.Point(266, 3);
-            this.label24.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(25, 38);
-            this.label24.TabIndex = 18;
-            this.label24.Text = "%";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // MDDPanel
             // 
             this.MDDPanel.ColumnCount = 3;
@@ -439,6 +401,44 @@ namespace AutoTraderGUI.Forms
             this.MDDPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MDDPanel.Size = new System.Drawing.Size(297, 44);
             this.MDDPanel.TabIndex = 7;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label24.Font = new System.Drawing.Font("맑은 고딕", 12F);
+            this.label24.Location = new System.Drawing.Point(266, 3);
+            this.label24.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(25, 38);
+            this.label24.TabIndex = 18;
+            this.label24.Text = "%";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // MDDText
+            // 
+            this.MDDText.AutoSize = true;
+            this.MDDText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MDDText.Font = new System.Drawing.Font("맑은 고딕", 12F);
+            this.MDDText.Location = new System.Drawing.Point(123, 3);
+            this.MDDText.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.MDDText.Name = "MDDText";
+            this.MDDText.Size = new System.Drawing.Size(143, 38);
+            this.MDDText.TabIndex = 17;
+            this.MDDText.Text = "0";
+            this.MDDText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("맑은 고딕", 12F);
+            this.label6.Location = new System.Drawing.Point(6, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(111, 38);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "MDD";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SImulateInfoForm
             // 

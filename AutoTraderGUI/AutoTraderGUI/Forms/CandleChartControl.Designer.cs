@@ -69,7 +69,7 @@ namespace AutoTraderGUI.Forms
             series1.YValuesPerPoint = 4;
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(767, 504);
-            this.chart1.TabIndex = 3;
+            this.chart1.TabIndex = 17;
             this.chart1.Text = "chart1";
             title1.Name = "차트이름";
             this.chart1.Titles.Add(title1);

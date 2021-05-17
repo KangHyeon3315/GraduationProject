@@ -56,6 +56,9 @@ namespace AutoTraderGUI.Library
         {
             DataTable CompanyInfo = DB.SelectCompanyInfo();
 
+            progressInterface.Title = "지표 계산";
+            progressInterface.Task = "Calculating";
+            progressInterface.CompanyCount = CompanyInfo.Rows.Count;
             int count = 0;
             foreach (DataRow info in CompanyInfo.Rows)
             {
@@ -66,15 +69,17 @@ namespace AutoTraderGUI.Library
                 progressInterface.CompleteCount = count;
                 progressInterface.Progress = (int)((float)count / (float)(progressInterface.CompanyCount) * 100);
 
+                if (int.Parse(lastCalculateTime) >= int.Parse(DateTime.Now.ToString("yyyyMMdd")))
+                {
+                    continue;
+                }
+
                 if (!DB.TableCheck(name, "daily_chart"))
                 {
                     continue;
                 }
 
-                if (int.Parse(lastCalculateTime) >= int.Parse(DateTime.Now.ToString("yyyyMMdd")))
-                {
-                    continue;
-                }
+                
 
                 progressInterface.Company = name;
 
@@ -115,7 +120,7 @@ namespace AutoTraderGUI.Library
                 logInterface.WriteLog("Debug", "Indicator Calculate", name, "DB에 보조지표 업로드");
                 DB.UpdateTable("indicator", name, TableFilter(result, DateList.Count > 0 ? DateList[0] : "0"));  // Date > dateList[0] 구현
                 //DB.UpdateCompanyInfo(name, "indicator", DateTime.Now.ToString("yyyyMMdd"));
-                DB.UpdateCompanyInfo(name, "indicator", result.Rows[result.Rows.Count - 1]["date"].ToString());
+                DB.UpdateCompanyInfo(name, "indicator", DateTime.Now.ToString("yyyyMMdd"));
 
             }
 

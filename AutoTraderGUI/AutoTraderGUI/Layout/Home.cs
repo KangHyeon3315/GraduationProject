@@ -34,13 +34,13 @@ namespace AutoTraderGUI.Layout
         public Forms.LogViewerControl logViewer;
         Forms.EmptyControl empty;
 
-        public Home()
+        public Home(SettingsInterface settings)
         {
             InitializeComponent();
 
             collectorProgress = new Forms.CollectorProgressControl();
             algorithmInfo = new Forms.AlgorithmInfoControl();
-            logViewer = new Forms.LogViewerControl();
+            logViewer = new Forms.LogViewerControl(settings);
             empty = new Forms.EmptyControl("포트폴리오 표현");
 
 

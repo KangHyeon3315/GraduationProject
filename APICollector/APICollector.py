@@ -80,6 +80,7 @@ class Collector:
 
         try:
             self.DailyChartCollecting()
+            self.MinChartCollecting()
         except:
             self.net.Exception(traceback.format_exc())
 

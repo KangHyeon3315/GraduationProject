@@ -43,7 +43,7 @@ namespace AutoTraderGUI.Forms
         }
 
 
-        public LogViewerControl()
+        public LogViewerControl(SettingsInterface settings)
         {
             lastLogTime = "";
             InitializeComponent();
@@ -51,7 +51,7 @@ namespace AutoTraderGUI.Forms
             Debug = true;
             Dock = DockStyle.Fill;
 
-            logs = new Library.Log();
+            logs = new Library.Log(settings);
         }
         public void WriteLog(string info, string task, string company, string log)
         {

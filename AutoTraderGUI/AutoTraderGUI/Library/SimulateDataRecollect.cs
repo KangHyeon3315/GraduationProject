@@ -41,21 +41,26 @@ namespace AutoTraderGUI.Library
         {
             DataTable CompanyInfo = DB.SelectCompanyInfo();
             progressInterface.CompanyCount = CompanyInfo.Rows.Count;
-            progressInterface.Task = "시뮬레이션용 데이터 재가공";
+            progressInterface.Title = "데이터 재가공";
             progressInterface.Task = "Recollect";
-            for (int company_idx = 0;company_idx < CompanyInfo.Rows.Count; company_idx++)
+            progressInterface.Progress = 0;
+
+            List<string> TableList = DB.SelectTableList("daily_simulate");
+
+            for (int company_idx = 0; company_idx < CompanyInfo.Rows.Count; company_idx++)
             {
                 string name = CompanyInfo.Rows[company_idx]["name"].ToString();
+                int code = int.Parse(CompanyInfo.Rows[company_idx]["code"].ToString());
                 string lastProcess = CompanyInfo.Rows[company_idx]["reprocessing"].ToString();
 
                 progressInterface.Company = name;
                 progressInterface.CompleteCount = company_idx;
-                progressInterface.Progress = 0;
 
-                if (lastProcess == "Rewrite" || lastProcess == "0")
+                if (lastProcess == "Rewrite" || int.Parse(lastProcess) == 0)
                 {
-                    lastProcess = "20000101";
+                    lastProcess = "20100101";
                 }
+
 
                 if (int.Parse(lastProcess) < int.Parse(DateTime.Now.ToString("yyyyMMdd")))
                 {
@@ -63,51 +68,62 @@ namespace AutoTraderGUI.Library
                     logInterface.WriteLog("Log", "Recollect", name, "데이터 재가공 시작");
                     string SQL = string.Format("SELECT t1.*, t2.* FROM daily_chart.`{0}` t1, indicator.`{0}` t2 WHERE t1.date = t2.date and t1.date >= {1}", name, lastProcess);
 
-                    DataTable data = DB.SelectSQLData("daily_chart", SQL);
-                
-                    for(int i = 0; i < data.Columns.Count; i++)
+                    try
                     {
-                        if(data.Columns[i].ColumnName == "date1")
+                        DataTable data = DB.SelectSQLData("daily_chart", SQL);
+
+                        if (data == null)
                         {
-                            data.Columns.RemoveAt(i);
-                            break;
+                            continue;
                         }
-                    }
 
-                    data.Columns["date"].ColumnName = "name";
-                    for (int i = 0; i < data.Rows.Count; i++)
-                    {
-                        string date = data.Rows[i]["name"].ToString();
-                        
-                        if(int.Parse(date) >= int.Parse(lastProcess))
+                        for (int i = 0; i < data.Columns.Count; i++)
                         {
-                            logInterface.WriteLog("Debug", "Recollect", name, string.Format("{0} 업로드", date));
-                            data.Rows[i]["name"] = name;
-                            if (!DB.TableCheck(date, "daily_simulate"))
+                            if (data.Columns[i].ColumnName == "date1")
                             {
-                                DB.CreateTable("daily_simulate", date, data.Columns, "date");
+                                data.Columns.RemoveAt(i);
+                                break;
                             }
+                        }
+                        //data.Columns["date"].ColumnName = "name";
+                        data.Columns.Add("name", typeof(string));
+                        data.Columns.Add("code", typeof(int));
 
-                            if(DB.DataCheck("daily_simulate", date, "name", name))
+                        string lastDate = lastProcess;
+                        for (int i = 0; i < data.Rows.Count; i++)
+                        {
+                            //string date = data.Rows[i]["name"].ToString();
+                            string date = data.Rows[i]["date"].ToString();
+                            lastDate = date;
+                            if (int.Parse(date) >= int.Parse(lastProcess))
                             {
-                                DB.UpdateRow("daily_simulate", date, data.Columns, data.Rows[i], name);
-                            }
-                            else
-                            {
+                                logInterface.WriteLog("Debug", "Recollect", name, string.Format("{0} 업로드", date));
+                                data.Rows[i]["name"] = name;
+                                data.Rows[i]["code"] = code;
+                                if (!TableList.Contains(date))
+                                {
+                                    DB.CreateTable("daily_simulate", date, data.Columns, "code");
+                                    TableList.Add(date);
+                                }
+
+
                                 DB.InsertRow("daily_simulate", date, data.Columns, data.Rows[i], data.Columns["name"]);
+
                             }
-                            
+
                         }
-                        
-                        
+                        logInterface.WriteLog("Log", "Recollect", name, "데이터 재가공 완료");
+                        DB.UpdateCompanyInfo(name, "reprocessing", lastDate);
                     }
-                    logInterface.WriteLog("Log", "Recollect", name, "데이터 재가공 완료");
-                    DB.UpdateCompanyInfo(name, "reprocessing", DateTime.Now.ToString("yyyyMMdd"));
+                    catch (Exception ex)
+                    {
+                        logInterface.WriteLog("Exception", "Recollect", name, ex.ToString());
+                    }
                 }
 
-                
+
             }
         }
-        
+
     }
 }

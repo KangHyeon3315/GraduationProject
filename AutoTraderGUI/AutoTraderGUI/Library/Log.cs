@@ -16,11 +16,12 @@ namespace AutoTraderGUI.Library
         DataTable logData;
         
         DBController DB;
-        Settings settings;
-        public Log()
+        //Settings settings;
+        SettingsInterface settings;
+        public Log(SettingsInterface settings)
         {
-            settings = new Settings();
-            DB = new DBController(settings.info.DBIP, settings.info.DBID, settings.info.DBPW);
+            this.settings = settings;
+            DB = new DBController(settings.DBIP, settings.DBID, settings.DBPW);
             isDBConnected = DB.SchemaCheck("log");      // 스키마가 존재하는지 확인해서 DB 연결여부 확인
                                                         // 연결이 안되었거나 스키마가 존재하지 않는경우 false
 
@@ -61,6 +62,7 @@ namespace AutoTraderGUI.Library
             {
                 // DB가 연결이 안되었을 때 DB를 생성 시도
                 // 만약 성공했으면 DB가 연결되었다는 뜻이므로 연결된것으로 간주
+                DB = new DBController(settings.DBIP, settings.DBID, settings.DBPW);
                 if (DB.SchemaCheck("log"))
                 {
                     isDBConnected = true;

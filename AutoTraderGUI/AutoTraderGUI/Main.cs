@@ -170,7 +170,7 @@ namespace AutoTraderGUI
             empty = new Forms.EmptyControl("Empty");
             simulate = new Forms.SimulateForm(this as SettingsInterface);
             analyze = new Layout.Analyze();
-            home = new Layout.Home();
+            home = new Layout.Home(this as SettingsInterface);
             logInterface = home.logInterface;
             progressInterface = home.progressInterface;
 

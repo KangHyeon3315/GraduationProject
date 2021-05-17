@@ -60,7 +60,7 @@ namespace AutoTraderGUI.Forms
         {
             for(int i = 0; i < algorithmInfo.AlgorithmInfo.Items.Count; i++)
             {
-                if(algorithmInfo.AlgorithmInfo.Items[i].Text == SearchTextBox.Text)
+                if(algorithmInfo.AlgorithmInfo.Items[i].Text.Contains(SearchTextBox.Text))
                 {
                     algorithmInfo.AlgorithmInfo.SelectedIndices.Clear();
                     algorithmInfo.AlgorithmInfo.SelectedIndices.Add(i);
