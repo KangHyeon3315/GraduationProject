@@ -17,5 +17,5 @@
     + DartCollector 경로 : 파이썬 프로젝트의 DartCollector.py
     + 권장 Requests Interval : 0.3
     + 권장 Max Requsts Count : 1000
-    + Dart API Key : 085990c5ee309d660c0e658abaeb455e7454eecb (외부로 유출하시면 안됩니다.)
+    + Dart API Key : Dart API를 사용하기 위한 Key
     + DB는 생성하신 mysql 계정정보 및 주소정보를 입력하시면 됩니다.
